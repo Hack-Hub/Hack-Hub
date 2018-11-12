@@ -1,6 +1,7 @@
 import axios from 'axios'
 const NEW_POST = 'NEW_POST'
 
+
 //initial state
 const initialState={
 }

@@ -5,14 +5,16 @@ const express = require("express"),
   port = process.env.PORT || 3001,
   massive = require("massive"),
   { json } = require("body-parser"),
-  { newPost } = require('./Controllers/PostsController');
+  { getPosts,newPost } = require('./Controllers/PostsController');
 
 app.use(json());
 massive(process.env.CONNECTION_STRING).then(dbInstance => {
   app.set("db", dbInstance);
 });
 
-//endpoints
+//-----Endpoints-----
+//Posts
+app.get('/api/getPosts',getPosts)
 app.post('/api/newPost',newPost)
 
 
