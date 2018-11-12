@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import './Nav.scss'
 
 class Nav extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {}
   }
+
   render() {
     return (
       <div className="Nav--container">
@@ -31,10 +32,11 @@ class Nav extends Component {
             <i className="fa fa-2x fa-plus-square" />
           </a>
           {/* TODO!! CHANGE 'a' tags to 'Link' once routes are set up */}
-          <a>LOGOUT</a>
+          <Link to="/authenticate">Sign In</Link>
         </div>
       </div>
     )
   }
 }
+
 export default Nav
