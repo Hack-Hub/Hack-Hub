@@ -1,0 +1,9 @@
+{
+    "bucketName": "hack-hub-images",
+    "authPolicyName": "s3_amplify_f7ecfe67",
+    "unauthPolicyName": "s3_amplify_f7ecfe67",
+    "authRoleName": "ackub-20181112154826-authRole",
+    "unauthRoleName": "ackub-20181112154826-unauthRole",
+    "authPermissions": "rw",
+    "unauthPermissions": ""
+}

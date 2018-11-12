@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import './NewPost.scss'
+import ImageUpload from './ImageUpload'
 
 class NewPost extends Component {
   constructor(){
@@ -27,7 +28,7 @@ class NewPost extends Component {
     let inputType=postType;
     if(postType==='Text'){inputType=<div><h5>Text</h5><input name = 'text' onChange={this.handleInput}/></div>}
     if(postType==='URL'){inputType=<div><h5>URL</h5><input name = 'URL' onChange={this.handleInput}/></div>}
-    if(postType==='Image'){inputType=<div><h5>Image</h5><input name = 'image' onChange={this.handleInput}/></div>}
+    if(postType==='Image'){inputType = <div><h5>Image</h5><ImageUpload/></div>}
     
     return (
       <div className='newPost'>
