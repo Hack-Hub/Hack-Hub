@@ -1,11 +1,14 @@
+import React from 'react'
+import { Switch, Route, Redirect } from 'react-router-dom'
+import LandingPage from './LandingPage/LandingPage'
+import Dashboard from './Components/Dashboard/Dashboard'
 
-import React from  "react";
-
-function App() {
-return (
-     <Switch>
-     </Switch>
-   )
+export default function Routes() {
+  return (
+    <Switch>
+      <Route exact path="/" component={LandingPage} />
+      <Route path="/dashboard" component={Dashboard} />
+      <Redirect to="/" />
+    </Switch>
+  )
 }
-export default App;
-
