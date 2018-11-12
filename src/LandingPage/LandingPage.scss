@@ -1,0 +1,71 @@
+@import 'node_modules/react-image-gallery/styles/scss/image-gallery.scss';
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300, 400,500,700');
+
+$blue: #0000f7;
+$light-blue: #00a7f7;
+$light-gray: #d3d3d3;
+$dark-gray: #888888;
+$black: #0a0a0a;
+
+.LandingPage--container {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url('http://i68.tinypic.com/2howm6u.jpg');
+  height: 100vh;
+  background-repeat: no-repeat;
+  width: 100vw;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+
+  .landing-section {
+    display: flex;
+    flex-direction: column;
+
+    // flex-direction: row;
+
+    img {
+      width: 25vw;
+      margin: 0 auto;
+    }
+    h3 {
+      color: $blue;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 28px;
+      text-align: center;
+    }
+
+    .buttons {
+      // width: 100%;
+      display: flex;
+      margin-top: 20px;
+      flex-direction: row;
+      justify-content: center;
+
+      a {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        flex-direction: row;
+        color: $black;
+        background: $blue;
+        padding: 8px 20px;
+        margin: 0px 5px;
+        box-sizing: border-box;
+      }
+
+      a:hover {
+        background: none;
+        outline: 1px solid $blue;
+        color: $blue;
+        box-sizing: border-box;
+      }
+    }
+  }
+}
