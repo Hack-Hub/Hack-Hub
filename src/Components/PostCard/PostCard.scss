@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200,400,500,700');
+
+$font-family: 'Montserrat', sans-serif;
+$blue: #0000f7;
+$light-blue: #00a7f7;
+$light-gray: #d3d3d3;
+$dark-gray: #888888;
+$black: #0a0a0a;
+
+* {
+  box-sizing: border-box;
+}
+.PostCard--container {
+  background: rgba(136, 136, 136, 0.05);
+  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+
+  .Card--section--header {
+    color: $light-gray;
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    font-weight: 200;
+    align-items: center;
+    text-transform: uppercase;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+
+    .left-postcard {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .user-image {
+        background: $dark-gray;
+        height: 30px;
+        width: 30px;
+        margin-right: 10px;
+      }
+    }
+
+    .time-stamp {
+      font-size: 10px;
+      text-transform: capitalize;
+    }
+  }
+
+  .Card--section--body {
+    margin: 50px 40px;
+    color: $light-gray;
+    font-weight: 200;
+    line-height: 20px;
+  }
+
+  .votes {
+    // border-top: 1px solid $blue;
+    // background: rgba(255, 255, 255, 0.02);
+    background: $blue;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    color: $light-gray;
+    font-weight: 400;
+    bottom: 0;
+    align-items: center;
+    color: $light-gray;
+    font-size: 12px;
+
+    i {
+      margin: 0px 10px;
+      font-size: 14px;
+      font-weight: 200;
+      color: $light-gray;
+    }
+
+    i:hover {
+      color: $black;
+    }
+  }
+}
