@@ -15,12 +15,15 @@ class NewPost extends Component {
   handleInput=(event)=>{
     this.setState({[event.target.name]:event.target.value})
   }
+  handleTypeChange=()=>{
+    //to-do: if type changes then null any other values
+  }
   handleSubmit=()=>{
 
   }
   render() {
     const {postType} = this.state
-    //conditionally render the post type depending on the selection
+    //conditionally render the post type depending on the button selection
     let inputType=postType;
     if(postType==='Text'){inputType=<div><h5>Text</h5><input name = 'text' onChange={this.handleInput}/></div>}
     if(postType==='URL'){inputType=<div><h5>URL</h5><input name = 'URL' onChange={this.handleInput}/></div>}
