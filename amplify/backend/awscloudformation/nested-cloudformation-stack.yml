@@ -78,6 +78,7 @@
 				}
 			}
 		},
+<<<<<<< HEAD
 		"authcognito9fa5083d": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
@@ -98,6 +99,22 @@
 					"roleName": "cognito9fa5083d_sns-role",
 					"roleExternalId": "cognito9fa5083d_role_external_id",
 					"policyName": "cognito9fa5083d-sns-policy",
+=======
+		"authcognito5c010d3a": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/ackub-20181112160934-deployment/amplify-cfn-templates/auth/cognito5c010d3a-cloudformation-template.yml",
+				"Parameters": {
+					"resourceName": "cognito5c010d3a",
+					"authSelections": "identityPoolAndUserPool",
+					"userPoolName": "cognito5c010d3a_userpool_5c010d3a",
+					"autoVerifiedAttributes": "email",
+					"mfaConfiguration": "OFF",
+					"mfaTypes": "SMS Text Message",
+					"roleName": "cognito5c010d3a_sns-role",
+					"roleExternalId": "cognito5c010d3a_role_external_id",
+					"policyName": "cognito5c010d3a-sns-policy",
+>>>>>>> master
 					"smsAuthenticationMessage": "Your authentication code is {####}",
 					"smsVerificationMessage": "Your verification code is {####}",
 					"emailVerificationSubject": "Your verification code",
@@ -106,6 +123,7 @@
 					"passwordPolicyMinLength": 8,
 					"passwordPolicyCharacters": "Requires Lowercase,Requires Uppercase,Requires Numbers,Requires Symbols",
 					"requiredAttributes": "email",
+<<<<<<< HEAD
 					"userpoolClientName": "cognito9fa5083d_app_client",
 					"userpoolClientGenerateSecret": true,
 					"userpoolClientRefreshTokenValidity": 30,
@@ -140,6 +158,33 @@
 					"unauthRoleName": "ackub-20181112154826-unauthRole",
 					"authPermissions": "rw",
 					"unauthPermissions": ""
+=======
+					"userpoolClientName": "cognito5c010d3a_app_client",
+					"userpoolClientGenerateSecret": true,
+					"userpoolClientRefreshTokenValidity": 30,
+					"userpoolClientReadAttributes": "email",
+					"mfaLambdaRole": "cognito5c010d3a_totp_lambda_role",
+					"mfaLambdaLogPolicy": "cognito5c010d3a_totp_lambda_log_policy",
+					"mfaPassRolePolicy": "cognito5c010d3a_totp_pass_role_policy",
+					"mfaLambdaIAMPolicy": "cognito5c010d3a_totp_lambda_iam_policy",
+					"userpoolClientLambdaRole": "cognito5c010d3a_userpoolclient_lambda_role",
+					"userpoolClientLogPolicy": "cognito5c010d3a_userpoolclient_lambda_log_policy",
+					"userpoolClientLambdaPolicy": "cognito5c010d3a_userpoolclient_lambda_iam_policy",
+					"userpoolClientSetAttributes": false,
+					"identityPoolName": "cognito5c010d3a_identitypool_5c010d3a",
+					"allowUnauthenticatedIdentities": false,
+					"thirdPartyAuth": false,
+					"lambdaLogPolicy": "cognito5c010d3a_lambda_log_policy",
+					"openIdLambdaRoleName": "cognito5c010d3a_openid_lambda_role",
+					"openIdRolePolicy": "cognito5c010d3a_openid_pass_role_policy",
+					"openIdLambdaIAMPolicy": "cognito5c010d3a_openid_lambda_iam_policy",
+					"openIdLogPolicy": "cognito5c010d3a_openid_lambda_log_policy",
+					"useDefault": "default",
+					"unAuthRoleName": "ackub-20181112160934-unauthRole",
+					"authRoleName": "ackub-20181112160934-authRole",
+					"unAuthRoleArn": "arn:aws:iam::584520355722:role/ackub-20181112160934-unauthRole",
+					"authRoleArn": "arn:aws:iam::584520355722:role/ackub-20181112160934-authRole"
+>>>>>>> master
 				}
 			}
 		}

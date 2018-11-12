@@ -4,6 +4,10 @@ import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import '../node_modules/font-awesome/css/font-awesome.min.css'
+import Amplify from 'aws-amplify'
+import configuration from './aws-exports'
+
+Amplify.configure(configuration)
 
 ReactDOM.render(<App />, document.getElementById('root'))
 

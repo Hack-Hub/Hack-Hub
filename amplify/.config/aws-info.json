@@ -1,4 +1,8 @@
 {
     "useProfile": true,
+<<<<<<< HEAD
     "profileName": "davidsprofile"
+=======
+    "profileName": "authenticator"
+>>>>>>> master
 }
