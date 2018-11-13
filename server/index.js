@@ -4,6 +4,7 @@ const express = require('express'),
   app = express(),
   port = process.env.PORT || 3001,
   massive = require('massive'),
+  socketio = require('socket.io'),
   { json } = require('body-parser'),
   { newPost } = require('./Controllers/PostsController')
 
@@ -22,6 +23,13 @@ app.post('/api/newPost', newPost)
 app.post('/api/newUser', addNewUser)
 app.get('/api/userById', getLoggedInUserId)
 
-app.listen(port, () => {
+const expressServer = app.listen(port, () => {
   console.log('server is listening on port:', port)
 })
+const io = socketio(expressServer)
+
+io.on('connection', socket => {
+  socket.emit('welcome message', { data: 'Welcome to hackhub chat' })
+})
+
+//endpoints
