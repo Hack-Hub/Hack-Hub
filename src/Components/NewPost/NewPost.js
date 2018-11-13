@@ -15,13 +15,17 @@ class NewPost extends Component {
     }
   }
   handleInput=(event)=>{
+    //set state according to name of input
     this.setState({[event.target.name]:event.target.value})
   }
   handleTypeChange=(event)=>{
+    //change post type and null all values
     this.setState({postType:event.target.name,title:null,text:null,URL:null,image:null})
   }
   handleSubmit=()=>{
-
+    //redux call
+    const { title, text, URL,image} = this.state
+    newPost(title,text,URL,image)
   }
   render() {
     const {postType} = this.state
@@ -40,7 +44,7 @@ class NewPost extends Component {
         <h5>Title</h5>
         <input name='title' onChange={this.handleInput}/>
         {inputType}
-        <button>Submit Post</button>
+        <button onClick={this.handleSubmit}>Submit Post</button>
       </div>
     );
   }
