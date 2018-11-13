@@ -1,93 +1,66 @@
 import React, { Component } from 'react'
-// import './SignIn.scss'
-// import { Auth } from 'aws-amplify'
+import './SignIn.scss'
 import axios from 'axios'
+import { Auth } from 'aws-amplify'
 
 class SignIn extends Component {
   constructor(props) {
     super(props)
-    this.state = { userId: null }
+    this.state = { username: '', password: '', user: {} }
 
-    // this.signIn = this.signIn.bind(this)
-    // this.addUserToDBTable = this.addUserToDBTable.bind(this)
-  }
-
-  componentDidMount() {
-    axios.get('/api/userById').then(response => {
-      console.log('response', response)
-      // this.setState({ userId })
-    })
+    this.onChange = this.onChange.bind(this)
+    this.signIn = this.signIn.bind(this)
+    this.postUserToTable = this.postUserToTable.bind(this)
   }
 
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  // signIn = async () => {
-  //   // const {}
-  //   try {
-  //     await Auth.signIn(username, password)
-  //     console.log('success sign in')
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
+  signIn = async () => {
+    const { username, password } = this.state
+    await Auth.signIn(username, password)
+      .then(user => this.setState({ user }))
+      .then(() => this.postUserToTable(this.state.user))
+      .catch(err => console.log('err', err))
+  }
+
+  postUserToTable() {
+    console.log('this.state.user', this.state.user)
+    console.log('this.state.user.pool.client.clientId', this.state.user.pool.clientId)
+    axios.post('/api/newUser', {
+      userClientId: this.state.user.pool.clientId,
+      username: this.state.user.username,
+    })
+  }
+  // confirmSignIn = async () => {
+  //   await Auth.confirmSignIn(user, code, mfaType)
+  //     .then(data => console.log('data', data))
+  //     .catch(err => console.log('err', err))
   // }
 
   render() {
     console.log('this.props', this.props)
     console.log('this.state', this.state)
     return (
-      <div className="Authentication--container">
-        {this.state.step === 0 && (
-          <div>
-            <h3>Sign Up</h3>
-            <input
-              onChange={this.onChange}
-              placeholder="username"
-              name="username"
-              style={styles.input}
-            />
-            <input
-              onChange={this.onChange}
-              placeholder="password "
-              name="password"
-              type="password"
-              style={styles.input}
-            />
-            <input
-              onChange={this.onChange}
-              placeholder="email "
-              name="email"
-              style={styles.input}
-            />
-            <input
-              onChange={this.onChange}
-              placeholder="phone number"
-              name="phone_number"
-              style={styles.input}
-            />
-            <button onClick={this.signUp}>Sign Up</button>
-          </div>
-        )}
-        {this.state.step === 1 && (
-          <div>
-            <h3>Sign In</h3>
-            <input
-              onChange={this.onChange}
-              placeholder="username"
-              name="username"
-              style={styles.input}
-            />
-
-            <input
-              onChange={this.onChange}
-              placeholder="authentication code"
-              name="authenticationCode"
-              style={styles.input}
-            />
-            <button onClick={this.confirmSignUp}>Confirm Sign Up</button>
-          </div>
-        )}
+      <div className="SignIn--container">
+        <div className="sign-in">
+          <h3>Sign In</h3>
+          <input
+            onChange={this.onChange}
+            placeholder="username"
+            name="username"
+            style={styles.input}
+          />
+          <input
+            onChange={this.onChange}
+            placeholder="password"
+            name="password"
+            type="password"
+            style={styles.input}
+          />
+          <button onClick={this.signIn}> Sign In</button>
+        </div>
       </div>
     )
   }
@@ -96,4 +69,5 @@ class SignIn extends Component {
 const styles = {
   inputs: { height: 35, margin: 10 },
 }
+
 export default SignIn

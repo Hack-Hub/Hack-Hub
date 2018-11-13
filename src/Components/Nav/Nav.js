@@ -24,13 +24,13 @@ class Nav extends Component {
           </div>
           <div className="vertical-bar" />
           {/* TODO!! CHANGE 'a' tag to 'Link' once routes are set up */}
-          <a>
+          <Link to="/newpost">
             <i className="fa fa-2x fa-pencil" />
-          </a>
+          </Link>
           {/* TODO!! CHANGE 'a' tags to 'Link' once routes are set up */}
-          <a>
+          <Link to="/newsubhub">
             <i className="fa fa-2x fa-plus-square" />
-          </a>
+          </Link>
           {/* TODO!! CHANGE 'a' tags to 'Link' once routes are set up */}
           <Link to="/authenticate">Sign Up</Link>
           <Link to="/signIn">Sign In</Link>

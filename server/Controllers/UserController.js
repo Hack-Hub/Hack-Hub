@@ -1,8 +1,8 @@
 const addNewUser = (req, res) => {
-  const { authId, username } = req.body
+  const { userClientId, username } = req.body
   // console.log('req.body', req.body)
   const db = req.app.get('db')
-  db.users.createNewUser([authId, username]).catch(err => console.log('err', err))
+  db.users.createNewUser([userClientId, username]).catch(err => console.log('err', err))
   return res.status(200).send('okie dokie')
 }
 
