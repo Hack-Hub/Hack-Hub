@@ -85,10 +85,5 @@ io.on('connection', (socket) => {
     
   })
 })
-const io = socketio(expressServer)
-
-io.on('connection', socket => {
-  socket.emit('welcome message', { data: 'Welcome to hackhub chat' })
-})
 
 //endpoints
