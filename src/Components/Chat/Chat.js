@@ -9,8 +9,9 @@ class Chat extends Component {
         messages: []
     }
 
-    this.soket = io('localhost:3002');
+    this.soket = io('localhost:3001');
 
+    
     
   }
   render() {
