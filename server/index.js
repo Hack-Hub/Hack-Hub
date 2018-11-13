@@ -45,8 +45,8 @@ const expressServer = app.listen(port, () => {
 })
 const io = socketio(expressServer)
 
- io.on('connection', socket => {
+io.on('connection', socket => {
   socket.emit('welcome message', { data: 'Welcome to hackhub chat' })
- })
+})
 
 //endpoints
