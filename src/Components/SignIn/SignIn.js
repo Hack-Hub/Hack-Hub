@@ -11,6 +11,7 @@ class SignIn extends Component {
     this.onChange = this.onChange.bind(this)
     this.signIn = this.signIn.bind(this)
     this.postUserToTable = this.postUserToTable.bind(this)
+    this.routeChange = this.routeChange.bind(this)
   }
 
   onChange(event) {
@@ -22,19 +23,36 @@ class SignIn extends Component {
     await Auth.signIn(username, password)
       .then(user => this.setState({ user }))
       .then(() => this.postUserToTable(this.state.user))
+
       .catch(err => console.log('err', err))
   }
 
   postUserToTable() {
     console.log('this.state.user', this.state.user)
     console.log('this.state.user.pool.client.clientId', this.state.user.pool.clientId)
-    axios.post('/api/newUser', {
-      userClientId: this.state.user.pool.clientId,
-      username: this.state.user.username,
-    })
+    axios
+      .post('/api/newUser', {
+        userClientId: this.state.user.pool.clientId,
+        username: this.state.user.username,
+      })
+      .then(response => {
+        console.log('response.data', response.data)
+        console.log('response.data[0].user_id', response.data[0].user_id)
+        axios.post('/api/userSession', {
+          user_id: response.data[0].user_id,
+        })
+      })
+      .then(this.routeChange())
+  }
+
+  routeChange() {
+    const path = '/dashboard'
+    this.props.history.push(path)
   }
   // confirmSignIn = async () => {
-  //   await Auth.confirmSignIn(user, code, mfaType)
+  //   console.log('this.state.user', this.state.user)
+  //   const { user } = this.state
+  //   await Auth.confirmSignIn(user)
   //     .then(data => console.log('data', data))
   //     .catch(err => console.log('err', err))
   // }
