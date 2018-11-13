@@ -23,6 +23,7 @@ class SignIn extends Component {
     await Auth.signIn(username, password)
       .then(user => this.setState({ user }))
       .then(() => this.postUserToTable(this.state.user))
+
       .catch(err => console.log('err', err))
   }
 
@@ -33,6 +34,13 @@ class SignIn extends Component {
       .post('/api/newUser', {
         userClientId: this.state.user.pool.clientId,
         username: this.state.user.username,
+      })
+      .then(response => {
+        console.log('response.data', response.data)
+        console.log('response.data[0].user_id', response.data[0].user_id)
+        axios.post('/api/userSession', {
+          user_id: response.data[0].user_id,
+        })
       })
       .then(this.routeChange())
   }

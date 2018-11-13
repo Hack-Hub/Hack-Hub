@@ -3,12 +3,16 @@ const addNewUser = (req, res) => {
   const db = req.app.get('db')
   console.log('req.body', req.body)
   db.users.checkUsername([username]).then(response => {
-    console.log('response', response)
+    // console.log('response', response)
     if (!response.length) {
-      db.users.createNewUser([userClientId, username]).catch(err => console.log('err', err))
+      db.users
+        .createNewUser([userClientId, username])
+        .then(response => res.status(200).send(response))
+        .catch(err => console.log('err', err))
+    } else {
+      return res.status(200).send(response)
     }
   })
-  return res.status(200).send('okie dokie')
 }
 
 const getLoggedInUserId = (req, res) => {
