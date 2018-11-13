@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './Authenticate.scss'
 import { Auth } from 'aws-amplify'
+import { Redirect } from 'react-router-dom'
+import SignIn from '../SignIn/SignIn'
 
 class Authenticate extends Component {
   constructor(props) {
@@ -9,14 +11,28 @@ class Authenticate extends Component {
       username: '',
       password: '',
       email: '',
-      phone_number: '',
+      // phone_number: '',
       authenticationCode: '',
       step: 0,
+      redirect: false,
     }
 
     this.onChange = this.onChange.bind(this)
     this.signUp = this.signUp.bind(this)
     this.confirmSignUp = this.confirmSignUp.bind(this)
+    this.setRedirect = this.setRedirect.bind(this)
+    // this.addUserToDBTable = this.addUserToDBTable.bind(this)
+  }
+
+  setRedirect() {
+    this.setState({ redirect: true })
+    this.renderRedirect()
+  }
+
+  renderRedirect() {
+    if (this.state.redirect) {
+      return <Redirect to="/signIn" />
+    }
   }
 
   onChange(event) {
@@ -26,7 +42,9 @@ class Authenticate extends Component {
   signUp = async () => {
     const { username, password, email, phone_number } = this.state
     try {
-      await Auth.signUp({ username, password, attributes: { email, phone_number } })
+      await Auth.signUp({ username, password, attributes: { email, phone_number } }).then(user =>
+        console.log('user', user)
+      )
       console.log('success sign up')
       this.setState({ step: 1 })
     } catch (err) {
@@ -38,7 +56,6 @@ class Authenticate extends Component {
     const { username, authenticationCode } = this.state
     try {
       await Auth.confirmSignUp(username, authenticationCode)
-      console.log('user successfully signed up')
     } catch (err) {
       console.log('error', err)
     }
@@ -81,7 +98,7 @@ class Authenticate extends Component {
         )}
         {this.state.step === 1 && (
           <div>
-            <h3>Sign In</h3>
+            <h3>Sign Up</h3>
             <input
               onChange={this.onChange}
               placeholder="username"
