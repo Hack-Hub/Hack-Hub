@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import './Authenticate.scss'
 import { Auth } from 'aws-amplify'
-import { Redirect } from 'react-router-dom'
-import SignIn from '../SignIn/SignIn'
+import { withRouter } from 'react-router-dom'
 
 class Authenticate extends Component {
   constructor(props) {
@@ -14,25 +13,18 @@ class Authenticate extends Component {
       // phone_number: '',
       authenticationCode: '',
       step: 0,
-      redirect: false,
     }
 
     this.onChange = this.onChange.bind(this)
     this.signUp = this.signUp.bind(this)
     this.confirmSignUp = this.confirmSignUp.bind(this)
-    this.setRedirect = this.setRedirect.bind(this)
+    this.routeChange = this.routeChange.bind(this)
     // this.addUserToDBTable = this.addUserToDBTable.bind(this)
   }
 
-  setRedirect() {
-    this.setState({ redirect: true })
-    this.renderRedirect()
-  }
-
-  renderRedirect() {
-    if (this.state.redirect) {
-      return <Redirect to="/signIn" />
-    }
+  routeChange() {
+    const path = '/signIn'
+    this.props.history.push(path)
   }
 
   onChange(event) {
@@ -55,14 +47,16 @@ class Authenticate extends Component {
   confirmSignUp = async () => {
     const { username, authenticationCode } = this.state
     try {
-      await Auth.confirmSignUp(username, authenticationCode)
+      await Auth.confirmSignUp(username, authenticationCode).then(() => this.routeChange)
     } catch (err) {
       console.log('error', err)
     }
   }
 
   render() {
-    console.log('this.state', this.state)
+    // console.log('this.state', this.state)
+    console.log('this.props', this.props)
+
     return (
       <div className="Authentication--container">
         {this.state.step === 0 && (
@@ -123,4 +117,4 @@ class Authenticate extends Component {
 const styles = {
   inputs: { height: 35, margin: 10 },
 }
-export default Authenticate
+export default withRouter(Authenticate)
