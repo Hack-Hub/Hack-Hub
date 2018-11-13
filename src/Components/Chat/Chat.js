@@ -1,25 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import './Chat.scss'
 
 class Chat extends Component {
   constructor() {
     super()
 
     this.state = {
-        message: '',
-        messages: []
+      message: '',
+      messages: [],
     }
 
-    this.soket = io('localhost:3001');
-
-    
-    
+    // this.soket = io('localhost:3001')
   }
   render() {
-    return (
-      <div>
-
-      </div>
-    )
+    return <div className="Chat--container">CHATROOM</div>
   }
 }
 export default Chat
