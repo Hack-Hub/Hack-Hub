@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.1.5",
+    "ajv": "^6.5.5",
     "aws-amplify": "^1.1.10",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",

@@ -14,7 +14,7 @@ massive(process.env.CONNECTION_STRING).then(dbInstance => {
 
 //-----Endpoints-----
 //Posts
-app.get('/api/getPosts',getPosts)
+// app.get('/api/getPosts',getPosts)
 app.post('/api/newPost',newPost)
 
 

@@ -1,6 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+package-lock.json
+/amplify
 /node_modules
 /.pnp
 .pnp.js
@@ -12,6 +14,7 @@
 /build
 
 # misc
+.amplifyrc
 .DS_Store
 .env.local
 .env.development.local
@@ -19,6 +22,7 @@
 .env.production.local
 .env
 
+package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

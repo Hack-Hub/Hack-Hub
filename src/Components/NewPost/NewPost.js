@@ -18,7 +18,6 @@ class NewPost extends Component {
     this.setState({[event.target.name]:event.target.value})
   }
   handleTypeChange=(event)=>{
-    const {postType,title,text,URL,image} = this.state
     this.setState({postType:event.target.name,title:null,text:null,URL:null,image:null})
   }
   handleSubmit=()=>{
