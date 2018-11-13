@@ -11,7 +11,8 @@ class NewPost extends Component {
       title:'',
       text:null,
       URL:null,
-      image:null
+      image:null,
+      subhub_id:0
     }
   }
   handleInput=(event)=>{
