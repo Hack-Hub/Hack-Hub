@@ -43,10 +43,10 @@ app.get('/api/userById', getLoggedInUserId)
 const expressServer = app.listen(port, () => {
   console.log('server is listening on port:', port)
 })
-// const io = socketio(expressServer)
+ const io = socketio(expressServer)
 
-// io.on('connection', socket => {
-//   socket.emit('welcome message', { data: 'Welcome to hackhub chat' })
-// })
+ io.on('connection', socket => {
+  socket.emit('welcome message', { data: 'Welcome to hackhub chat' })
+ })
 
 //endpoints
