@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import './NewPost.scss'
 import ImageUpload from './ImageUpload'
-import {newPost} from '../../Ducks/PostsReducer'
+import GetSubHub from './GetSubHub'
+import axios from 'axios'
+// import {newPost} from '../../Ducks/PostsReducer'
 
 class NewPost extends Component {
   constructor(){
@@ -24,9 +26,13 @@ class NewPost extends Component {
     this.setState({postType:event.target.name,title:null,text:null,URL:null,image:null})
   }
   handleSubmit=()=>{
-    //redux call
-    const { title, text, URL,image} = this.state
-    newPost(title,text,URL,image)
+    //axios/redux call
+    const { title, text, URL,image,subhub_id} = this.state
+    // newPost(title,text,URL,image,subhub_id)
+    axios.post('/api/newPost',{title,text,URL,image,subhub_id})
+  }
+  setSubHubID=(id)=>{
+    this.setState({subhub_id:id})
   }
   render() {
     const {postType} = this.state
@@ -38,6 +44,7 @@ class NewPost extends Component {
     
     return (
       <div className='newPost'>
+        <GetSubHub setID={this.setSubHubID}/>
         <h3>New Post</h3>
         <button name='Text' onClick={this.handleTypeChange}>Text</button>
         <button name='URL' onClick={this.handleTypeChange}>URL</button>
