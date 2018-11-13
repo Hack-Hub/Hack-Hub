@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import './NewPost.scss'
+import ImageUpload from './ImageUpload'
+import {newPost} from '../../Ducks/PostsReducer'
 
 class NewPost extends Component {
   constructor(){
@@ -15,8 +17,8 @@ class NewPost extends Component {
   handleInput=(event)=>{
     this.setState({[event.target.name]:event.target.value})
   }
-  handleTypeChange=()=>{
-    //to-do: if type changes then null any other values
+  handleTypeChange=(event)=>{
+    this.setState({postType:event.target.name,title:null,text:null,URL:null,image:null})
   }
   handleSubmit=()=>{
 
@@ -27,14 +29,14 @@ class NewPost extends Component {
     let inputType=postType;
     if(postType==='Text'){inputType=<div><h5>Text</h5><input name = 'text' onChange={this.handleInput}/></div>}
     if(postType==='URL'){inputType=<div><h5>URL</h5><input name = 'URL' onChange={this.handleInput}/></div>}
-    if(postType==='Image'){inputType=<div><h5>Image</h5><input name = 'image' onChange={this.handleInput}/></div>}
+    if(postType==='Image'){inputType = <div><h5>Image</h5><ImageUpload/></div>}
     
     return (
       <div className='newPost'>
         <h3>New Post</h3>
-        <button onClick={()=>{this.setState({postType:'Text'})}}>Text</button>
-        <button onClick={()=>{this.setState({postType:'URL'})}}>URL</button>
-        <button onClick={()=>{this.setState({postType:'Image'})}}>Image</button>
+        <button name='Text' onClick={this.handleTypeChange}>Text</button>
+        <button name='URL' onClick={this.handleTypeChange}>URL</button>
+        <button name='Image' onClick={this.handleTypeChange}>Image</button>
         <h5>Title</h5>
         <input name='title' onChange={this.handleInput}/>
         {inputType}
