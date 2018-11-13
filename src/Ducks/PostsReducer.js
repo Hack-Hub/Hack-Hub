@@ -17,9 +17,10 @@ export default function reducer(state=initialState,action){
 }
 
 //action creator
-export function newPost(){
+export function newPost(title,text,URL,image){
+    console.log(title,text,URL,image)
     return{
     type:NEW_POST,
-    payload:axios.post()
+    payload:axios.post('/api/newPost',{title,text,URL,image})
     }
 }
