@@ -10,7 +10,7 @@ class Authenticate extends Component {
       username: '',
       password: '',
       email: '',
-      // phone_number: '',
+      phone_number: '',
       authenticationCode: '',
       step: 0,
     }
@@ -19,7 +19,6 @@ class Authenticate extends Component {
     this.signUp = this.signUp.bind(this)
     this.confirmSignUp = this.confirmSignUp.bind(this)
     this.routeChange = this.routeChange.bind(this)
-    // this.addUserToDBTable = this.addUserToDBTable.bind(this)
   }
 
   routeChange() {
@@ -47,14 +46,14 @@ class Authenticate extends Component {
   confirmSignUp = async () => {
     const { username, authenticationCode } = this.state
     try {
-      await Auth.confirmSignUp(username, authenticationCode).then(() => this.routeChange)
+      await Auth.confirmSignUp(username, authenticationCode).then(this.routeChange())
     } catch (err) {
       console.log('error', err)
     }
   }
 
   render() {
-    // console.log('this.state', this.state)
+    console.log('this.state', this.state)
     console.log('this.props', this.props)
 
     return (
@@ -70,7 +69,7 @@ class Authenticate extends Component {
             />
             <input
               onChange={this.onChange}
-              placeholder="password "
+              placeholder="password"
               name="password"
               type="password"
               style={styles.input}
