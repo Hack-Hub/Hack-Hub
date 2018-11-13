@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import './LandingPage.scss'
 
 export default class LandingPage extends Component {
@@ -16,10 +17,9 @@ export default class LandingPage extends Component {
 
           <div className="buttons">
             {/* TODO!!! Replace a tag with Link after setting up route */}
-            <a>Explore</a>
-
+            <Link to="/dashboard">Explore</Link>
             {/* TODO!!! Replace a tag with Link after setting up route */}
-            <a>Sign In</a>
+           <Link to="/signIn">Sign In</Link>
           </div>
         </section>
       </div>
