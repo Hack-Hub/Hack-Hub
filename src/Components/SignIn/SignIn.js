@@ -1,59 +1,40 @@
 import React, { Component } from 'react'
-import './Authenticate.scss'
-import { Auth } from 'aws-amplify'
+// import './SignIn.scss'
+// import { Auth } from 'aws-amplify'
 import axios from 'axios'
 
-class Authenticate extends Component {
+class SignIn extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      username: '',
-      password: '',
-      email: '',
-      phone_number: '',
-      authenticationCode: '',
-      step: 0,
-    }
+    this.state = { userId: null }
 
-    this.onChange = this.onChange.bind(this)
-    this.signUp = this.signUp.bind(this)
-    this.confirmSignUp = this.confirmSignUp.bind(this)
+    // this.signIn = this.signIn.bind(this)
     // this.addUserToDBTable = this.addUserToDBTable.bind(this)
+  }
+
+  componentDidMount() {
+    axios.get('/api/userById').then(response => {
+      console.log('response', response)
+      // this.setState({ userId })
+    })
   }
 
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  signUp = async () => {
-    const { username, password, email, phone_number } = this.state
-    try {
-      await Auth.signUp({ username, password, attributes: { email, phone_number } })
-      console.log('success sign up')
-
-      this.setState({ step: 1 })
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  confirmSignUp = async () => {
-    const { username, authenticationCode } = this.state
-    try {
-      await Auth.confirmSignUp(username, authenticationCode)
-      console.log('user successfully signed up')
-      axios
-        .post('/api/newUser', {
-          authId: this.state.authenticationCode,
-          username: this.state.username,
-        })
-        .catch(err => console.log('err', err))
-    } catch (err) {
-      console.log('error', err)
-    }
-  }
+  // signIn = async () => {
+  //   // const {}
+  //   try {
+  //     await Auth.signIn(username, password)
+  //     console.log('success sign in')
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
 
   render() {
+    console.log('this.props', this.props)
     console.log('this.state', this.state)
     return (
       <div className="Authentication--container">
@@ -115,4 +96,4 @@ class Authenticate extends Component {
 const styles = {
   inputs: { height: 35, margin: 10 },
 }
-export default Authenticate
+export default SignIn

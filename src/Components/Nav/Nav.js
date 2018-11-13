@@ -32,7 +32,8 @@ class Nav extends Component {
             <i className="fa fa-2x fa-plus-square" />
           </a>
           {/* TODO!! CHANGE 'a' tags to 'Link' once routes are set up */}
-          <Link to="/authenticate">Sign In</Link>
+          <Link to="/authenticate">Sign Up</Link>
+          <Link to="/signIn">Sign In</Link>
         </div>
       </div>
     )

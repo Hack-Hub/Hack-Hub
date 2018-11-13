@@ -4,6 +4,7 @@ import LandingPage from './LandingPage/LandingPage'
 import Dashboard from './Components/Dashboard/Dashboard'
 import NewPost from './Components/NewPost/NewPost'
 import Authenticate from './Components/Authenticate/Authenticate'
+import SignIn from './Components/SignIn/SignIn'
 
 export default function Routes() {
   return (
@@ -12,6 +13,7 @@ export default function Routes() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/newpost" component={NewPost} />
       <Route path="/authenticate" component={Authenticate} />
+      <Route path="/signIn" component={SignIn} />
       <Redirect to="/" />
     </Switch>
   )
