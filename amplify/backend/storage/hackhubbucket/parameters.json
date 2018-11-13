@@ -1,0 +1,9 @@
+{
+    "bucketName": "hackhub8839a60df3ff4928aa8f0233a21c190b",
+    "authPolicyName": "s3_amplify_1839f364",
+    "unauthPolicyName": "s3_amplify_1839f364",
+    "authRoleName": "ackub-20181113112744-authRole",
+    "unauthRoleName": "ackub-20181113112744-unauthRole",
+    "authPermissions": "rw",
+    "unauthPermissions": "rw"
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './Authenticate.scss'
 import { Auth } from 'aws-amplify'
+import { withRouter } from 'react-router-dom'
 
 class Authenticate extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class Authenticate extends Component {
       username: '',
       password: '',
       email: '',
-      phone_number: '',
+      // phone_number: '',
       authenticationCode: '',
       step: 0,
     }
@@ -17,6 +18,13 @@ class Authenticate extends Component {
     this.onChange = this.onChange.bind(this)
     this.signUp = this.signUp.bind(this)
     this.confirmSignUp = this.confirmSignUp.bind(this)
+    this.routeChange = this.routeChange.bind(this)
+    // this.addUserToDBTable = this.addUserToDBTable.bind(this)
+  }
+
+  routeChange() {
+    const path = '/signIn'
+    this.props.history.push(path)
   }
 
   onChange(event) {
@@ -26,7 +34,9 @@ class Authenticate extends Component {
   signUp = async () => {
     const { username, password, email, phone_number } = this.state
     try {
-      await Auth.signUp({ username, password, attributes: { email, phone_number } })
+      await Auth.signUp({ username, password, attributes: { email, phone_number } }).then(user =>
+        console.log('user', user)
+      )
       console.log('success sign up')
       this.setState({ step: 1 })
     } catch (err) {
@@ -37,15 +47,16 @@ class Authenticate extends Component {
   confirmSignUp = async () => {
     const { username, authenticationCode } = this.state
     try {
-      await Auth.confirmSignUp(username, authenticationCode)
-      console.log('user successfully signed up')
+      await Auth.confirmSignUp(username, authenticationCode).then(() => this.routeChange)
     } catch (err) {
       console.log('error', err)
     }
   }
 
   render() {
-    console.log('this.state', this.state)
+    // console.log('this.state', this.state)
+    console.log('this.props', this.props)
+
     return (
       <div className="Authentication--container">
         {this.state.step === 0 && (
@@ -81,7 +92,7 @@ class Authenticate extends Component {
         )}
         {this.state.step === 1 && (
           <div>
-            <h3>Sign In</h3>
+            <h3>Sign Up</h3>
             <input
               onChange={this.onChange}
               placeholder="username"
@@ -106,4 +117,4 @@ class Authenticate extends Component {
 const styles = {
   inputs: { height: 35, margin: 10 },
 }
-export default Authenticate
+export default withRouter(Authenticate)
