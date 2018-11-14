@@ -4,7 +4,7 @@ const express = require('express'),
   app = express(),
   port = process.env.PORT || 3001,
   massive = require('massive'),
-  // socketio = require('socket.io'),
+  socketio = require('socket.io'),
   { json } = require('body-parser'),
   {
     getPosts,
