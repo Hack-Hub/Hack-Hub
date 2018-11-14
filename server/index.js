@@ -56,7 +56,7 @@ app.post('/api/postUpVote', postUpVote)
 app.post('/api/postDownVote', postDownVote)
 
 //Comments
-app.get('/api/getComments/:post_id',  getComments)
+app.get('/api/getComments/:post_id', getComments)
 app.post('/api/newComment', newComment)
 app.put('/api/editComment:comment_id', editComment)
 app.delete('/api/deleteComment/:comment_id', deleteComment)
