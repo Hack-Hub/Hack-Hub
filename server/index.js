@@ -4,7 +4,7 @@ const express = require('express'),
   app = express(),
   port = process.env.PORT || 3001,
   massive = require('massive'),
-  socketio = require('socket.io'),
+  // socketio = require('socket.io'),
   { json } = require('body-parser'),
   { getPosts, newPost, editPost, deletePost, getPostsBySub } = require('./Controllers/PostsController'),
   { getMessages, newMessage } = require('./Controllers/MessagesController'),
@@ -69,21 +69,21 @@ app.delete('/api/deleteUser/:id', deleteUser)
 const expressServer = app.listen(port, () => {
   console.log("server is listening on port:", port);
 });
-const io = socketio(expressServer);
+// const io = socketio(expressServer);
 
-io.on('connection', (socket) => {
-  socket.on('room', (data) => {
-    socket.join(data.room);
+// io.on('connection', (socket) => {
+//   socket.on('room', (data) => {
+//     socket.join(data.room);
 
-    socket.to(data.room).emit('message', {
-      author: "Server",
-      message: `Welcome to ${data.user}`
-    })
-  });
+//     socket.to(data.room).emit('message', {
+//       author: "Server",
+//       message: `Welcome to ${data.user}`
+//     })
+//   });
 
-  socket.on('disconnect', () => {
+//   socket.on('disconnect', () => {
     
-  })
-})
+//   })
+// })
 
 //endpoints
