@@ -24,6 +24,10 @@ class ImageUpload extends Component {
         Storage.put(this.state.filename,this.state.file)
         .then(()=>{
             console.log('saved file!');
+            Storage.get(this.state.filename)
+            .then((data)=>{
+                console.log(data);
+                this.props.setImageURL(data)})
             this.setState({fileURL:'',file:'',filename:''});
             //to-do get the image URL to pass to the DB
         })
