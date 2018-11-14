@@ -8,8 +8,9 @@ class Chat extends Component {
     super()
 
     this.state = {
-      message: '',
-      messages: [],
+        message: '',
+        messages: [],
+        current_user: []
     }
 
     // this.soket = io('localhost:3001')
