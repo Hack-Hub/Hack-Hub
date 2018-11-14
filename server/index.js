@@ -22,7 +22,7 @@ const express = require('express'),
   { getMessages, newMessage } = require('./Controllers/MessagesController'),
   { getComments, newComment, editComment, deleteComment } = require('./Controllers/CommentsController'),
   { getSub, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
-  { addNewUser, getLoggedInUserId, editUserName, editUserPhoto } = require('./Controllers/UserController'),
+  { addNewUser, getCurrentUser, editUserName, editUserPhoto } = require('./Controllers/UserController'),
   { getUserSubs, addFollow, deleteFollow } = require('./Controllers/FollowedSubsController'),
   session = require('express-session');
 
@@ -83,7 +83,7 @@ app.post('/api/userSession', (req, res) => {
   req.session.user_id = req.body.user_id
   console.log('req.session', req.session)
 })
-app.get('/api/userById/:userId', getLoggedInUserId)
+app.get('/api/currentUser', getCurrentUser)
 app.put('/api/editUserName/:userId', editUserName)
 app.put('/api/editUserPhoto/:userId', editUserPhoto)
 // app.delete('/api/deleteUser/:userId', deleteUser)

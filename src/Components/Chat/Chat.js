@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
 import './Chat.scss'
-// import axios from 'axios'
+import axios from 'axios'
 
 class Chat extends Component {
   constructor() {
@@ -13,7 +13,7 @@ class Chat extends Component {
         current_user: []
     }
 
-    // this.soket = io('localhost:3001')
+    this.soket = io('localhost:3001')
   }
 
   // componentDidMount() {

@@ -7,12 +7,10 @@ module.exports = {
     return res.status(200).send('okie dokie')
   },
 
-  getLoggedInUserId(req, res) {
-    const { userId } = req.params
-    const { username, user_photo } = req.body
+  getCurrentUser(req, res) {
     const db = req.app.get('db')
     db.users
-      .getUserID([userId, username, user_photo])
+      .getUserID(req.session.user_id)
       .then(response => {
         return res.status(200).json(response)
       })
