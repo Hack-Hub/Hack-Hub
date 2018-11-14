@@ -4,7 +4,7 @@ const express = require('express'),
   app = express(),
   port = process.env.PORT || 3001,
   massive = require('massive'),
-  socketio = require('socket.io'),
+  // socketio = require('socket.io'),
   { json } = require('body-parser'),
   {
     getPosts,
@@ -13,14 +13,12 @@ const express = require('express'),
     deletePost,
     getPostsBySub,
   } = require('./Controllers/PostsController'),
-  // {
-  //   // getPostUpVotes,
-  //   // getPostDownVotes,
-  //   // postUpVote,
-  //   // postDownVote,
-  //   // updatePostVote,
-  //   // getPostVoteScore,
-  // } = require('./Controllers/VotesController'),
+  {
+    postUpVote,
+    postDownVote,
+    // updatePostVote,
+    // getPostVoteScore,
+  } = require('./Controllers/VotesController'),
   { getMessages, newMessage } = require('./Controllers/MessagesController'),
   {
     getComments,
@@ -69,14 +67,9 @@ app.put('/api/editPost:id', editPost)
 app.delete('/api/deletePost/:id', deletePost)
 
 // Votes
-// app.get('/api/getPostUpVotes/:postId', getPostUpVotes)
-// app.get('/api/getPostDownVotes/:postId', getPostDownVotes)
-// app.post('/api/postUpVote', postUpVote)
-// app.post('/api/postDownVote', postDownVote)
-// app.put('/api/updatePostUpVote/:voteId', updatePostVote)
-// app.put('/api/updatePostDownVote/:voteId', updatePostVote)
-// app.put('/api/updatePostNullVote/:voteId', updatePostVote)
-// app.put('/api/getPostVoteScore:postId', getPostVoteScore)
+
+app.post('/api/postUpVote', postUpVote)
+app.post('/api/postDownVote', postDownVote)
 
 //Comments
 app.get('/api/getComments/:id', getComments)
@@ -110,19 +103,22 @@ app.put('/api/editUserPhoto/:userId', editUserPhoto)
 const expressServer = app.listen(port, () => {
   console.log('server is listening on port:', port)
 })
-const io = socketio(expressServer)
 
-io.on('connection', socket => {
-  socket.on('room', data => {
-    socket.join(data.room)
+// const io = socketio(expressServer);
 
-    socket.to(data.room).emit('message', {
-      author: 'Server',
-      message: `Welcome to ${data.user}`,
-    })
-  })
+// io.on('connection', (socket) => {
+//   socket.on('room', (data) => {
+//     socket.join(data.room);
 
-  socket.on('disconnect', () => {})
-})
+//     socket.to(data.room).emit('message', {
+//       author: "Server",
+//       message: `Welcome to ${data.user}`
+//     })
+//   });
+
+//   socket.on('disconnect', () => {
+
+//   })
+// })
 
 //endpoints
