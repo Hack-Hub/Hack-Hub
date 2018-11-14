@@ -20,11 +20,22 @@ const express = require('express'),
     // getPostVoteScore,
   } = require('./Controllers/VotesController'),
   { getMessages, newMessage } = require('./Controllers/MessagesController'),
-  { getComments, newComment, editComment, deleteComment } = require('./Controllers/CommentsController'),
+  {
+    getComments,
+    newComment,
+    editComment,
+    deleteComment,
+  } = require('./Controllers/CommentsController'),
   { getSub, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
-  { addNewUser, getLoggedInUserId, editUserName, editUserPhoto } = require('./Controllers/UserController'),
+  {
+    addNewUser,
+    getLoggedInUserId,
+    editUserName,
+    editUserPhoto,
+  } = require('./Controllers/UserController'),
   { getUserSubs, addFollow, deleteFollow } = require('./Controllers/FollowedSubsController'),
-  session = require('express-session');
+  { getAllSubhubs, getAllPosts } = require('./Controllers/SearchbarController'),
+  session = require('express-session')
 
 app.use(json())
 massive(process.env.CONNECTION_STRING).then(dbInstance => {
@@ -88,23 +99,25 @@ app.put('/api/editUserName/:userId', editUserName)
 app.put('/api/editUserPhoto/:userId', editUserPhoto)
 // app.delete('/api/deleteUser/:userId', deleteUser)
 
+// Searchbar
+app.get('/api/getAllSubhubs', getAllSubhubs)
+app.get('/api/getAllPosts', getAllPosts)
+
 const expressServer = app.listen(port, () => {
   console.log('server is listening on port:', port)
 })
 
-const io = socketio(expressServer);
+const io = socketio(expressServer)
 
-io.on('connection', (socket) => {
-  socket.on('room', (data) => {
-    socket.join(data.room);
+io.on('connection', socket => {
+  socket.on('room', data => {
+    socket.join(data.room)
 
     socket.to(data.room).emit('message', {
-      author: "Server",
-      message: `Welcome to ${data.user}`
+      author: 'Server',
+      message: `Welcome to ${data.user}`,
     })
-  });
-
-  socket.on('disconnect', () => {
-
   })
+
+  socket.on('disconnect', () => {})
 })

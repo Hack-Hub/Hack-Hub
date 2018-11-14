@@ -8,6 +8,7 @@ import SignIn from './Components/SignIn/SignIn'
 import NewSubHub from './Components/NewSubHub/NewSubHub'
 import SubHub from './Components/SubHub/SubHub'
 import PostView from './Components/PostView/PostView'
+import SearchResults from './Components/SearchResults/SearchResults'
 
 export default function Routes() {
   return (
@@ -20,6 +21,7 @@ export default function Routes() {
       <Route path="/authenticate" component={Authenticate} />
       <Route path="/signIn" component={SignIn} />
       <Route path="/postview" component={PostView} />
+      <Route path="/searchResults/:id" exact component={SearchResults} />
       <Redirect to="/" />
     </Switch>
   )

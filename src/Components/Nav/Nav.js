@@ -1,23 +1,22 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './Nav.scss'
-import axios from 'axios'
 
 class Nav extends Component {
   constructor() {
     super()
-    this.state = {}
-
-    this.getAllUsers = this.getAllUsers.bind(this)
+    this.state = {
+      searchResults: '',
+    }
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  getAllUsers() {
-    axios.get('/api/getAllUsers').then(response => {
-      console.log('response', response)
-    })
+  handleChange(event) {
+    this.setState({ searchResults: event.target.value })
   }
 
   render() {
+    console.log('this.state', this.state)
     return (
       <div className="Nav--container">
         <div className="left-nav">
@@ -26,10 +25,11 @@ class Nav extends Component {
 
         <div className="right-nav">
           <div className="search-bar">
-            <input className="search-input" onChange={this.getAllUsers} />
-            <button className="search-button">
+            <input className="search-input" name="searchResults" onChange={this.handleChange} />
+            {/* <Link to={`/searchResults/${this.state.searchResults}`} > */}
+            {/* <Link to={{pathname: '/searchResults',}}/>
               <i className="fa fa-2x fa-search" />
-            </button>
+            </Link> */}
           </div>
           <div className="vertical-bar" />
           <Link to="/newpost">
