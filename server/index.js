@@ -40,6 +40,7 @@ const express = require('express'),
     editUserPhoto,
     // deleteUser,
   } = require('./Controllers/UserController'),
+  { getAllSubhubs, getAllPosts } = require('./Controllers/SearchbarController'),
   session = require('express-session')
 
 app.use(json())
@@ -99,6 +100,10 @@ app.get('/api/userById/:userId', getLoggedInUserId)
 app.put('/api/editUserName/:userId', editUserName)
 app.put('/api/editUserPhoto/:userId', editUserPhoto)
 // app.delete('/api/deleteUser/:userId', deleteUser)
+
+// Searchbar
+app.get('/api/getAllSubhubs', getAllSubhubs)
+app.get('/api/getAllPosts', getAllPosts)
 
 const expressServer = app.listen(port, () => {
   console.log('server is listening on port:', port)

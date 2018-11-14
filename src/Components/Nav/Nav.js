@@ -6,7 +6,9 @@ import axios from 'axios'
 class Nav extends Component {
   constructor() {
     super()
-    this.state = {}
+    this.state = {
+      searchResults: '',
+    }
 
     this.getAllUsers = this.getAllUsers.bind(this)
   }
@@ -26,7 +28,7 @@ class Nav extends Component {
 
         <div className="right-nav">
           <div className="search-bar">
-            <input className="search-input" onChange={this.getAllUsers} />
+            <input className="search-input" />
             <button className="search-button">
               <i className="fa fa-2x fa-search" />
             </button>
