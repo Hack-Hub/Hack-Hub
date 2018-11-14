@@ -25,6 +25,7 @@ class ImageUpload extends Component {
         .then(()=>{
             console.log('saved file!');
             this.setState({fileURL:'',file:'',filename:''});
+            //to-do get the image URL to pass to the DB
         })
         .catch((error)=>{
             console.log('error:',error);
