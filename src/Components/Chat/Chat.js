@@ -1,39 +1,33 @@
-import React, { Component } from 'react';
-import io from 'socket.io-client';
-import './Chat.scss';
-import axios from 'axios';
+import React, { Component } from 'react'
+// import io from 'socket.io-client';
+import './Chat.scss'
+// import axios from 'axios'
 
 class Chat extends Component {
   constructor() {
     super()
 
     this.state = {
-        message: '',
-        messages: []
+      message: '',
+      messages: [],
     }
 
-    this.socket = io('localhost:3001');
-    
+    // this.soket = io('localhost:3001')
   }
 
-  componentDidMount(){
-      this.socket.emit('room', {
-        room: subhubName,
-        user: userName
-      });
+  // componentDidMount() {
+  //   this.socket.emit('room', {
+  //     room: subhubName,
+  //     user: userName,
+  //   })
 
-      axios.get(`/api/messages/${roomID}`).then((res) => {
-        this.setState({messages: res.data})
-      })
-  }
-
+  //   axios.get(`/api/messages/${roomID}`).then(res => {
+  //     this.setState({ messages: res.data })
+  //   })
+  // }
 
   render() {
-    return (
-      <div>
-
-      </div>
-    )
+    return <div className="Chat--container">CHATROOM</div>
   }
 }
 export default Chat

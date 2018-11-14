@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './Nav.scss'
+import axios from 'axios'
 
 class Nav extends Component {
   constructor() {
     super()
     this.state = {}
+
+    this.getAllUsers = this.getAllUsers.bind(this)
+  }
+
+  getAllUsers() {
+    axios.get('/api/getAllUsers').then(response => {
+      console.log('response', response)
+    })
   }
 
   render() {
@@ -17,7 +26,7 @@ class Nav extends Component {
 
         <div className="right-nav">
           <div className="search-bar">
-            <input className="search-input" />
+            <input className="search-input" onChange={this.getAllUsers} />
             <button className="search-button">
               <i className="fa fa-2x fa-search" />
             </button>

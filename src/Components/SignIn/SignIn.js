@@ -23,7 +23,6 @@ class SignIn extends Component {
     await Auth.signIn(username, password)
       .then(user => this.setState({ user }))
       .then(() => this.postUserToTable(this.state.user))
-
       .catch(err => console.log('err', err))
   }
 
