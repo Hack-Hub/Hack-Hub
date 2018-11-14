@@ -30,8 +30,10 @@ class ImageUpload extends Component {
                 //get the url from the file that was just saved
                 Storage.get(this.state.filename)
                     .then((data) => {
+                        console.log(data.slice(0,115));
+                        
                         //call method in parent component with the URL of the file that was saved
-                        this.props.setImageURL(data)
+                        this.props.setImageURL(data.slice(0,115))
                     }
                     )
                 this.setState({ fileURL: '', file: '', filename: '' });
