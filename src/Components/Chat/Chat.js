@@ -9,7 +9,8 @@ class Chat extends Component {
 
     this.state = {
         message: '',
-        messages: []
+        messages: [],
+        current_user: []
     }
 
     this.socket = io('localhost:3001');
