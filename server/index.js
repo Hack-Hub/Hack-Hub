@@ -4,13 +4,25 @@ const express = require('express'),
   app = express(),
   port = process.env.PORT || 3001,
   massive = require('massive'),
-  socketio = require('socket.io'),
+  // socketio = require('socket.io'),
   { json } = require('body-parser'),
-  { getPosts, newPost, editPost, deletePost, getPostsBySub } = require('./Controllers/PostsController'),
+  {
+    getPosts,
+    newPost,
+    editPost,
+    deletePost,
+    getPostsBySub,
+  } = require('./Controllers/PostsController'),
+  {
+    postUpVote,
+    postDownVote,
+    // updatePostVote,
+    // getPostVoteScore,
+  } = require('./Controllers/VotesController'),
   { getMessages, newMessage } = require('./Controllers/MessagesController'),
   { getComments, newComment, editComment, deleteComment } = require('./Controllers/CommentsController'),
   { getSub, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
-  { addNewUser, getLoggedInUserId, editUser, deleteUser } = require('./Controllers/UserController'),
+  { addNewUser, getLoggedInUserId, editUserName, editUserPhoto } = require('./Controllers/UserController'),
   { getUserSubs, addFollow, deleteFollow } = require('./Controllers/FollowedSubsController'),
   session = require('express-session');
 
@@ -18,7 +30,6 @@ app.use(json())
 massive(process.env.CONNECTION_STRING).then(dbInstance => {
   app.set('db', dbInstance)
 })
-
 
 app.use(
   session({
@@ -38,6 +49,11 @@ app.get('/api/getSubPosts/:id', getPostsBySub)
 app.post('/api/newPost', newPost)
 app.put('/api/editPost:id', editPost)
 app.delete('/api/deletePost/:id', deletePost)
+
+// Votes
+
+app.post('/api/postUpVote', postUpVote)
+app.post('/api/postDownVote', postDownVote)
 
 //Comments
 app.get('/api/getComments/:post_id',  getComments)
@@ -67,13 +83,15 @@ app.post('/api/userSession', (req, res) => {
   req.session.user_id = req.body.user_id
   console.log('req.session', req.session)
 })
-app.get('/api/userById', getLoggedInUserId)
-app.put('/api/editUser/:id', editUser)
-app.delete('/api/deleteUser/:id', deleteUser)
+app.get('/api/userById/:userId', getLoggedInUserId)
+app.put('/api/editUserName/:userId', editUserName)
+app.put('/api/editUserPhoto/:userId', editUserPhoto)
+// app.delete('/api/deleteUser/:userId', deleteUser)
 
 const expressServer = app.listen(port, () => {
-  console.log("server is listening on port:", port);
-});
+  console.log('server is listening on port:', port)
+})
+
 const io = socketio(expressServer);
 
 io.on('connection', (socket) => {
@@ -87,8 +105,6 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    
+
   })
 })
-
-//endpoints

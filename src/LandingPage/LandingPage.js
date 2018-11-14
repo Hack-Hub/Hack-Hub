@@ -19,7 +19,7 @@ export default class LandingPage extends Component {
             {/* TODO!!! Replace a tag with Link after setting up route */}
             <Link to="/dashboard">Explore</Link>
             {/* TODO!!! Replace a tag with Link after setting up route */}
-           <Link to="/signIn">Sign In</Link>
+            <Link to="/signIn">Sign In</Link>
           </div>
         </section>
       </div>
