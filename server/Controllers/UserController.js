@@ -1,10 +1,19 @@
 module.exports = {
   addNewUser(req, res) {
     const { userClientId, username } = req.body
-    // console.log('req.body', req.body)
     const db = req.app.get('db')
-    db.users.createNewUser([userClientId, username]).catch(err => console.log('err', err))
-    return res.status(200).send('okie dokie')
+    console.log('req.body', req.body)
+    db.users.checkUsername([username]).then(response => {
+      // console.log('response', response)
+      if (!response.length) {
+        db.users
+          .createNewUser([userClientId, username])
+          .then(response => res.status(200).send(response))
+          .catch(err => console.log('err', err))
+      } else {
+        return res.status(200).send(response)
+      }
+    })
   },
 
   getCurrentUser(req, res) {

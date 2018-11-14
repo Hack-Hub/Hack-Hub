@@ -14,11 +14,14 @@ export default class LandingPage extends Component {
         <section className="landing-section">
           <img src="http://i64.tinypic.com/ndplcw.jpg" alt="logo-2" />
           <h3>Welcome to Hack-Hub</h3>
+          <p>
+            Dale a tu cuerpo alegria Macarena Que tu cuerpo es pa' darle alegria cosa buena Dale a
+            tu cuerpo alegria, Macarena Hey Macarena! Dale a tu cuerpo alegria Macarena Que tu
+            cuerpo es pa' darle alegria cosa buena Dale a tu cuerpo alegria, Macarena Hey Macarena!
+          </p>
 
           <div className="buttons">
-            {/* TODO!!! Replace a tag with Link after setting up route */}
             <Link to="/dashboard">Explore</Link>
-            {/* TODO!!! Replace a tag with Link after setting up route */}
             <Link to="/signIn">Sign In</Link>
           </div>
         </section>
