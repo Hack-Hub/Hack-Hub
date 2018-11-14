@@ -13,7 +13,7 @@ class NewPost extends Component {
       title:'',
       text:null,
       URL:null,
-      image:null,
+      imageURL:null,
       subhub_id:0
     }
   }
@@ -27,12 +27,16 @@ class NewPost extends Component {
   }
   handleSubmit=()=>{
     //axios/redux call
-    const { title, text, URL,image,subhub_id} = this.state
+    const { title, text, URL,imageURL,subhub_id} = this.state
     // newPost(title,text,URL,image,subhub_id)
-    axios.post('/api/newPost',{title,text,URL,image,subhub_id})
+    axios.post('/api/newPost',{subhub_id,title,text_content:text,URL,image_url:imageURL,})
   }
   setSubHubID=(id)=>{
     this.setState({subhub_id:id})
+  }
+  setImageURL=(URL)=>{
+    console.log(URL);
+    this.setState({imageURL:URL})
   }
   render() {
     const {postType} = this.state
@@ -40,7 +44,7 @@ class NewPost extends Component {
     let inputType=postType;
     if(postType==='Text'){inputType=<div><h5>Text</h5><input name = 'text' onChange={this.handleInput}/></div>}
     if(postType==='URL'){inputType=<div><h5>URL</h5><input name = 'URL' onChange={this.handleInput}/></div>}
-    if(postType==='Image'){inputType = <div><h5>Image</h5><ImageUpload/></div>}
+    if(postType==='Image'){inputType = <div><h5>Image</h5><ImageUpload setImageURL={this.setImageURL}/></div>}
     
     return (
       <div className='newPost'>
