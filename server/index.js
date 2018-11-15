@@ -26,11 +26,7 @@ const express = require('express'),
     editComment,
     deleteComment,
   } = require('./Controllers/CommentsController'),
-<<<<<<< HEAD
   { getSub, getSubByName, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
-=======
-  { getSub, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
->>>>>>> master
   {
     addNewUser,
     getCurrentUser,
