@@ -1,2 +1,2 @@
 SELECT * FROM subhubs
-WHERE sh_name LIKE $1 || %;
+WHERE LOWER(sh_name) LIKE '%' || LOWER($1) || '%'

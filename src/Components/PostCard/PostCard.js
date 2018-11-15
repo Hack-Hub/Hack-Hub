@@ -10,15 +10,15 @@ class PostCard extends Component {
     console.log('this.props', this.props)
     const {
       image_url,
-      post_date_time,
-      post_id,
-      subhub_id,
+      // post_date_time,
+      // post_id,
+      // subhub_id,
       text_content,
-      title,
-      user_id,
-      votes,
+      // title,
+      // user_id,
+      // votes,
       web_url,
-      subhub_name,
+      // subhub_name,
     } = this.props.post
     if (text_content) {
       return <TextPost post={this.props.post} />

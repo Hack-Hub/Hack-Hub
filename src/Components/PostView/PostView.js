@@ -1,13 +1,25 @@
 import React, { Component } from 'react'
 import './PostView.scss'
+import Comments from './Comments';
+import axios from 'axios';
 
 class PostView extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      post:[]
+    }
+  }
+  componentDidMount(){
+    const {postId} = this.props.match.params;
+    axios.get('/api/getPostByID/'+postId)
+      .then(post=>{
+        this.setState({post:post.data[0]})
+      })
   }
   render() {
     return (
+      <div>
       <div className="PostView--container">
         <section className="subhub-container">
           <div className="theme-color" />
@@ -23,6 +35,8 @@ class PostView extends Component {
             <h3>Username Here</h3>
           </div>
         </section>
+      </div>
+      <Comments post={this.state.post} />
       </div>
     )
   }
