@@ -30,6 +30,11 @@ class Authenticate extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
+  // onChangeSetNumber(event) {
+  //   // const newNumber = `+1${event.target.value}`
+  //   this.setState({ phone_number: eve })
+  // }
+
   signUp = async () => {
     const { username, password, email, phone_number } = this.state
     try {
@@ -82,8 +87,10 @@ class Authenticate extends Component {
             />
             <input
               onChange={this.onChange}
-              placeholder="phone number"
+              placeholder="+1 (xxx) xxx - xxx"
               name="phone_number"
+              // type="number"
+              // id="phone"
               style={styles.input}
             />
             <button onClick={this.signUp}>Sign Up</button>

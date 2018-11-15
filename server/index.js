@@ -85,12 +85,12 @@ app.delete('/api/deleteSub/:subhub_id', deleteSub)
 //Followed Subhubs
 app.get('/api/getUserSubs/:user_id', getUserSubs)
 app.post('/api/addFollow', addFollow)
-app.delete('/api/deleteFollow', deleteFollow)
+app.delete('/api/deleteFollow/:userId/:subhubId', deleteFollow)
 
 // Users
 app.post('/api/newUser', addNewUser)
 app.post('/api/userSession', (req, res) => {
-  console.log('req.body', req.body)
+  // console.log('req.body', req.body)
   req.session.user_id = req.body.user_id
   console.log('req.session', req.session)
 })
