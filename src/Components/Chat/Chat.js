@@ -34,17 +34,21 @@ class Chat extends Component {
   componentDidMount() {
     axios.get('/api/currentUser').then(res => {
       this.setState({current_user: res.data[0]});
-    }).then(this.socket.emit('room', {
+    });
+
+    this.socket.emit('room', {
       room: 'test 1',
-      user: this.state.current_user.username,
-    }));
+      // user: this.state.current_user.username,
+    });
+
     axios.get(`/api/getMessages/2`).then(res => {
       console.log(res);
-      this.setState({ messages: res.data })
+      this.setState({ messages: [...this.state.messages, ...res.data] })
     })
   }
 
   render() {
+    console.log(this.state.messages);
     let messageList = this.state.messages.map((message,i) => {
       return (
           <div key={i}>
