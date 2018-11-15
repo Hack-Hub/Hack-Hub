@@ -100,7 +100,7 @@ class SearchResults extends Component {
                   <div className="talk-bubble tri-right border btm-right-in" alt="subhub">
                     <img src={individualSubhub.sh_icon} alt="subhub-icon" />
                   </div>
-                  <Link to={`/subhub/${individualSubhub.subhub_id}`}>
+                  <Link to={`/subhub/${individualSubhub.subhub_id}/postfeed`}>
                     <h1>{individualSubhub.sh_name}</h1>
                   </Link>
                 </div>

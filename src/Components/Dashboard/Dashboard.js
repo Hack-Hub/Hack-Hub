@@ -7,6 +7,7 @@ class Dashboard extends Component {
     super()
     this.state = {}
   }
+
   render() {
     return (
       <div className="Dashboard--container">
