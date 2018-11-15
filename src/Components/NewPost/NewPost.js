@@ -17,19 +17,18 @@ class NewPost extends Component {
       subhub_id:0
     }
   }
+  //set state according to name of input
   handleInput=(event)=>{
-    //set state according to name of input
     this.setState({[event.target.name]:event.target.value})
   }
+  //change post type and null all values
   handleTypeChange=(event)=>{
-    //change post type and null all values
     this.setState({postType:event.target.name,title:null,text:null,URL:null,image:null})
   }
+  //axios post call
   handleSubmit=()=>{
-    //axios/redux call
     const { title, text, URL,imageURL,subhub_id} = this.state
-    // newPost(title,text,URL,image,subhub_id)
-    axios.post('/api/newPost',{subhub_id,title,text_content:text,URL,image_url:imageURL,})
+    axios.post('/api/newPost',{subhub_id,title,text_content:text,web_url:URL,image_url:imageURL,})
   }
   setSubHubID=(id)=>{
     this.setState({subhub_id:id})
