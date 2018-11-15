@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import './PostCard.scss'
-import TextPost from './TextPost'
-import ImagePost from './ImagePost'
-import URLPost from './URLPost'
+import TextPost from './TextPost';
+import ImagePost from './ImagePost';
+import URLPost from './URLPost';
 
 class PostCard extends Component {
+  
   render() {
     const {
       image_url,
