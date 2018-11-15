@@ -40,13 +40,14 @@ massive(process.env.CONNECTION_STRING).then(dbInstance => {
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
       maxAge: 1000000,
     },
   })
 )
+
 
 //-----Endpoints-----
 //Posts
@@ -85,9 +86,8 @@ app.delete('/api/deleteFollow', deleteFollow)
 // Users
 app.post('/api/newUser', addNewUser)
 app.post('/api/userSession', (req, res) => {
-  console.log('req.body', req.body)
   req.session.user_id = req.body.user_id
-  console.log('req.session', req.session)
+  req.session.save();
 })
 app.get('/api/currentUser', getCurrentUser)
 app.put('/api/editUserName/:userId', editUserName)
@@ -106,11 +106,19 @@ const io = socketio(expressServer)
 
 io.on('connection', socket => {
   socket.on('room', data => {
+    console.log(data);
     socket.join(data.room)
 
-    socket.to(data.room).emit('message', {
-      author: 'Server',
-      message: `Welcome to ${data.user}`,
+    io.in(data.room).emit('message', {
+      username: 'Server',
+      message_text: `Welcome to ${data.room}`,
+    })
+  })
+
+  socket.on('send_message', (data) => {
+    io.in(data.room).emit('message',{
+      username: data.username,
+      message_text: data.message_text
     })
   })
 
