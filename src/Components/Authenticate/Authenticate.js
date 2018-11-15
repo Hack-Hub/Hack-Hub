@@ -111,7 +111,7 @@ class Authenticate extends Component {
           </div>
         )}
         {this.state.step === 1 && (
-          <div>
+          <div className="auth-section">
             <h3>Sign Up</h3>
             <input
               onChange={this.onChange}
@@ -126,7 +126,9 @@ class Authenticate extends Component {
               name="authenticationCode"
               style={styles.input}
             />
-            <button onClick={this.confirmSignUp}>Confirm Sign Up</button>
+            <button className="sign-up" onClick={this.confirmSignUp}>
+              Confirm Sign Up
+            </button>
           </div>
         )}
       </div>

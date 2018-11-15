@@ -12,6 +12,7 @@ class SignIn extends Component {
     this.signIn = this.signIn.bind(this)
     this.postUserToTable = this.postUserToTable.bind(this)
     this.routeChange = this.routeChange.bind(this)
+    this.closeModal = this.closeModal.bind(this)
   }
 
   onChange(event) {
@@ -48,6 +49,10 @@ class SignIn extends Component {
     const path = '/dashboard'
     this.props.history.push(path)
   }
+
+  closeModal() {
+    this.props.history.goBack()
+  }
   // confirmSignIn = async () => {
   //   console.log('this.state.user', this.state.user)
   //   const { user } = this.state
@@ -61,7 +66,15 @@ class SignIn extends Component {
     console.log('this.state', this.state)
     return (
       <div className="SignIn--container">
-        <div className="sign-in">
+        <button
+          className="close-button"
+          onClick={() => {
+            this.closeModal()
+          }}
+        >
+          <img src="http://i65.tinypic.com/29ehdth.png" />
+        </button>
+        <div className="auth-section">
           <h3>Sign In</h3>
           <input
             onChange={this.onChange}
@@ -76,7 +89,9 @@ class SignIn extends Component {
             type="password"
             style={styles.input}
           />
-          <button onClick={this.signIn}> Sign In</button>
+          <button className="sign-up" onClick={this.signIn}>
+            Sign In
+          </button>
         </div>
       </div>
     )
