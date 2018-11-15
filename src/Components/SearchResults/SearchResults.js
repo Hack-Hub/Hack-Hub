@@ -129,7 +129,7 @@ class SearchResults extends Component {
         </div>
 
         <div className="Post-Results--Container">
-          {this.state.postResults.map(post => {
+          {/* {this.state.postResults.map(post => {
             console.log('post', post)
             return (
               <div key={post.post_id} className="individual-post-section">
@@ -141,7 +141,7 @@ class SearchResults extends Component {
                 />
               </div>
             )
-          })}
+          })} */}
         </div>
       </div>
     )

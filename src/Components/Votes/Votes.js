@@ -1,28 +1,25 @@
 import React, { Component } from "react";
-
+import axios from 'axios'
 class Votes extends Component {
-    constructor(){
-        super()
-        this.state={
-            votes:0
-        }
+    handleUpVote = () => {
+        const { post_id } = this.props
+        axios.post('/api/postUpVote', { post_id })
     }
-    componentDidMount(){
-        //to-do axios.get(votes for this post).then(this.setState({votes:response}))
+
+    handleDownVote = () => {
+        const { post_id } = this.props
+        axios.post('/api/postDownVote', { post_id })
     }
-    handleClick=(num)=>{
-        this.setState({votes:(this.state.votes + num)})
-        //to-do axios.put(votes for this post +/-)
+    
+    render() {
+        return (
+            <div>
+                <button onClick={this.handleUpVote}>Upvote</button>
+                {this.props.votes}
+                <button onClick={this.handleDownVote}>Downvote</button>
+            </div>
+        );
     }
-  render() {
-    return (
-    <div>
-        <button onClick={()=>this.handleClick(1)}>Upvote</button>
-        {this.state.votes}
-        <button onClick={()=>this.handleClick(-1)}>Downvote</button>
-    </div>
-    );
-  }
 }
 
 export default Votes;
