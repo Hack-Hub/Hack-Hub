@@ -3,7 +3,6 @@ import './NewPost.scss'
 import ImageUpload from './ImageUpload'
 import GetSubHub from './GetSubHub'
 import axios from 'axios'
-// import {newPost} from '../../Ducks/PostsReducer'
 
 class NewPost extends Component {
   constructor(){
@@ -30,13 +29,16 @@ class NewPost extends Component {
     const { title, text, URL,imageURL,subhub_id} = this.state
     axios.post('/api/newPost',{subhub_id,title,text_content:text,web_url:URL,image_url:imageURL,})
   }
+  //called in GetSubHub
   setSubHubID=(id)=>{
     this.setState({subhub_id:id})
   }
+  //called in ImageUpload
   setImageURL=(URL)=>{
     console.log(URL);
     this.setState({imageURL:URL})
   }
+  
   render() {
     const {postType} = this.state
     //conditionally render the post type depending on the button selection
@@ -47,8 +49,8 @@ class NewPost extends Component {
     
     return (
       <div className='newPost'>
+        <h1>New Post</h1>
         <GetSubHub setID={this.setSubHubID}/>
-        <h3>New Post</h3>
         <button name='Text' onClick={this.handleTypeChange}>Text</button>
         <button name='URL' onClick={this.handleTypeChange}>URL</button>
         <button name='Image' onClick={this.handleTypeChange}>Image</button>

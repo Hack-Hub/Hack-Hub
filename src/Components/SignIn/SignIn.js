@@ -33,7 +33,6 @@ class SignIn extends Component {
       .then(data => console.log('data', data))
       .catch(err => console.log('err', err))
       .then(() => this.postUserToTable(this.state.user))
-      .then(this.forceUpdate())
 
       .catch(err => console.log('err', err))
   }

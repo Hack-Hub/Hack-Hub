@@ -21,6 +21,13 @@ module.exports = {
     })
 
   },
+  getPostByID(req,res){
+    let db = req.app.get('db');
+    const {post_id} = req.params
+    db.posts.getPostByID(post_id).then(response=>{
+      return res.status(200).send(response)
+    })
+  },
   editPost(req, res) {
     let db = req.app.get('db');
     const { post_id, title, image_url, web_url, text_content } = req.body;

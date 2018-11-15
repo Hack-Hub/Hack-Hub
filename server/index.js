@@ -12,6 +12,7 @@ const express = require('express'),
     editPost,
     deletePost,
     getPostsBySub,
+    getPostByID
   } = require('./Controllers/PostsController'),
   {
     postUpVote,
@@ -26,7 +27,7 @@ const express = require('express'),
     editComment,
     deleteComment,
   } = require('./Controllers/CommentsController'),
-  { getSub, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
+  { getSub, getSubByName, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
   {
     addNewUser,
     getCurrentUser,
@@ -55,14 +56,14 @@ app.use(
 
 //-----Endpoints-----
 //Posts
-app.get('/api/getPosts/:id', getPosts)
-app.get('/api/getSubPosts/:id', getPostsBySub)
+app.get('/api/getPosts/', getPosts)
+app.get('/api/getSubPosts/:subhub_id', getPostsBySub)
+app.get('/api/getPostByID/:post_id', getPostByID)
 app.post('/api/newPost', newPost)
 app.put('/api/editPost:id', editPost)
 app.delete('/api/deletePost/:id', deletePost)
 
 // Votes
-
 app.post('/api/postUpVote', postUpVote)
 app.post('/api/postDownVote', postDownVote)
 
@@ -78,12 +79,13 @@ app.post('/api/newMessage', newMessage)
 
 //Subhubs
 app.get('/api/getSub/:subhub_id', getSub)
+app.get('/api/getSubByName/',getSubByName)
 app.post('/api/newSub', newSub)
 app.put('/api/editSub/:subhub_id', editSub)
 app.delete('/api/deleteSub/:subhub_id', deleteSub)
 
 //Followed Subhubs
-app.get('/api/getUserSubs/:user_id', getUserSubs)
+app.get('/api/getUserSubs/', getUserSubs)
 app.post('/api/addFollow', addFollow)
 app.delete('/api/deleteFollow/:userId/:subhubId', deleteFollow)
 

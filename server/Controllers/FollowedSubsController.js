@@ -1,7 +1,8 @@
 module.exports = {
   getUserSubs(req, res) {
     const db = req.app.get('db')
-    db.followed.get_user_subs(req.params.user_id).then(subs => {
+    const {user_id} = req.session
+    db.followed.get_user_subs(user_id).then(subs => {
       return res.status(200).json(subs)
     })
   },

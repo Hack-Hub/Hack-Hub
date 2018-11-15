@@ -19,7 +19,7 @@ class App extends Component {
 
   getUser() {
     axios.get('/api/currentUser').then(response => {
-      console.log('response', response)
+      // console.log('response', response)
       this.setState({ currentUser: response.data[0] })
     })
   }

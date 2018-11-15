@@ -37,17 +37,9 @@ class Nav extends Component {
   // }
 
   render() {
-    console.log('this.props', this.props)
-    const currentUser = this.props.user && this.props.user.user_id !== ''
-    // if (currentUser) {
-    //   link = (
-    //     <Link onClick={console.log('hi')} to="/signOut">
-    //       Sign Out
-    //     </Link>
-    //   )
-    // } else {
-    //   link = <Link to="/signIn">Sign In</Link>
-    // }
+    // console.log('this.props', this.props)
+    const currentUser = this.state.userId !== ''
+
     return (
       <div className="Nav--container">
         <div className="left-nav">
