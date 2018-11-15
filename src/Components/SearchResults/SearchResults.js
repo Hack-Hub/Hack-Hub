@@ -11,15 +11,26 @@ class SearchResults extends Component {
       subhubResults: [],
       postResults: [],
       followedHubs: [],
+      // change user id when req.sessions is fixed
+      userId: 1,
     }
 
     this.handleSubscribe = this.handleSubscribe.bind(this)
+    this.handleUnsubscribe = this.handleUnsubscribe.bind(this)
+    this.getSubhubs = this.getSubhubs.bind(this)
+    this.getPosts = this.getPosts.bind(this)
+    this.getSubhubCurrentUserFollows = this.getSubhubCurrentUserFollows.bind(this)
   }
 
   componentDidMount() {
     const { id } = this.props.match.params
     this.setState({ searchResults: id })
+    this.getSubhubs()
+    this.getPosts()
+    this.getSubhubCurrentUserFollows()
+  }
 
+  getSubhubs() {
     axios.get('/api/getAllSubhubs').then(response => {
       // console.log('response', response)
       const subhubs = response.data
@@ -32,7 +43,8 @@ class SearchResults extends Component {
       }
       this.setState({ subhubResults: filteredSubhubs })
     })
-
+  }
+  getPosts() {
     axios.get('/api/getAllPosts').then(response => {
       // console.log('response', response)
       const posts = response.data
@@ -45,10 +57,12 @@ class SearchResults extends Component {
       }
       this.setState({ postResults: filteredPosts })
     })
+  }
 
+  getSubhubCurrentUserFollows() {
     // TODO!!!! CHANGE 1 WHEN USER SESSIONS IS FIXED
     axios.get(`/api/getUserSubs/${1}`).then(response => {
-      console.log('response', response)
+      // console.log('response', response)
 
       this.setState({
         followedHubs: response.data.map(hub => hub.subhub_id),
@@ -59,9 +73,14 @@ class SearchResults extends Component {
   handleSubscribe() {
     axios.post('/api/addFollow')
   }
+  handleUnsubscribe() {
+    axios.delete(`/api/deleteFollow/${this.state.userId}`).then(() => {
+      this.getSubhubCurrentUserFollows()
+    })
+  }
 
   render() {
-    console.log('this.state.followedHubs', this.state.followedHubs)
+    // console.log('this.state.followedHubs', this.state.followedHubs)
 
     return (
       <div className="SearchResults--container">
@@ -73,7 +92,6 @@ class SearchResults extends Component {
           {this.state.subhubResults.map(individualSubhub => {
             const follows = this.state.followedHubs.includes(individualSubhub.subhub_id)
 
-            // console.log('follows', follows)
             console.log('this.state.subhubResults', this.state.subhubResults)
             return (
               <div key={individualSubhub.subhub_id} className="individual-subhub-section">
@@ -87,7 +105,9 @@ class SearchResults extends Component {
                   <p>{individualSubhub.sh_desc}</p>
                 </div>
                 {follows ? (
-                  <button onClick={this.handleUnsubscribe}>Unsubscribe</button>
+                  <button onClick={() => this.handleUnsubscribe(this.state.userId)}>
+                    Unsubscribe
+                  </button>
                 ) : (
                   <button onClick={this.handleSubscribe}>Subscribe</button>
                 )}
