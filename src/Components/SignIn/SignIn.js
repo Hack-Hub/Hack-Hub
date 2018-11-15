@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
 import './SignIn.scss'
+import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import { Auth } from 'aws-amplify'
 
 class SignIn extends Component {
   constructor(props) {
     super(props)
-    this.state = { username: '', password: '', user: {} }
+    this.state = {
+      username: '',
+      password: '',
+      user: {},
+      authState: props.authState,
+      authData: props.authData,
+    }
 
     this.onChange = this.onChange.bind(this)
     this.signIn = this.signIn.bind(this)
@@ -21,9 +28,12 @@ class SignIn extends Component {
 
   signIn = async () => {
     const { username, password } = this.state
-    await Auth.signIn(username, password)
-      .then(user => this.setState({ user }))
+    await Auth.signIn(username, password).then(user => this.setState({ user }))
+    await Auth.confirmSignIn(this.state.user)
+      .then(data => console.log('data', data))
+      .catch(err => console.log('err', err))
       .then(() => this.postUserToTable(this.state.user))
+
       .catch(err => console.log('err', err))
   }
 
@@ -37,11 +47,12 @@ class SignIn extends Component {
       .then(response => {
         console.log('response.data', response.data)
         console.log('response.data[0].user_id', response.data[0].user_id)
-        axios.post('/api/userSession', {
-          user_id: response.data[0].user_id,
-        })
+        axios
+          .post('/api/userSession', {
+            user_id: response.data[0].user_id,
+          })
+          .then(this.routeChange())
       })
-      .then(this.routeChange())
   }
 
   routeChange() {
@@ -52,13 +63,6 @@ class SignIn extends Component {
   closeModal() {
     this.props.history.goBack()
   }
-  // confirmSignIn = async () => {
-  //   console.log('this.state.user', this.state.user)
-  //   const { user } = this.state
-  //   await Auth.confirmSignIn(user)
-  //     .then(data => console.log('data', data))
-  //     .catch(err => console.log('err', err))
-  // }
 
   render() {
     // console.log('this.props', this.props)
@@ -101,4 +105,4 @@ const styles = {
   inputs: { height: 35, margin: 10 },
 }
 
-export default SignIn
+export default withRouter(SignIn)

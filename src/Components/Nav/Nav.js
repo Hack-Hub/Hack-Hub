@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './Nav.scss'
-import { Auth } from 'aws-amplify'
+// import { Auth } from 'aws-amplify'
 
 class Nav extends Component {
   constructor() {
@@ -9,9 +9,12 @@ class Nav extends Component {
     this.state = {
       searchResults: '',
       userId: '',
+      // currentUser: '',
+      randomState: true,
     }
     this.handleChange = this.handleChange.bind(this)
     this.reRenderResultsPage = this.reRenderResultsPage.bind(this)
+    this.handleRandomState = this.handleRandomState.bind(this)
   }
 
   handleChange(event) {
@@ -22,16 +25,16 @@ class Nav extends Component {
     window.location.reload(selectedPage)
   }
 
-  signOut = async () => {
-    // const { username, password, email, phone_number } = this.state
-    try {
-      await Auth.signOut()
-        .then(data => console.log('data', data))
-        .then(this.setState({ userId: '' }))
-    } catch (err) {
-      console.log(err)
-    }
+  handleRandomState(event) {
+    this.setState({ randomState: !event })
   }
+
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.user !== prevProps.user) {
+  //     console.log('hi')
+  //     this.setState({ currentUser: this.props.user && this.props.user.user_id !== '' })
+  //   }
+  // }
 
   render() {
     // console.log('this.props', this.props)
@@ -68,8 +71,14 @@ class Nav extends Component {
             <i className="fa fa-2x fa-plus-square" />
           </Link>
           <Link to="/authenticate">Sign Up</Link>
-          {currentUser ? <button>Sign Out</button> : <Link to="/signIn">Sign In</Link>}
-          {/* // <Link to="/signIn">Sign In</Link> */}
+
+          {currentUser ? (
+            <Link onClick={event => this.handleRandomeState(event)} to="/signOut">
+              Sign Out
+            </Link>
+          ) : (
+            <Link to="/signIn">Sign In</Link>
+          )}
         </div>
       </div>
     )

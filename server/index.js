@@ -95,6 +95,10 @@ app.post('/api/userSession', (req, res) => {
   req.session.user_id = req.body.user_id
   req.session.save()
 })
+app.post('/api/destroySession', (req, res) => {
+  // req.session.user_id = req.body.user_id
+  req.session.destroy()
+})
 app.get('/api/currentUser', getCurrentUser)
 app.put('/api/editUserName/:userId', editUserName)
 app.put('/api/editUserPhoto/:userId', editUserPhoto)
