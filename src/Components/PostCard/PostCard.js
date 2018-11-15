@@ -3,10 +3,12 @@ import './PostCard.scss'
 import TextPost from './TextPost'
 import ImagePost from './ImagePost'
 import URLPost from './URLPost'
+import { Link } from 'react-router-dom'
 
 class PostCard extends Component {
   render() {
-    console.log(this.props)
+    // console.log(this.props)
+    console.log('this.props', this.props)
     const {
       image_url,
       post_date_time,
@@ -17,6 +19,7 @@ class PostCard extends Component {
       user_id,
       votes,
       web_url,
+      subhub_name,
     } = this.props.post
     if (text_content) {
       return <TextPost post={this.props.post} />
