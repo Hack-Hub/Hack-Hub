@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
 import axios from 'axios'
-import './SearchResults.scss'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import './SearchResults.scss'
+import PostCard from '../PostCard/PostCard'
 
 class SearchResults extends Component {
   constructor(props) {
@@ -132,9 +133,12 @@ class SearchResults extends Component {
             console.log('post', post)
             return (
               <div key={post.post_id} className="individual-post-section">
-                <Link to={`/postview/${post.post_id}`}>
-                  <h1>{post.title}</h1>
-                </Link>
+                <PostCard
+                  postId={post.post_id}
+                  postTitle={post.title}
+                  postContent={post.text_content}
+                  timePosted={post.post_date_time}
+                />
               </div>
             )
           })}
