@@ -106,13 +106,7 @@ const io = socketio(expressServer)
 
 io.on('connection', socket => {
   socket.on('room', data => {
-    console.log(data);
     socket.join(data.room)
-
-    io.in(data.room).emit('message', {
-      username: 'Server',
-      message_text: `Welcome to ${data.room}`,
-    })
   })
 
   socket.on('send_message', (data) => {

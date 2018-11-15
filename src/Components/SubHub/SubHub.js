@@ -17,17 +17,16 @@ class SubHub extends Component {
     }
 
     this.getSubhubInfo = this.getSubhubInfo.bind(this)
-    this.getSubhubPosts = this.getSubhubPosts.bind(this)
+    // this.getSubhubPosts = this.getSubhubPosts.bind(this)
   }
 
   componentDidMount() {
     this.getSubhubInfo()
-    this.getSubhubPosts()
+    // this.getSubhubPosts()
   }
 
   getSubhubInfo() {
     axios.get(`/api/getSub/${this.props.match.params.id}`).then(response => {
-      console.log('response', response)
       // response.data[0]
       const { sh_name, sh_icon, sh_banner, theme_color, sh_desc } = response.data[0]
       this.setState({
@@ -40,15 +39,14 @@ class SubHub extends Component {
     })
   }
 
-  getSubhubPosts() {
-    axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(response => {
-      console.log('response', response)
-    })
-  }
+  // getSubhubPosts() {
+  //   axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(response => {
+  //     console.log('response', response)
+  //   })
+  // }
 
   render() {
     const { subhubName, icon, banner, themeColor, desc } = this.state
-    console.log('this.state', this.state)
     return (
       <div className="SubHub--container">
         <section className="banner" style={{ background: themeColor }}>
@@ -62,18 +60,18 @@ class SubHub extends Component {
         </section>
         <section className="links">
           <div className="links-container">
-            <Link to="/subhub/postfeed" className="subhub-links">
+            <Link to={`/subhub/${this.props.match.params.id}/postfeed`} className="subhub-links">
               Posts
             </Link>
-            <Link to="/subhub/chat" className="subhub-links">
+            <Link to={`/subhub/${this.props.match.params.id}/chat`} className="subhub-links" subhub_name={this.state.subhubName}>
               Chat
             </Link>
           </div>
         </section>
         <Switch>
           {/* TODO!! CHANGE THIS FIRST ROUTE TO A RENDER ROUTE FOR SUB HUB ID */}
-          <Route path="/subhub/postfeed" component={PostFeed} />
-          <Route path="/subhub/chat" component={Chat} />
+          <Route path="/subhub/:id/postfeed" component={PostFeed} />
+          <Route path="/subhub/:id/chat" component={Chat}/>
         </Switch>
       </div>
     )
