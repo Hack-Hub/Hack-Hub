@@ -52,6 +52,19 @@ $light-black: #323232;
       font-size: 10px;
       text-transform: capitalize;
     }
+    .right-postcard {
+      padding: 2px;
+
+      .subhub-name {
+        margin-bottom: 5px;
+
+        a {
+          color: $light-gray;
+          text-transform: capitalize;
+          font-size: 12px;
+        }
+      }
+    }
   }
 
   .Card--section--body {
@@ -59,6 +72,9 @@ $light-black: #323232;
     color: $light-gray;
     font-weight: 200;
     line-height: 20px;
+    img {
+      width: 100%;
+    }
   }
 
   .votes {
