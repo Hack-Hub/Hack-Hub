@@ -63,13 +63,17 @@ class Chat extends Component {
           <div key={i}>
             {message.username===current_user.username ? (
               <div className="currentUserMessage">
-                <p>{message.username}</p>
-                <p>{message.message_text}</p>
+                <div className="message">
+                  <p className="name">{message.username}</p>
+                  <p className="text">{message.message_text}</p>
+                </div>
               </div>
             ):(
               <div className="otherUsers">
-                <p>{message.username}</p>
-                <p>{message.message_text}</p>
+                <div className="message2">
+                  <p className="name">{message.username}</p>
+                  <p className="text">{message.message_text}</p>
+                </div>
               </div>
             )}
           </div>
@@ -79,10 +83,11 @@ class Chat extends Component {
 
     return (
       <div className="Chat--container">
-        <div>{messageList}</div>
+        <h3></h3>
+        <div className="messageList">{messageList}</div>
         <div>
-          <input  type="text" placeholder="Message" value={message} onChange={(e) => this.setState({message: e.target.value})}/>
-          <button onClick={this.sendMessage}>Send</button>
+          <input  type="text" placeholder="Message" value={message} onChange={(e) => this.setState({message: e.target.value})} className="inputMessage"/>
+          <button onClick={this.sendMessage} className="send">Send</button>
         </div>
       </div>
     )
