@@ -9,10 +9,15 @@ class Nav extends Component {
       searchResults: '',
     }
     this.handleChange = this.handleChange.bind(this)
+    this.reRenderResultsPage = this.reRenderResultsPage.bind(this)
   }
 
   handleChange(event) {
     this.setState({ searchResults: event.target.value })
+  }
+
+  reRenderResultsPage(selectedPage) {
+    window.location.reload(selectedPage)
   }
 
   render() {
@@ -26,7 +31,10 @@ class Nav extends Component {
         <div className="right-nav">
           <div className="search-bar">
             <input className="search-input" name="searchResults" onChange={this.handleChange} />
-            <Link to={`/searchResults/${this.state.searchResults}`}>
+            <Link
+              to={`/searchResults/${this.state.searchResults}`}
+              onClick={selectedPage => this.reRenderResultsPage(selectedPage)}
+            >
               <i className="fa fa-2x fa-search" />
             </Link>
             {/* <Link to={{pathname: '/searchResults',}}/> */}

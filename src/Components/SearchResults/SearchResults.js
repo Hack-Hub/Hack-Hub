@@ -37,7 +37,7 @@ class SearchResults extends Component {
       // console.log('subhubs', subhubs)
       const filteredSubhubs = []
       for (let i = 0; i < subhubs.length; i++) {
-        if (subhubs[i].sh_name.includes(this.state.searchResults)) {
+        if (subhubs[i].sh_name.toLowerCase().includes(this.state.searchResults.toLowerCase())) {
           filteredSubhubs.push(subhubs[i])
         }
       }
@@ -51,7 +51,8 @@ class SearchResults extends Component {
       // console.log('posts', posts)
       const filteredPosts = []
       for (let i = 0; i < posts.length; i++) {
-        if (posts[i].title.includes(this.state.searchResults)) {
+        console.log('posts', posts[i].title.toLowerCase())
+        if (posts[i].title.toLowerCase().includes(this.state.searchResults)) {
           filteredPosts.push(posts[i])
         }
       }
@@ -102,12 +103,13 @@ class SearchResults extends Component {
 
           {this.state.subhubResults.map(individualSubhub => {
             const follows = this.state.followedHubs.includes(individualSubhub.subhub_id)
-
-            console.log('this.state.subhubResults', this.state.subhubResults)
+            // console.log('this.state.subhubResults', this.state.subhubResults)
             return (
               <div key={individualSubhub.subhub_id} className="individual-subhub-section">
                 <div className="subhub-left">
-                  <img src={individualSubhub.sh_icon} alt="subhub-icon" />
+                  <div className="talk-bubble tri-right border btm-right-in" alt="subhub">
+                    <img src={individualSubhub.sh_icon} alt="subhub-icon" />
+                  </div>
                   <Link to={`/subhub/${individualSubhub.subhub_id}`}>
                     <h1>{individualSubhub.sh_name}</h1>
                   </Link>
@@ -122,19 +124,11 @@ class SearchResults extends Component {
                         `/api/deleteFollow/${this.state.userId}/${individualSubhub.subhub_id}`
                       )
                       await this.getSubhubCurrentUserFollows()
-
-                      // .then(window.location.reload())
                     }}
                   >
                     Unsubscribe
                   </button>
                 ) : (
-                  // onClick={() =>
-                  //   this.followUser({
-                  //     user_followingid: this.props.userInfoById.user_id,
-                  //     follower_id: this.props.user && this.props.user.user_id,
-                  //   })
-                  // }
                   <button onClick={() => this.handleSubscribe(individualSubhub.subhub_id)}>
                     Subscribe
                   </button>
