@@ -26,6 +26,7 @@ const express = require('express'),
     editComment,
     deleteComment,
   } = require('./Controllers/CommentsController'),
+<<<<<<< HEAD
   { getSub, getSubByName, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
   {
     addNewUser,
@@ -33,6 +34,10 @@ const express = require('express'),
     editUserName,
     editUserPhoto,
   } = require('./Controllers/UserController'),
+=======
+  { getSub, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
+  { addNewUser, getCurrentUser, editUserName, editUserPhoto } = require('./Controllers/UserController'),
+>>>>>>> master
   { getUserSubs, addFollow, deleteFollow } = require('./Controllers/FollowedSubsController'),
   { getAllSubhubs, getAllPosts } = require('./Controllers/SearchbarController'),
   session = require('express-session')
@@ -45,13 +50,14 @@ massive(process.env.CONNECTION_STRING).then(dbInstance => {
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
       maxAge: 1000000,
     },
   })
 )
+
 
 //-----Endpoints-----
 //Posts
@@ -91,11 +97,10 @@ app.delete('/api/deleteFollow/:userId/:subhubId', deleteFollow)
 // Users
 app.post('/api/newUser', addNewUser)
 app.post('/api/userSession', (req, res) => {
-  // console.log('req.body', req.body)
   req.session.user_id = req.body.user_id
-  console.log('req.session', req.session)
+  req.session.save();
 })
-app.get('/api/userById/:userId', getLoggedInUserId)
+app.get('/api/currentUser', getCurrentUser)
 app.put('/api/editUserName/:userId', editUserName)
 app.put('/api/editUserPhoto/:userId', editUserPhoto)
 // app.delete('/api/deleteUser/:userId', deleteUser)
@@ -113,10 +118,12 @@ const io = socketio(expressServer)
 io.on('connection', socket => {
   socket.on('room', data => {
     socket.join(data.room)
+  })
 
-    socket.to(data.room).emit('message', {
-      author: 'Server',
-      message: `Welcome to ${data.user}`,
+  socket.on('send_message', (data) => {
+    io.in(data.room).emit('message',{
+      username: data.username,
+      message_text: data.message_text
     })
   })
 
