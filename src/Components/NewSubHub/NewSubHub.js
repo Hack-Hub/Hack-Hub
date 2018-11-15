@@ -34,6 +34,7 @@ class NewSubHub extends Component {
     console.log(URL);
     this.setState({sh_banner:URL})
   }
+  
   setIcon=(URL)=>{
     console.log(URL);
     this.setState({sh_icon:URL})
