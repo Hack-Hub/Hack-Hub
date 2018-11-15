@@ -1,2 +1,2 @@
 SELECT * FROM subhubs
-WHERE sh_name LIKE $1 || %
+WHERE sh_name LIKE $1 || %;

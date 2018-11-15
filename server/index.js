@@ -26,18 +26,13 @@ const express = require('express'),
     editComment,
     deleteComment,
   } = require('./Controllers/CommentsController'),
-<<<<<<< HEAD
   { getSub, getSubByName, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
   {
     addNewUser,
-    getLoggedInUserId,
+    getCurrentUser,
     editUserName,
     editUserPhoto,
   } = require('./Controllers/UserController'),
-=======
-  { getSub, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
-  { addNewUser, getCurrentUser, editUserName, editUserPhoto } = require('./Controllers/UserController'),
->>>>>>> master
   { getUserSubs, addFollow, deleteFollow } = require('./Controllers/FollowedSubsController'),
   { getAllSubhubs, getAllPosts } = require('./Controllers/SearchbarController'),
   session = require('express-session')
