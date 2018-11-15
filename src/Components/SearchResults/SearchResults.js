@@ -16,7 +16,7 @@ class SearchResults extends Component {
     }
 
     this.handleSubscribe = this.handleSubscribe.bind(this)
-    this.handleUnsubscribe = this.handleUnsubscribe.bind(this)
+    // this.handleUnsubscribe = this.handleUnsubscribe.bind(this)
     this.getSubhubs = this.getSubhubs.bind(this)
     this.getPosts = this.getPosts.bind(this)
     this.getSubhubCurrentUserFollows = this.getSubhubCurrentUserFollows.bind(this)
@@ -63,21 +63,32 @@ class SearchResults extends Component {
     // TODO!!!! CHANGE 1 WHEN USER SESSIONS IS FIXED
     axios.get(`/api/getUserSubs/${1}`).then(response => {
       // console.log('response', response)
-
       this.setState({
         followedHubs: response.data.map(hub => hub.subhub_id),
       })
     })
   }
 
-  handleSubscribe() {
-    axios.post('/api/addFollow')
+  handleSubscribe(subhubId) {
+    axios
+      .post('/api/addFollow', {
+        userId: this.state.userId,
+        subhubId: subhubId,
+      })
+      .then(() => {
+        this.getSubhubCurrentUserFollows()
+      })
   }
-  handleUnsubscribe() {
-    axios.delete(`/api/deleteFollow/${this.state.userId}`).then(() => {
-      this.getSubhubCurrentUserFollows()
-    })
-  }
+
+  // handleUnsubscribe(subhubId) {
+  //   axios
+  //     .delete(`/api/deleteFollow/${this.state.userId}`, {
+  //       subhubId,
+  //     })
+  //     .then(() => {
+  //       this.getSubhubCurrentUserFollows()
+  //     })
+  // }
 
   render() {
     // console.log('this.state.followedHubs', this.state.followedHubs)
@@ -105,11 +116,28 @@ class SearchResults extends Component {
                   <p>{individualSubhub.sh_desc}</p>
                 </div>
                 {follows ? (
-                  <button onClick={() => this.handleUnsubscribe(this.state.userId)}>
+                  <button
+                    onClick={async () => {
+                      axios.delete(
+                        `/api/deleteFollow/${this.state.userId}/${individualSubhub.subhub_id}`
+                      )
+                      await this.getSubhubCurrentUserFollows()
+
+                      // .then(window.location.reload())
+                    }}
+                  >
                     Unsubscribe
                   </button>
                 ) : (
-                  <button onClick={this.handleSubscribe}>Subscribe</button>
+                  // onClick={() =>
+                  //   this.followUser({
+                  //     user_followingid: this.props.userInfoById.user_id,
+                  //     follower_id: this.props.user && this.props.user.user_id,
+                  //   })
+                  // }
+                  <button onClick={() => this.handleSubscribe(individualSubhub.subhub_id)}>
+                    Subscribe
+                  </button>
                 )}
               </div>
             )

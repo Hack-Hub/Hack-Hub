@@ -7,15 +7,19 @@ module.exports = {
   },
   addFollow(req, res) {
     const db = req.app.get('db')
-    db.followed.add_follow([req.body.subhub_id, req.body.user_id])
+    db.followed.add_follow([req.body.subhubId, req.body.userId]).then(response => {
+      return res.status(200).json(response)
+    })
   },
   deleteFollow(req, res) {
-    const { userId } = req.params
+    console.log('req.params', req.params)
+    const { userId, subhubId } = req.params
+    // const { subhubId } = req.body
     const db = req.app.get('db')
     db.followed
-      .delete_follow([userId])
+      .delete_follow([userId, subhubId])
       .then(() => {
-        return res.sendStatus(200)
+        return res.status(200)
       })
       .catch(err => console.log('err', err))
   },
