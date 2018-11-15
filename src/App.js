@@ -9,13 +9,15 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = { currentUser: null, currentUserInfo: {} }
+
+    this.getUser = this.getUser.bind(this)
   }
 
   componentDidMount() {
-    this.getUserId()
+    this.getUser()
   }
 
-  getUserId() {
+  getUser() {
     axios.get('/api/currentUser').then(response => {
       console.log('response', response)
       this.setState({ currentUser: response.data[0] })

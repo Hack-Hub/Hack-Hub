@@ -9,9 +9,12 @@ class Nav extends Component {
     this.state = {
       searchResults: '',
       userId: '',
+      // currentUser: '',
+      randomState: true,
     }
     this.handleChange = this.handleChange.bind(this)
     this.reRenderResultsPage = this.reRenderResultsPage.bind(this)
+    this.handleRandomState = this.handleRandomState.bind(this)
   }
 
   handleChange(event) {
@@ -22,32 +25,29 @@ class Nav extends Component {
     window.location.reload(selectedPage)
   }
 
-  // signOut = async () => {
-  //   console.log('this.props', this.props)
-  //   // const { username, password, email, phone_number } = this.state
-  //   try {
-  //     await Auth.signOut()
+  handleRandomState(event) {
+    this.setState({ randomState: !event })
+  }
 
-  //       // .then(data => console.log('data', data))
-  //       .then(this.setState({ userId: '' }))
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
-
-  // signOut = async () => {
-  //   try {
-  //     await Auth.signOut()
-  //     // signout success
-  //   } catch (e) {
-  //     // signout failed
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.user !== prevProps.user) {
+  //     console.log('hi')
+  //     this.setState({ currentUser: this.props.user && this.props.user.user_id !== '' })
   //   }
   // }
 
   render() {
     console.log('this.props', this.props)
     const currentUser = this.props.user && this.props.user.user_id !== ''
-
+    // if (currentUser) {
+    //   link = (
+    //     <Link onClick={console.log('hi')} to="/signOut">
+    //       Sign Out
+    //     </Link>
+    //   )
+    // } else {
+    //   link = <Link to="/signIn">Sign In</Link>
+    // }
     return (
       <div className="Nav--container">
         <div className="left-nav">
@@ -79,8 +79,14 @@ class Nav extends Component {
             <i className="fa fa-2x fa-plus-square" />
           </Link>
           <Link to="/authenticate">Sign Up</Link>
-          {currentUser ? <Link to="/signOut">Sign Out</Link> : <Link to="/signIn">Sign In</Link>}
-          {/* // <Link to="/signIn">Sign In</Link> */}
+
+          {currentUser ? (
+            <Link onClick={event => this.handleRandomeState(event)} to="/signOut">
+              Sign Out
+            </Link>
+          ) : (
+            <Link to="/signIn">Sign In</Link>
+          )}
         </div>
       </div>
     )
