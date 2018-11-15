@@ -47,7 +47,6 @@ class ImageUpload extends Component {
     render() {
         return (
             <div>
-                <h3>AWS S3 Upload</h3>
                 <input type='file' onChange={this.handleChange}></input>
                 <button onClick={this.saveFile}>Save File</button>
                 <img src={this.state.fileURL} alt='' />
