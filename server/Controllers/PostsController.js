@@ -9,7 +9,7 @@ module.exports = {
   },
   getPosts(req, res) {
     let db = req.app.get('db');
-    db.posts.getPosts().then(response => {
+    db.posts.getAllPosts().then(response => {
      return res.status(200).send(response)
     })
   },
