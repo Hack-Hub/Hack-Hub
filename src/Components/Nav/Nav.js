@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './Nav.scss'
 import { Auth } from 'aws-amplify'
-import axios from 'axios'
 
 class Nav extends Component {
   constructor() {
@@ -13,11 +12,6 @@ class Nav extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.reRenderResultsPage = this.reRenderResultsPage.bind(this)
-    this.getUserId = this.getUserId.bind(this)
-  }
-
-  componentDidMount() {
-    this.getUserId()
   }
 
   handleChange(event) {
@@ -26,13 +20,6 @@ class Nav extends Component {
 
   reRenderResultsPage(selectedPage) {
     window.location.reload(selectedPage)
-  }
-
-  getUserId() {
-    axios.get('/api/currentUser').then(response => {
-      console.log('response', response)
-      // this.setState({ userId: response.data })
-    })
   }
 
   signOut = async () => {
