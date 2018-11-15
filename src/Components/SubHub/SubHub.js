@@ -27,6 +27,7 @@ class SubHub extends Component {
 
   getSubhubInfo() {
     axios.get(`/api/getSub/${this.props.match.params.id}`).then(response => {
+      // console.log('response', response)
       // response.data[0]
       const { sh_name, sh_icon, sh_banner, theme_color, sh_desc } = response.data[0]
       this.setState({
@@ -63,7 +64,11 @@ class SubHub extends Component {
             <Link to={`/subhub/${this.props.match.params.id}/postfeed`} className="subhub-links">
               Posts
             </Link>
-            <Link to={`/subhub/${this.props.match.params.id}/chat`} className="subhub-links" subhub_name={this.state.subhubName}>
+            <Link
+              to={`/subhub/${this.props.match.params.id}/chat`}
+              className="subhub-links"
+              subhub_name={this.state.subhubName}
+            >
               Chat
             </Link>
           </div>
@@ -71,7 +76,7 @@ class SubHub extends Component {
         <Switch>
           {/* TODO!! CHANGE THIS FIRST ROUTE TO A RENDER ROUTE FOR SUB HUB ID */}
           <Route path="/subhub/:id/postfeed" component={PostFeed} />
-          <Route path="/subhub/:id/chat" component={Chat}/>
+          <Route path="/subhub/:id/chat" component={Chat} />
         </Switch>
       </div>
     )

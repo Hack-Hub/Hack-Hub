@@ -27,7 +27,12 @@ const express = require('express'),
     deleteComment,
   } = require('./Controllers/CommentsController'),
   { getSub, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
-  { addNewUser, getCurrentUser, editUserName, editUserPhoto } = require('./Controllers/UserController'),
+  {
+    addNewUser,
+    getCurrentUser,
+    editUserName,
+    editUserPhoto,
+  } = require('./Controllers/UserController'),
   { getUserSubs, addFollow, deleteFollow } = require('./Controllers/FollowedSubsController'),
   { getAllSubhubs, getAllPosts } = require('./Controllers/SearchbarController'),
   session = require('express-session')
@@ -47,7 +52,6 @@ app.use(
     },
   })
 )
-
 
 //-----Endpoints-----
 //Posts
@@ -87,12 +91,11 @@ app.delete('/api/deleteFollow/:userId/:subhubId', deleteFollow)
 app.post('/api/newUser', addNewUser)
 app.post('/api/userSession', (req, res) => {
   req.session.user_id = req.body.user_id
-  req.session.save();
+  req.session.save()
 })
 app.get('/api/currentUser', getCurrentUser)
 app.put('/api/editUserName/:userId', editUserName)
 app.put('/api/editUserPhoto/:userId', editUserPhoto)
-// app.delete('/api/deleteUser/:userId', deleteUser)
 
 // Searchbar
 app.get('/api/getAllSubhubs', getAllSubhubs)
@@ -109,10 +112,10 @@ io.on('connection', socket => {
     socket.join(data.room)
   })
 
-  socket.on('send_message', (data) => {
-    io.in(data.room).emit('message',{
+  socket.on('send_message', data => {
+    io.in(data.room).emit('message', {
       username: data.username,
-      message_text: data.message_text
+      message_text: data.message_text,
     })
   })
 
