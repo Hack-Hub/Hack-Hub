@@ -8,18 +8,74 @@ $dark-gray: #888888;
 $black: #252525;
 $light-black: #323232;
 
+* {
+  box-sizing: border-box;
+}
+
 .Authentication--container {
   display: flex;
   justify-content: center;
-  padding-top: 80px;
+  // padding-top: 80px;
   width: 50%;
   margin: 0 auto;
+  padding: 20px;
   background: $light-gray;
   display: flex;
+  justify-content: flex-start;
   position: absolute;
   top: 50%;
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
   height: 50vh;
+  flex-direction: column;
+
+  .auth-section {
+    display: flex;
+    margin: 0 auto;
+    padding: 30px;
+    text-align: center;
+    flex-direction: column;
+    margin-top: 30px;
+
+    input {
+      margin: 20px auto;
+      width: 300px;
+      border-bottom: 1px solid $blue;
+      padding: 4px;
+      font-family: $font-family;
+    }
+
+    .sign-up {
+      width: 200px;
+      text-align: center;
+      margin: 0 auto;
+      background: $blue;
+      margin-top: 20px;
+      color: $light-gray;
+      font-family: $font-family;
+      // padding: 3px;
+      height: 30px;
+      // width: 100px;
+      border: transparent;
+      transition: all 0.5s ease;
+    }
+
+    .sign-up:hover {
+      background: none;
+      border: 1px solid $blue;
+      color: $blue;
+    }
+  }
+
+  .close-button img {
+    width: 30px;
+    left: 0;
+    top: 0px;
+    margin: 20px;
+    position: absolute;
+  }
+  .close-button:focus {
+    outline: none;
+  }
 }
