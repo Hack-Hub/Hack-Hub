@@ -21,7 +21,6 @@ class Nav extends Component {
   }
 
   render() {
-    console.log('this.state', this.state)
     return (
       <div className="Nav--container">
         <div className="left-nav">
