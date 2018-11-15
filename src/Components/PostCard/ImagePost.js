@@ -9,7 +9,10 @@ function ImagePost(props) {
       <section className="Card--section--header">
         <div className="left-postcard">
           <div className="user-image" />
-          <h1>{title}</h1>
+
+          <Link to={`/postview/${post_id}`}>
+            <h1>{title}</h1>
+          </Link>
         </div>
         <div className="right-postcard">
           <div className="subhub-name">

@@ -19,6 +19,7 @@ class Authenticate extends Component {
     this.signUp = this.signUp.bind(this)
     this.confirmSignUp = this.confirmSignUp.bind(this)
     this.routeChange = this.routeChange.bind(this)
+    this.closeModal = this.closeModal.bind(this)
   }
 
   routeChange() {
@@ -57,14 +58,25 @@ class Authenticate extends Component {
     }
   }
 
+  closeModal() {
+    this.props.history.goBack()
+  }
+
   render() {
-    console.log('this.state', this.state)
     console.log('this.props', this.props)
 
     return (
       <div className="Authentication--container">
+        <button
+          className="close-button"
+          onClick={() => {
+            this.closeModal()
+          }}
+        >
+          <img src="http://i65.tinypic.com/29ehdth.png" />
+        </button>
         {this.state.step === 0 && (
-          <div>
+          <div className="auth-section">
             <h3>Sign Up</h3>
             <input
               onChange={this.onChange}
@@ -93,7 +105,9 @@ class Authenticate extends Component {
               // id="phone"
               style={styles.input}
             />
-            <button onClick={this.signUp}>Sign Up</button>
+            <button className="sign-up" onClick={this.signUp}>
+              Send Authentication Code
+            </button>
           </div>
         )}
         {this.state.step === 1 && (
