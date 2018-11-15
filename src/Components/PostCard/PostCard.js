@@ -3,7 +3,6 @@ import './PostCard.scss'
 import TextPost from './TextPost'
 import ImagePost from './ImagePost'
 import URLPost from './URLPost'
-// import { Link } from 'react-router-dom'
 
 class PostCard extends Component {
   render() {
