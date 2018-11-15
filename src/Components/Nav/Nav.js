@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './Nav.scss'
-import { Auth } from 'aws-amplify'
+// import { Auth } from 'aws-amplify'
 
 class Nav extends Component {
   constructor() {
@@ -22,20 +22,31 @@ class Nav extends Component {
     window.location.reload(selectedPage)
   }
 
-  signOut = async () => {
-    // const { username, password, email, phone_number } = this.state
-    try {
-      await Auth.signOut()
-        .then(data => console.log('data', data))
-        .then(this.setState({ userId: '' }))
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  // signOut = async () => {
+  //   console.log('this.props', this.props)
+  //   // const { username, password, email, phone_number } = this.state
+  //   try {
+  //     await Auth.signOut()
+
+  //       // .then(data => console.log('data', data))
+  //       .then(this.setState({ userId: '' }))
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
+
+  // signOut = async () => {
+  //   try {
+  //     await Auth.signOut()
+  //     // signout success
+  //   } catch (e) {
+  //     // signout failed
+  //   }
+  // }
 
   render() {
     console.log('this.props', this.props)
-    const currentUser = this.state.userId !== ''
+    const currentUser = this.props.user && this.props.user.user_id !== ''
 
     return (
       <div className="Nav--container">
@@ -68,7 +79,7 @@ class Nav extends Component {
             <i className="fa fa-2x fa-plus-square" />
           </Link>
           <Link to="/authenticate">Sign Up</Link>
-          {currentUser ? <button>Sign Out</button> : <Link to="/signIn">Sign In</Link>}
+          {currentUser ? <Link to="/signOut">Sign Out</Link> : <Link to="/signIn">Sign In</Link>}
           {/* // <Link to="/signIn">Sign In</Link> */}
         </div>
       </div>

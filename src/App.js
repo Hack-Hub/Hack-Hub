@@ -23,10 +23,11 @@ class App extends Component {
   }
 
   render() {
+    console.log('this.state', this.state)
     return (
       <BrowserRouter>
         <div className="App">
-          <Nav />
+          <Nav user={this.state.currentUser} />
           <Routes />
         </div>
       </BrowserRouter>

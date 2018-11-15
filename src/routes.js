@@ -9,6 +9,7 @@ import NewSubHub from './Components/NewSubHub/NewSubHub'
 import SubHub from './Components/SubHub/SubHub'
 import PostView from './Components/PostView/PostView'
 import SearchResults from './Components/SearchResults/SearchResults'
+import SignOut from './Components/SignOut/SignOut'
 
 export default function Routes() {
   return (
@@ -19,7 +20,9 @@ export default function Routes() {
       <Route path="/newsubhub" component={NewSubHub} />
       <Route path="/subhub/:id" component={SubHub} />
       <Route path="/authenticate" component={Authenticate} />
-      <Route path="/signIn" component={SignIn} />
+      {/* DON'T CHANGE THESE ROUTES (signin & signout)... GETTING AN ERROR WHEN RENDING THEM THE OTHER WAY */}
+      <Route path="/signIn" render={() => <SignIn />} />
+      <Route path="/signOut" render={() => <SignOut />} />
       <Route path="/postview/:postId" component={PostView} />
       <Route path="/searchResults/:id" exact component={SearchResults} />
       <Redirect to="/" />

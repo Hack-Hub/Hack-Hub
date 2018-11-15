@@ -43,6 +43,8 @@
     "not op_mini all"
   ],
   "nodemonConfig": {
-    "ignore":["src/"]
+    "ignore": [
+      "src/"
+    ]
   }
 }
