@@ -73,7 +73,7 @@ class Authenticate extends Component {
             this.closeModal()
           }}
         >
-          <img src="http://i65.tinypic.com/29ehdth.png" />
+          <img src="http://i65.tinypic.com/29ehdth.png" alt="close" />
         </button>
         {this.state.step === 0 && (
           <div className="auth-section">

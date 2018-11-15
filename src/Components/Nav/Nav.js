@@ -1,15 +1,23 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './Nav.scss'
+import { Auth } from 'aws-amplify'
+import axios from 'axios'
 
 class Nav extends Component {
   constructor() {
     super()
     this.state = {
       searchResults: '',
+      userId: '',
     }
     this.handleChange = this.handleChange.bind(this)
     this.reRenderResultsPage = this.reRenderResultsPage.bind(this)
+    this.getUserId = this.getUserId.bind(this)
+  }
+
+  componentDidMount() {
+    this.getUserId()
   }
 
   handleChange(event) {
@@ -20,8 +28,28 @@ class Nav extends Component {
     window.location.reload(selectedPage)
   }
 
+  getUserId() {
+    axios.get('/api/currentUser').then(response => {
+      console.log('response', response)
+      // this.setState({ userId: response.data })
+    })
+  }
+
+  signOut = async () => {
+    // const { username, password, email, phone_number } = this.state
+    try {
+      await Auth.signOut()
+        .then(data => console.log('data', data))
+        .then(this.setState({ userId: '' }))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   render() {
-    console.log('this.state', this.state)
+    console.log('this.props', this.props)
+    const currentUser = this.state.userId !== ''
+
     return (
       <div className="Nav--container">
         <div className="left-nav">
@@ -53,7 +81,8 @@ class Nav extends Component {
             <i className="fa fa-2x fa-plus-square" />
           </Link>
           <Link to="/authenticate">Sign Up</Link>
-          <Link to="/signIn">Sign In</Link>
+          {currentUser ? <button>Sign Out</button> : <Link to="/signIn">Sign In</Link>}
+          {/* // <Link to="/signIn">Sign In</Link> */}
         </div>
       </div>
     )

@@ -29,7 +29,7 @@ const express = require('express'),
   { getSub, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
   {
     addNewUser,
-    getLoggedInUserId,
+    getCurrentUser,
     editUserName,
     editUserPhoto,
   } = require('./Controllers/UserController'),
@@ -90,14 +90,11 @@ app.delete('/api/deleteFollow/:userId/:subhubId', deleteFollow)
 // Users
 app.post('/api/newUser', addNewUser)
 app.post('/api/userSession', (req, res) => {
-  // console.log('req.body', req.body)
   req.session.user_id = req.body.user_id
-  console.log('req.session', req.session)
 })
-app.get('/api/userById/:userId', getLoggedInUserId)
+app.get('/api/currentUser', getCurrentUser)
 app.put('/api/editUserName/:userId', editUserName)
 app.put('/api/editUserPhoto/:userId', editUserPhoto)
-// app.delete('/api/deleteUser/:userId', deleteUser)
 
 // Searchbar
 app.get('/api/getAllSubhubs', getAllSubhubs)

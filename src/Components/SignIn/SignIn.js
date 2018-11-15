@@ -28,8 +28,7 @@ class SignIn extends Component {
   }
 
   postUserToTable() {
-    console.log('this.state.user', this.state.user)
-    console.log('this.state.user.pool.client.clientId', this.state.user.pool.clientId)
+    // console.log('this.state.user.pool.client.clientId', this.state.user.pool.clientId)
     axios
       .post('/api/newUser', {
         userClientId: this.state.user.pool.clientId,
@@ -62,7 +61,7 @@ class SignIn extends Component {
   // }
 
   render() {
-    console.log('this.props', this.props)
+    // console.log('this.props', this.props)
     console.log('this.state', this.state)
     return (
       <div className="SignIn--container">
@@ -72,7 +71,7 @@ class SignIn extends Component {
             this.closeModal()
           }}
         >
-          <img src="http://i65.tinypic.com/29ehdth.png" />
+          <img src="http://i65.tinypic.com/29ehdth.png" alt="close" />
         </button>
         <div className="auth-section">
           <h3>Sign In</h3>
