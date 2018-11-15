@@ -26,10 +26,10 @@ class Nav extends Component {
         <div className="right-nav">
           <div className="search-bar">
             <input className="search-input" name="searchResults" onChange={this.handleChange} />
-            {/* <Link to={`/searchResults/${this.state.searchResults}`} > */}
-            {/* <Link to={{pathname: '/searchResults',}}/>
+            <Link to={`/searchResults/${this.state.searchResults}`}>
               <i className="fa fa-2x fa-search" />
-            </Link> */}
+            </Link>
+            {/* <Link to={{pathname: '/searchResults',}}/> */}
           </div>
           <div className="vertical-bar" />
           <Link to="/newpost">

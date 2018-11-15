@@ -17,7 +17,7 @@ export default function Routes() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/newpost" component={NewPost} />
       <Route path="/newsubhub" component={NewSubHub} />
-      <Route path="/subhub" component={SubHub} />
+      <Route path="/subhub/:id" component={SubHub} />
       <Route path="/authenticate" component={Authenticate} />
       <Route path="/signIn" component={SignIn} />
       <Route path="/postview" component={PostView} />
