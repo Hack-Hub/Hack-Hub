@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import axios from "axios";
+import axios from "axios";
 
 class GetSubHub extends Component {
   constructor(props) {
@@ -14,11 +14,13 @@ class GetSubHub extends Component {
     this.setState({ subhubName: event.target.value })
   }
   findSubHub = () => {
-    //to-do: get id for subhub based on name entered
-    // axios.get('/api/getSubHubByName/name='+this.state.subhubName)
+    console.log(this.state.subhubName);
+    
+    axios.get('/api/getSubByName/sub?name='+this.state.subhubName)
+      .then(response=>console.log(response));
 
     //delete this after to-do is done
-    this.props.setID(this.state.subhubName)
+    // this.props.setID(this.state.subhubName)
     this.setState({ found: true })
   }
   render() {

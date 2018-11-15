@@ -5,6 +5,14 @@ module.exports={
             return res.status(200).json(sub);
         })
     },
+    getSubByName(req,res){
+        let db=req.app.get('db');
+        console.log('hit controller');
+        const {name} = req.query        
+        db.subhubs.get_sub_by_name(name).then(sub=>{
+            return res.status(200).json(sub)
+        })
+    },
     newSub(req,res){
         const {sh_name, sh_desc, sh_icon, sh_banner, theme_color} = req.body;
         let db=req.app.get('db');

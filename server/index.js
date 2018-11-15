@@ -26,7 +26,7 @@ const express = require('express'),
     editComment,
     deleteComment,
   } = require('./Controllers/CommentsController'),
-  { getSub, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
+  { getSub, getSubByName, newSub, editSub, deleteSub } = require('./Controllers/SubhubController'),
   {
     addNewUser,
     getLoggedInUserId,
@@ -78,6 +78,7 @@ app.post('/api/newMessage', newMessage)
 
 //Subhubs
 app.get('/api/getSub/:subhub_id', getSub)
+app.get('/api/getSubByName/',getSubByName)
 app.post('/api/newSub', newSub)
 app.put('/api/editSub/:subhub_id', editSub)
 app.delete('/api/deleteSub/:subhub_id', deleteSub)
