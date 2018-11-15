@@ -20,7 +20,7 @@ export default function Routes() {
       <Route path="/subhub/:id" component={SubHub} />
       <Route path="/authenticate" component={Authenticate} />
       <Route path="/signIn" component={SignIn} />
-      <Route path="/postview" component={PostView} />
+      <Route path="/postview/:postId" component={PostView} />
       <Route path="/searchResults/:id" exact component={SearchResults} />
       <Redirect to="/" />
     </Switch>

@@ -81,19 +81,8 @@ class SearchResults extends Component {
       })
   }
 
-  // handleUnsubscribe(subhubId) {
-  //   axios
-  //     .delete(`/api/deleteFollow/${this.state.userId}`, {
-  //       subhubId,
-  //     })
-  //     .then(() => {
-  //       this.getSubhubCurrentUserFollows()
-  //     })
-  // }
-
   render() {
-    // console.log('this.state.followedHubs', this.state.followedHubs)
-
+    console.log('this.state.subhubResults', this.state.subhubResults)
     return (
       <div className="SearchResults--container">
         {/* <h1>Search Results</h1> */}
@@ -138,7 +127,18 @@ class SearchResults extends Component {
           })}
         </div>
 
-        <div className="Post-Results--Container" />
+        <div className="Post-Results--Container">
+          {this.state.postResults.map(post => {
+            console.log('post', post)
+            return (
+              <div key={post.post_id} className="individual-post-section">
+                <Link to={`/postview/${post.post_id}`}>
+                  <h1>{post.title}</h1>
+                </Link>
+              </div>
+            )
+          })}
+        </div>
       </div>
     )
   }
