@@ -30,19 +30,19 @@ class SignIn extends Component {
     const { username, password } = this.state
     await Auth.signIn(username, password)
       .then(user => this.setState({ user }))
-      // await Auth.confirmSignIn(this.state.user)
-      //   // .then(data => console.log('data', data))
-      //   .catch(err => console.log('err', err))
       .then(() => this.postUserToTable(this.state.user))
+      // await Auth.confirmSignIn(this.state.user)
+      //   .then(data => console.log('data', data))
+      //   .catch(err => console.log('err', err))
 
       .catch(err => console.log('err', err))
   }
 
   postUserToTable() {
+    console.log('hi')
     // console.log('this.state.user.pool.client.clientId', this.state.user.pool.clientId)
     axios
       .post('/api/newUser', {
-        userClientId: this.state.user.pool.clientId,
         username: this.state.user.username,
       })
       .then(response => {
@@ -66,8 +66,8 @@ class SignIn extends Component {
   }
 
   render() {
-    // console.log('this.props', this.props)
-    // console.log('this.state', this.state)
+    console.log('this.props', this.props)
+    console.log('this.state', this.state)
     return (
       <div className="SignIn--container">
         <button

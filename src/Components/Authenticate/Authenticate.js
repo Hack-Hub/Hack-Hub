@@ -20,6 +20,7 @@ class Authenticate extends Component {
     this.confirmSignUp = this.confirmSignUp.bind(this)
     this.routeChange = this.routeChange.bind(this)
     this.closeModal = this.closeModal.bind(this)
+    this.onPhoneNumberChange = this.onPhoneNumberChange.bind(this)
   }
 
   routeChange() {
@@ -31,10 +32,9 @@ class Authenticate extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  // onChangeSetNumber(event) {
-  //   // const newNumber = `+1${event.target.value}`
-  //   this.setState({ phone_number: eve })
-  // }
+  onPhoneNumberChange = ({ target: { value } }) => {
+    this.setState({ phone_number: `+1${value}` })
+  }
 
   signUp = async () => {
     const { username, password, email, phone_number } = this.state
@@ -63,6 +63,7 @@ class Authenticate extends Component {
   }
 
   render() {
+    console.log('this.state', this.state)
     return (
       <div className="Authentication--container">
         <button
@@ -96,8 +97,8 @@ class Authenticate extends Component {
               style={styles.input}
             />
             <input
-              onChange={this.onChange}
-              placeholder="+1 (xxx) xxx - xxx"
+              onChange={this.onPhoneNumberChange}
+              // placeholder="+1 (xxx) xxx - xxx"
               name="phone_number"
               // type="number"
               // id="phone"
