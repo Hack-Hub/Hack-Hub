@@ -9,7 +9,6 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = { currentUser: null, isLoggedIn: false }
-
     this.getUser = this.getUser.bind(this)
     this.setLoggedIn = this.setLoggedIn.bind(this)
   }
@@ -19,7 +18,6 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('this.state.currentUser', this.state.currentUser)
     if (prevState.isLoggedIn !== this.state.isLoggedIn) {
       this.getUser()
     }
@@ -27,7 +25,6 @@ class App extends Component {
 
   getUser() {
     axios.get('/api/currentUser').then(response => {
-      console.log('response', response)
       this.setState({ currentUser: response.data[0] })
     })
   }
@@ -37,12 +34,13 @@ class App extends Component {
   }
 
   render() {
-    console.log('this.state', this.state)
     return (
       <BrowserRouter>
         <div className="App">
           <Nav user={this.state.currentUser} loggedIn={this.state.isLoggedIn} />
-          <Routes setLoggedIn={this.setLoggedIn} />
+          <div className="Routes">
+            <Routes setLoggedIn={this.setLoggedIn} />
+          </div>
         </div>
       </BrowserRouter>
     )

@@ -6,7 +6,6 @@ import URLPost from './URLPost'
 
 class PostCard extends Component {
   render() {
-    // console.log(this.props)
     const {
       image_url,
       // post_date_time,
@@ -18,6 +17,7 @@ class PostCard extends Component {
       // votes,
       web_url,
       // subhub_name,
+      // username,
     } = this.props.post
     if (text_content) {
       return <TextPost post={this.props.post} />

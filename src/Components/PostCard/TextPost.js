@@ -2,32 +2,53 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function TextPost(props) {
-  // console.log('props', props)
-  const { post_date_time, post_id, subhub_id, text_content, title, user_id, sh_name } = props.post
+  console.log('props', props)
+  const {
+    post_date_time,
+    post_id,
+    subhub_id,
+    text_content,
+    title,
+    user_id,
+    sh_name,
+    // user,
+    username,
+    user_photo,
+  } = props.post
   return (
     <div className="PostCard--container">
       <section className="Card--section--header">
         <div className="left-postcard">
-          <div className="user-image" />
-          <Link to={`/postview/${post_id}`}>
-            <h1>{title}</h1>
+          <img src={user_photo} alt="user" className="user-image" />
+          <Link to={`/user/${user_id}`}>
+            <h1>{username}</h1>
           </Link>
         </div>
         <div className="right-postcard">
           <div className="subhub-name">
-            <Link to={`/subhub/${subhub_id}`}>SubHub: {sh_name}</Link>
+            <Link to={`/subhub/${subhub_id}/postfeed`}>{sh_name}</Link>
           </div>
           <div className="time-stamp">{post_date_time}</div>
         </div>
       </section>
       <section className="Card--section--body">
+        <Link to={`/postview/${post_id}`}>
+          <h1>{title}</h1>
+        </Link>
         <p className="text">{text_content}</p>
       </section>
-      <section className="votes">
-        {/* bring in votes component here */}
-        <i className="fa fa-2x fa-arrow-up" />
-        <p>1234</p>
-        <i className="fa fa-2x fa-arrow-down" />
+      <section className="bottom">
+        <div className="votes-section">
+          {/* bring in votes component here */}
+          <i className="fa fa-2x fa-arrow-up" />
+          <p>1234</p>
+          <i className="fa fa-2x fa-arrow-down" />
+        </div>
+        {/* <div className="user">
+          <p>
+            user: <span>{username}</span>
+          </p>
+        </div> */}
       </section>
     </div>
   )

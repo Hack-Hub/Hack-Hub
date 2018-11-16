@@ -11,7 +11,6 @@ class Nav extends Component {
       searchResults: '',
       randomState: true,
       isLoggedIn: false,
-      random: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.reRenderResultsPage = this.reRenderResultsPage.bind(this)
@@ -39,7 +38,8 @@ class Nav extends Component {
 
   render() {
     const currentUser = this.props.user && this.props.user.user_id !== ''
-    // console.log('this.props', this.props)
+    console.log('this.props', this.props)
+    console.log('this.state', this.state)
     return (
       <div className="Nav--container">
         <div className="left-nav">
@@ -72,9 +72,12 @@ class Nav extends Component {
           </Link>
           <Link to="/authenticate">Sign Up</Link>
           {currentUser ? (
-            <Link onClick={() => this.handleRandomeState()} to="/signOut">
-              Sign Out
-            </Link>
+            <div>
+              <Link onClick={() => this.handleRandomeState()} to="/signOut">
+                Sign Out
+              </Link>
+              <Link to={`/user/${this.props.user.user_id}`}>Profile</Link>
+            </div>
           ) : (
             <Link to="/signIn">Sign In</Link>
           )}

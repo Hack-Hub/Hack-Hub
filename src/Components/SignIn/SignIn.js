@@ -46,7 +46,6 @@ class SignIn extends Component {
         username: this.state.user.username,
       })
       .then(response => {
-        console.log('response.data', response.data)
         console.log('response.data[0].user_id', response.data[0].user_id)
         axios
           .post('/api/userSession', {

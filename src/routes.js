@@ -10,6 +10,7 @@ import SubHub from './Components/SubHub/SubHub'
 import PostView from './Components/PostView/PostView'
 import SearchResults from './Components/SearchResults/SearchResults'
 import SignOut from './Components/SignOut/SignOut'
+import User from './Components/User/User'
 
 export default function Routes(props) {
   // console.log('props', props)
@@ -26,6 +27,7 @@ export default function Routes(props) {
       <Route path="/signOut" render={() => <SignOut />} />
       <Route path="/postview/:postId" component={PostView} />
       <Route path="/searchResults/:id" exact component={SearchResults} />
+      <Route path="/user/:userId" component={User} />
       <Redirect to="/" />
     </Switch>
   )

@@ -33,9 +33,7 @@ class SearchResults extends Component {
 
   getSubhubs() {
     axios.get('/api/getAllSubhubs').then(response => {
-      // console.log('response', response)
       const subhubs = response.data
-      // console.log('subhubs', subhubs)
       const filteredSubhubs = []
       for (let i = 0; i < subhubs.length; i++) {
         if (subhubs[i].sh_name.toLowerCase().includes(this.state.searchResults.toLowerCase())) {
@@ -47,12 +45,10 @@ class SearchResults extends Component {
   }
   getPosts() {
     axios.get('/api/getAllPosts').then(response => {
-      // console.log('response', response)
       const posts = response.data
-      // console.log('posts', posts)
       const filteredPosts = []
       for (let i = 0; i < posts.length; i++) {
-        console.log('posts', posts[i].title.toLowerCase())
+        // console.log('posts', posts[i].title.toLowerCase())
         if (posts[i].title.toLowerCase().includes(this.state.searchResults)) {
           filteredPosts.push(posts[i])
         }
@@ -83,7 +79,6 @@ class SearchResults extends Component {
   }
 
   render() {
-    console.log('this.state.subhubResults', this.state.subhubResults)
     return (
       <div className="SearchResults--container">
         {/* <h1>Search Results</h1> */}
@@ -93,7 +88,6 @@ class SearchResults extends Component {
 
           {this.state.subhubResults.map(individualSubhub => {
             const follows = this.state.followedHubs.includes(individualSubhub.subhub_id)
-            // console.log('this.state.subhubResults', this.state.subhubResults)
             return (
               <div key={individualSubhub.subhub_id} className="individual-subhub-section">
                 <div className="subhub-left">
@@ -130,7 +124,6 @@ class SearchResults extends Component {
 
         <div className="Post-Results--Container">
           {this.state.postResults.map(post => {
-            console.log('post', post)
             return (
               <div key={post.post_id} className="individual-post-section">
                 <PostCard
