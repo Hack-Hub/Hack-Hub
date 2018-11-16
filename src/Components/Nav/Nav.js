@@ -38,8 +38,6 @@ class Nav extends Component {
 
   render() {
     const currentUser = this.props.user && this.props.user.user_id !== ''
-    console.log('this.props', this.props)
-    console.log('this.state', this.state)
     return (
       <div className="Nav--container">
         <div className="left-nav">
