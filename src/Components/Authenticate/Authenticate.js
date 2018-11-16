@@ -98,7 +98,7 @@ class Authenticate extends Component {
             />
             <input
               onChange={this.onPhoneNumberChange}
-              // placeholder="+1 (xxx) xxx - xxx"
+              placeholder=" xxx xxx xxxx"
               name="phone_number"
               // type="number"
               // id="phone"
