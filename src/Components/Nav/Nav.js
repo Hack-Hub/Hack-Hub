@@ -8,7 +8,7 @@ class Nav extends Component {
     super()
     this.state = {
       searchResults: '',
-      userId: '',
+      // userId: '',
       // currentUser: '',
       randomState: true,
     }
@@ -37,8 +37,12 @@ class Nav extends Component {
   // }
 
   render() {
-    // console.log('this.props', this.props)
-    const currentUser = this.state.userId !== ''
+    console.log('this.props', this.props)
+    // const currentUser = this.state.userId && this.state.userId !== ''
+    // const currentUser = this.props.user && this.props.user.userId !== ''
+    const currentUser = this.props.user && this.props.user.user_id !== ''
+    console.log('currentUser', currentUser)
+    console.log('this.state', this.state)
 
     return (
       <div className="Nav--container">
@@ -71,14 +75,14 @@ class Nav extends Component {
             <i className="fa fa-2x fa-plus-square" />
           </Link>
           <Link to="/authenticate">Sign Up</Link>
-
           {currentUser ? (
-            <Link onClick={event => this.handleRandomeState(event)} to="/signOut">
+            <Link onClick={() => this.handleRandomeState()} to="/signOut">
               Sign Out
             </Link>
           ) : (
             <Link to="/signIn">Sign In</Link>
           )}
+          {/* // {currentUser ? <Link to="/signOut">Sign Out</Link> : <Link to="/signIn">Sign In</Link>} */}
         </div>
       </div>
     )
