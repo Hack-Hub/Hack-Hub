@@ -43,4 +43,11 @@ module.exports = {
       return res.sendStatus(200)
     })
   },
+  getUserPosts(req, res) {
+    const db = req.app.get('db')
+    const {user_id} = req.session
+    db.posts.get_user_posts(user_id).then(posts => {
+      return res.status(200).json(posts)
+    })
+  }
 }

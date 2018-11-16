@@ -30,13 +30,17 @@ class Chat extends Component {
       user_id: this.state.current_user.user_id,
       message_text: this.state.message,
     }
-    axios.post('/api/newMessage', message).then(this.setState({ message: '' }))
+    axios.post('/api/newMessage',message).then(this.setState({message: ''})).then(this.scrollToBottom());
 
     this.socket.emit('send_message', {
       username: this.state.current_user.username,
       message_text: this.state.message,
       room: this.props.match.params.id,
     })
+  }
+
+  scrollToBottom = () => {
+    this.bottom.scrollIntoView({behavior: 'smooth'})
   }
 
   componentDidMount() {
@@ -54,7 +58,15 @@ class Chat extends Component {
     axios.get(`/api/getMessages/${this.props.match.params.id}`).then(res => {
       this.setState({ messages: [...this.state.messages, ...res.data] })
     })
+
+    this.scrollToBottom();
   }
+
+  // sendScroll = () => {
+  //   this.sendMessage();
+  //   this.scrollToBottom();
+  // }
+
 
   render() {
     const { message, messages, current_user } = this.state
@@ -82,8 +94,11 @@ class Chat extends Component {
 
     return (
       <div className="Chat--container">
-        <h3 />
-        <div className="messageList">{messageList}</div>
+        <h3></h3>
+        <div className="messageList">
+          {messageList}
+          <div ref={bottom => {this.bottom = bottom}}/>>
+        </div>
         <div>
           <input
             type="text"

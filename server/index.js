@@ -12,7 +12,8 @@ const express = require('express'),
     editPost,
     deletePost,
     getPostsBySub,
-    getPostByID
+    getPostByID,
+    getUserPosts
   } = require('./Controllers/PostsController'),
   {
     postUpVote,
@@ -59,6 +60,7 @@ app.use(
 app.get('/api/getPosts', getPosts)
 app.get('/api/getSubPosts/:subhub_id', getPostsBySub)
 app.get('/api/getPostByID/:post_id', getPostByID)
+app.get('/api/getUserPosts', getUserPosts)
 app.post('/api/newPost', newPost)
 app.put('/api/editPost:id', editPost)
 app.delete('/api/deletePost/:id', deletePost)
