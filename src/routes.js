@@ -27,6 +27,7 @@ export default function Routes(props) {
       <Route path="/signOut" render={() => <SignOut />} />
       <Route path="/postview/:postId" component={PostView} />
       <Route path="/searchResults/:id" exact component={SearchResults} />
+      {/* <Route exact path="/searchResults/:id" render={() =>  <SearchResults user={props.user} />} /> */}
       <Route path="/user/:userId" component={User} />
       <Redirect to="/" />
     </Switch>

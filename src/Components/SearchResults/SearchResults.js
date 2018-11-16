@@ -24,11 +24,18 @@ class SearchResults extends Component {
   }
 
   componentDidMount() {
+    this.getUser()
     const { id } = this.props.match.params
     this.setState({ searchResults: id })
     this.getSubhubs()
     this.getPosts()
     this.getSubhubCurrentUserFollows()
+  }
+
+  getUser() {
+    axios.get('/api/currentUser').then(response => {
+      this.setState({ userId: response.data[0].user_id })
+    })
   }
 
   getSubhubs() {
@@ -79,6 +86,8 @@ class SearchResults extends Component {
   }
 
   render() {
+    console.log('this.state', this.state)
+    console.log('this.props', this.props)
     return (
       <div className="SearchResults--container">
         {/* <h1>Search Results</h1> */}
