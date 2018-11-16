@@ -14,7 +14,7 @@ class PostFeed extends Component {
   componentDidMount() {
     //to-do:axios get call
     axios.get('/api/getPosts/').then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       this.setState({ posts: response.data })
     })
   }

@@ -63,7 +63,7 @@ class Authenticate extends Component {
   }
 
   render() {
-    console.log('this.props', this.props)
+    // console.log('this.props', this.props)
 
     return (
       <div className="Authentication--container">

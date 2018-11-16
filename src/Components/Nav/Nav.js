@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import './Nav.scss'
 // import { Auth } from 'aws-amplify'
 
@@ -7,10 +7,11 @@ class Nav extends Component {
   constructor() {
     super()
     this.state = {
+      user: {},
       searchResults: '',
-      // userId: '',
-      // currentUser: '',
       randomState: true,
+      isLoggedIn: false,
+      random: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.reRenderResultsPage = this.reRenderResultsPage.bind(this)
@@ -29,21 +30,16 @@ class Nav extends Component {
     this.setState({ randomState: !event })
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.user !== prevProps.user) {
-  //     console.log('hi')
-  //     this.setState({ currentUser: this.props.user && this.props.user.user_id !== '' })
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    // console.log('this.props', this.props)
+    if (prevProps.user !== this.props.user) {
+      this.setState({ isLoggedIn: this.props.isLoggedIn })
+    }
+  }
 
   render() {
-    console.log('this.props', this.props)
-    // const currentUser = this.state.userId && this.state.userId !== ''
-    // const currentUser = this.props.user && this.props.user.userId !== ''
     const currentUser = this.props.user && this.props.user.user_id !== ''
-    console.log('currentUser', currentUser)
-    console.log('this.state', this.state)
-
+    // console.log('this.props', this.props)
     return (
       <div className="Nav--container">
         <div className="left-nav">
@@ -82,11 +78,10 @@ class Nav extends Component {
           ) : (
             <Link to="/signIn">Sign In</Link>
           )}
-          {/* // {currentUser ? <Link to="/signOut">Sign Out</Link> : <Link to="/signIn">Sign In</Link>} */}
         </div>
       </div>
     )
   }
 }
 
-export default Nav
+export default withRouter(Nav)

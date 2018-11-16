@@ -11,8 +11,8 @@ class SignIn extends Component {
       username: '',
       password: '',
       user: {},
-      authState: props.authState,
-      authData: props.authData,
+      // authState: props.authState,
+      // authData: props.authData,
     }
 
     this.onChange = this.onChange.bind(this)
@@ -28,10 +28,11 @@ class SignIn extends Component {
 
   signIn = async () => {
     const { username, password } = this.state
-    await Auth.signIn(username, password).then(user => this.setState({ user }))
-    await Auth.confirmSignIn(this.state.user)
-      .then(data => console.log('data', data))
-      .catch(err => console.log('err', err))
+    await Auth.signIn(username, password)
+      .then(user => this.setState({ user }))
+      // await Auth.confirmSignIn(this.state.user)
+      //   // .then(data => console.log('data', data))
+      //   .catch(err => console.log('err', err))
       .then(() => this.postUserToTable(this.state.user))
 
       .catch(err => console.log('err', err))
@@ -56,6 +57,7 @@ class SignIn extends Component {
   }
 
   routeChange() {
+    this.props && this.props.setLoggedIn()
     const path = '/dashboard'
     this.props.history.push(path)
   }
@@ -66,7 +68,7 @@ class SignIn extends Component {
 
   render() {
     // console.log('this.props', this.props)
-    console.log('this.state', this.state)
+    // console.log('this.state', this.state)
     return (
       <div className="SignIn--container">
         <button

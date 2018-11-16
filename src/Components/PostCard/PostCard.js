@@ -7,7 +7,6 @@ import URLPost from './URLPost'
 class PostCard extends Component {
   render() {
     // console.log(this.props)
-    console.log('this.props', this.props)
     const {
       image_url,
       // post_date_time,
