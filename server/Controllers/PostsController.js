@@ -35,13 +35,19 @@ module.exports = {
      return res.status(200).send(response)
     })
 
-
   },
   deletePost(req, res) {
     let db = req.app.get('db');
     const { post_id } = req.body;
     db.posts.deletePost(post_id).then(()=>{
      return res.sendStatus(200)
+    })
+  },
+  getUserPosts(req, res) {
+    const db = req.app.get('db')
+    const {user_id} = req.session
+    db.posts.get_user_posts(user_id).then(posts => {
+      return res.status(200).json(posts)
     })
   }
 }
