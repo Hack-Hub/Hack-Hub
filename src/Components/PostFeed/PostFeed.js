@@ -13,11 +13,7 @@ class PostFeed extends Component {
 
   componentDidMount() {
     //to-do:axios get call
-    axios.get('/api/getPosts/').then(response => {
-<<<<<<< HEAD
-      console.log(response.data)
-=======
->>>>>>> master
+    axios.get('/api/getPosts').then(response => {
       this.setState({ posts: response.data })
     })
   }

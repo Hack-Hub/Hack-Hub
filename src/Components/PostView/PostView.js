@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './PostView.scss'
-import Comments from './Comments';
+import Comments from './Comments/Comments';
 import axios from 'axios';
 
 class PostView extends Component {

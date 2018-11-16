@@ -56,7 +56,7 @@ app.use(
 
 //-----Endpoints-----
 //Posts
-app.get('/api/getPosts/', getPosts)
+app.get('/api/getPosts', getPosts)
 app.get('/api/getSubPosts/:subhub_id', getPostsBySub)
 app.get('/api/getPostByID/:post_id', getPostByID)
 app.post('/api/newPost', newPost)
@@ -79,7 +79,7 @@ app.post('/api/newMessage', newMessage)
 
 //Subhubs
 app.get('/api/getSub/:subhub_id', getSub)
-app.get('/api/getSubByName/',getSubByName)
+app.get('/api/getSubByName',getSubByName)
 app.post('/api/newSub', newSub)
 app.put('/api/editSub/:subhub_id', editSub)
 app.delete('/api/deleteSub/:subhub_id', deleteSub)
