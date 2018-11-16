@@ -2,11 +2,11 @@ import React, { Component } from "react";
 
 class DisplayComments extends Component {
   render() {
-      console.log('this.props',this.props);
       if(this.props.comment.children.length){
           return (
             <div>
                 <h1>{this.props.comment.comment_text}</h1>
+                <h2>{this.props.comment.comment_date_time}</h2>
                 <Comment comments={this.props.comment.children}/>
             </div>
           );
@@ -14,6 +14,7 @@ class DisplayComments extends Component {
         return (
             <div>
                 <h1>{this.props.comment.comment_text}</h1>
+                <h2>{this.props.comment.comment_date_time}</h2>
             </div>
           );
       }

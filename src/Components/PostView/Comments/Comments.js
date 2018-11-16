@@ -27,9 +27,7 @@ class Comments extends Component {
       comment.children = [];
       return comment;
     });
-    console.log('ParentComments',ParentComments);
     ParentComments = ParentComments.filter(comment => {
-      comment.children = [];
       if (!comment.parent_comment_id) {
         this.findChildren(comment, commentsArr);
       }
