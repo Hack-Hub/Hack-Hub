@@ -81,7 +81,7 @@ app.post('/api/newMessage', newMessage)
 
 //Subhubs
 app.get('/api/getSub/:subhub_id', getSub)
-app.get('/api/getSubByName/',getSubByName)
+app.get('/api/getSubByName',getSubByName)
 app.post('/api/newSub', newSub)
 app.put('/api/editSub/:subhub_id', editSub)
 app.delete('/api/deleteSub/:subhub_id', deleteSub)

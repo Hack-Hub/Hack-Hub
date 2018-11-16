@@ -11,7 +11,7 @@ class GetSubHub extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/getUserSubs/')
+    axios.get('/api/getUserSubs')
       .then(subhubs => {
         this.setState({ subhubOptions: subhubs.data })
       })
