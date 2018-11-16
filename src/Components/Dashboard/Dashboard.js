@@ -8,6 +8,8 @@ class Dashboard extends Component {
     this.state = {}
   }
 
+  componentDidMount() {}
+
   render() {
     return (
       <div className="Dashboard--container">

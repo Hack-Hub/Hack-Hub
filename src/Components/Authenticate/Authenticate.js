@@ -42,7 +42,7 @@ class Authenticate extends Component {
       await Auth.signUp({ username, password, attributes: { email, phone_number } }).then(user =>
         console.log('user', user)
       )
-      console.log('success sign up')
+      // console.log('success sign up')
       this.setState({ step: 1 })
     } catch (err) {
       console.log(err)
@@ -63,8 +63,6 @@ class Authenticate extends Component {
   }
 
   render() {
-    console.log('this.props', this.props)
-
     return (
       <div className="Authentication--container">
         <button

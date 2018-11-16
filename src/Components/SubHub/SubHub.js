@@ -27,7 +27,6 @@ class SubHub extends Component {
 
   getSubhubInfo() {
     axios.get(`/api/getSub/${this.props.match.params.id}`).then(response => {
-      // console.log('response', response)
       // response.data[0]
       const { sh_name, sh_icon, sh_banner, theme_color, sh_desc } = response.data[0]
       this.setState({
