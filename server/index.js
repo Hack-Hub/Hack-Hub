@@ -85,7 +85,7 @@ app.put('/api/editSub/:subhub_id', editSub)
 app.delete('/api/deleteSub/:subhub_id', deleteSub)
 
 //Followed Subhubs
-app.get('/api/getUserSubs/', getUserSubs)
+app.get('/api/getUserSubs', getUserSubs)
 app.post('/api/addFollow', addFollow)
 app.delete('/api/deleteFollow/:userId/:subhubId', deleteFollow)
 
