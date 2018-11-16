@@ -13,7 +13,7 @@ class SearchResults extends Component {
       postResults: [],
       followedHubs: [],
       // change user id when req.sessions is fixed
-      userId: 1,
+      userId: null,
     }
 
     this.handleSubscribe = this.handleSubscribe.bind(this)
@@ -27,9 +27,9 @@ class SearchResults extends Component {
     this.getUser()
     const { id } = this.props.match.params
     this.setState({ searchResults: id })
+    this.getSubhubCurrentUserFollows()
     this.getSubhubs()
     this.getPosts()
-    this.getSubhubCurrentUserFollows()
   }
 
   getUser() {
@@ -66,12 +66,15 @@ class SearchResults extends Component {
 
   getSubhubCurrentUserFollows() {
     // TODO!!!! CHANGE 1 WHEN USER SESSIONS IS FIXED
-    axios.get(`/api/getUserSubs/${1}`).then(response => {
-      // console.log('response', response)
-      this.setState({
-        followedHubs: response.data.map(hub => hub.subhub_id),
+    axios
+      .get(`/api/getUserSubs/${this.state.user}`)
+
+      .then(async response => {
+        // console.log('response', response)
+        await this.setState({
+          followedHubs: response.data.map(hub => hub.subhub_id),
+        })
       })
-    })
   }
 
   handleSubscribe(subhubId) {
@@ -112,12 +115,13 @@ class SearchResults extends Component {
                 </div>
                 {follows ? (
                   <button
-                    onClick={async () => {
-                      axios.delete(
-                        `/api/deleteFollow/${this.state.userId}/${individualSubhub.subhub_id}`
-                      )
-                      await this.getSubhubCurrentUserFollows()
-                    }}
+                    onClick={async () =>
+                      await axios
+                        .delete(
+                          `/api/deleteFollow/${this.state.userId}/${individualSubhub.subhub_id}`
+                        )
+                        .then(this.getSubhubCurrentUserFollows(this.state.userId))
+                    }
                   >
                     Unsubscribe
                   </button>
