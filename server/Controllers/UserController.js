@@ -2,9 +2,8 @@ module.exports = {
   addNewUser(req, res) {
     const { userClientId, username } = req.body
     const db = req.app.get('db')
-    console.log('req.body', req.body)
+    // console.log('req.body', req.body)
     db.users.checkUsername([username]).then(response => {
-      // console.log('response', response)
       if (!response.length) {
         db.users
           .createNewUser([userClientId, username])
