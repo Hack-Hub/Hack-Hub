@@ -30,9 +30,11 @@ $light-black: #323232;
     justify-content: space-between;
     width: 100%;
     padding: 10px;
+    margin-bottom: 0px;
 
     h1 {
       color: $light-gray;
+      font-weight: 200;
     }
 
     .left-postcard {
@@ -41,7 +43,6 @@ $light-black: #323232;
       align-items: center;
 
       .user-image {
-        background: $dark-gray;
         height: 30px;
         width: 30px;
         margin-right: 10px;
@@ -68,38 +69,73 @@ $light-black: #323232;
   }
 
   .Card--section--body {
-    margin: 50px 40px;
+    margin: 20px 40px;
     color: $light-gray;
     font-weight: 200;
     line-height: 20px;
+    margin-bottom: 40px;
+
+    h1,
+    a {
+      font-size: 24px;
+      text-transform: uppercase;
+      font-weight: 400;
+      color: $light-gray;
+      text-decoration: none;
+      padding-bottom: 20px;
+      letter-spacing: 1px;
+    }
     img {
       width: 100%;
     }
   }
 
-  .votes {
+  .bottom {
     // border-top: 1px solid $blue;
     // background: rgba(255, 255, 255, 0.02);
     background: $blue;
-    height: 20px;
+    height: 28px;
     display: flex;
-    flex-direction: row;
     color: $light-gray;
     font-weight: 400;
     bottom: 0;
     align-items: center;
+    justify-content: space-between;
     color: $light-gray;
     font-size: 12px;
+    flex-direction: row;
+    padding: 14px;
 
-    i {
-      margin: 0px 10px;
-      font-size: 14px;
-      font-weight: 200;
-      color: $light-gray;
+    .votes-section {
+      display: flex;
+      flex-direction: row;
+      margin-top: 2px;
+      // flex-direction: flex-start;
+      align-items: center;
+
+      i {
+        margin: 0px 10px;
+        font-size: 14px;
+        font-weight: 200;
+        color: $light-gray;
+      }
+
+      i:hover {
+        color: $black;
+      }
     }
+    .user {
+      flex-direction: flex-end;
+      align-items: center;
+      margin-top: 2px;
 
-    i:hover {
-      color: $black;
+      p {
+        font-weight: 200;
+
+        span {
+          font-weight: 400;
+        }
+      }
     }
   }
 }

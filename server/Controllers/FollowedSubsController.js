@@ -1,7 +1,7 @@
 module.exports = {
   getUserSubs(req, res) {
     const db = req.app.get('db')
-    const {user_id} = req.session
+    const { user_id } = req.session
     db.followed.get_user_subs(user_id).then(subs => {
       return res.status(200).json(subs)
     })
@@ -13,9 +13,7 @@ module.exports = {
     })
   },
   deleteFollow(req, res) {
-    console.log('req.params', req.params)
     const { userId, subhubId } = req.params
-    // const { subhubId } = req.body
     const db = req.app.get('db')
     db.followed
       .delete_follow([userId, subhubId])

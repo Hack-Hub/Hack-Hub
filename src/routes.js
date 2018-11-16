@@ -10,8 +10,10 @@ import SubHub from './Components/SubHub/SubHub'
 import PostView from './Components/PostView/PostView'
 import SearchResults from './Components/SearchResults/SearchResults'
 import SignOut from './Components/SignOut/SignOut'
+import User from './Components/User/User'
 
-export default function Routes() {
+export default function Routes(props) {
+  // console.log('props', props)
   return (
     <Switch>
       <Route exact path="/" component={LandingPage} />
@@ -21,10 +23,11 @@ export default function Routes() {
       <Route path="/subhub/:id" component={SubHub} />
       <Route path="/authenticate" component={Authenticate} />
       {/* DON'T CHANGE THESE ROUTES (signin & signout)... GETTING AN ERROR WHEN RENDING THEM THE OTHER WAY */}
-      <Route path="/signIn" render={() => <SignIn />} />
+      <Route path="/signIn" render={() => <SignIn setLoggedIn={props.setLoggedIn} />} />
       <Route path="/signOut" render={() => <SignOut />} />
       <Route path="/postview/:postId" component={PostView} />
       <Route path="/searchResults/:id" exact component={SearchResults} />
+      <Route path="/user/:userId" component={User} />
       <Redirect to="/" />
     </Switch>
   )

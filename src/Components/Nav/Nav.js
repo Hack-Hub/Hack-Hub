@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import './Nav.scss'
 // import { Auth } from 'aws-amplify'
 
@@ -7,10 +7,10 @@ class Nav extends Component {
   constructor() {
     super()
     this.state = {
+      user: {},
       searchResults: '',
-      userId: '',
-      // currentUser: '',
       randomState: true,
+      isLoggedIn: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.reRenderResultsPage = this.reRenderResultsPage.bind(this)
@@ -29,17 +29,17 @@ class Nav extends Component {
     this.setState({ randomState: !event })
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.user !== prevProps.user) {
-  //     console.log('hi')
-  //     this.setState({ currentUser: this.props.user && this.props.user.user_id !== '' })
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    // console.log('this.props', this.props)
+    if (prevProps.user !== this.props.user) {
+      this.setState({ isLoggedIn: this.props.isLoggedIn })
+    }
+  }
 
   render() {
-    // console.log('this.props', this.props)
-    const currentUser = this.state.userId !== ''
-
+    const currentUser = this.props.user && this.props.user.user_id !== ''
+    console.log('this.props', this.props)
+    console.log('this.state', this.state)
     return (
       <div className="Nav--container">
         <div className="left-nav">
@@ -71,11 +71,13 @@ class Nav extends Component {
             <i className="fa fa-2x fa-plus-square" />
           </Link>
           <Link to="/authenticate">Sign Up</Link>
-
           {currentUser ? (
-            <Link onClick={event => this.handleRandomeState(event)} to="/signOut">
-              Sign Out
-            </Link>
+            <div>
+              <Link onClick={() => this.handleRandomeState()} to="/signOut">
+                Sign Out
+              </Link>
+              <Link to={`/user/${this.props.user.user_id}`}>Profile</Link>
+            </div>
           ) : (
             <Link to="/signIn">Sign In</Link>
           )}
@@ -85,4 +87,4 @@ class Nav extends Component {
   }
 }
 
-export default Nav
+export default withRouter(Nav)
