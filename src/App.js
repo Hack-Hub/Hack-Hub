@@ -39,7 +39,7 @@ class App extends Component {
         <div className="App">
           <Nav user={this.state.currentUser} loggedIn={this.state.isLoggedIn} />
           <div className="Routes">
-            <Routes setLoggedIn={this.setLoggedIn} />
+            <Routes user={this.state.currentUser} setLoggedIn={this.setLoggedIn} />
           </div>
         </div>
       </BrowserRouter>

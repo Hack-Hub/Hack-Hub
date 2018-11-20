@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Authenticate.scss'
 import { Auth } from 'aws-amplify'
 import { withRouter } from 'react-router-dom'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 class Authenticate extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Authenticate extends Component {
       phone_number: '',
       authenticationCode: '',
       step: 0,
+      authError: '',
     }
 
     this.onChange = this.onChange.bind(this)
@@ -20,6 +22,7 @@ class Authenticate extends Component {
     this.confirmSignUp = this.confirmSignUp.bind(this)
     this.routeChange = this.routeChange.bind(this)
     this.closeModal = this.closeModal.bind(this)
+    this.onPhoneNumberChange = this.onPhoneNumberChange.bind(this)
   }
 
   routeChange() {
@@ -31,10 +34,9 @@ class Authenticate extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  // onChangeSetNumber(event) {
-  //   // const newNumber = `+1${event.target.value}`
-  //   this.setState({ phone_number: eve })
-  // }
+  onPhoneNumberChange = ({ target: { value } }) => {
+    this.setState({ phone_number: `+1${value}` })
+  }
 
   signUp = async () => {
     const { username, password, email, phone_number } = this.state
@@ -45,7 +47,8 @@ class Authenticate extends Component {
       // console.log('success sign up')
       this.setState({ step: 1 })
     } catch (err) {
-      console.log(err)
+      this.setState({ authError: err })
+      console.log('this.state.authError', this.state.authError)
     }
   }
 
@@ -54,7 +57,7 @@ class Authenticate extends Component {
     try {
       await Auth.confirmSignUp(username, authenticationCode).then(this.routeChange())
     } catch (err) {
-      console.log('error', err)
+      this.setState({ authError: err })
     }
   }
 
@@ -63,6 +66,7 @@ class Authenticate extends Component {
   }
 
   render() {
+    console.log('this.state', this.state)
     return (
       <div className="Authentication--container">
         <button
@@ -71,7 +75,7 @@ class Authenticate extends Component {
             this.closeModal()
           }}
         >
-          <img src="http://i65.tinypic.com/29ehdth.png" alt="close" />
+          <img src="https://i.imgur.com/dOUsAsy.png" alt="close" />
         </button>
         {this.state.step === 0 && (
           <div className="auth-section">
@@ -96,13 +100,16 @@ class Authenticate extends Component {
               style={styles.input}
             />
             <input
-              onChange={this.onChange}
-              placeholder="+1 (xxx) xxx - xxx"
+              onChange={this.onPhoneNumberChange}
+              placeholder=" xxx xxx xxxx"
               name="phone_number"
               // type="number"
               // id="phone"
               style={styles.input}
             />
+
+            {this.state.authError && <ErrorMessage message={this.state.authError.message} />}
+
             <button className="sign-up" onClick={this.signUp}>
               Send Authentication Code
             </button>
