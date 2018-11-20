@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Authenticate.scss'
 import { Auth } from 'aws-amplify'
 import { withRouter } from 'react-router-dom'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 class Authenticate extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Authenticate extends Component {
       phone_number: '',
       authenticationCode: '',
       step: 0,
+      authError: '',
     }
 
     this.onChange = this.onChange.bind(this)
@@ -45,7 +47,8 @@ class Authenticate extends Component {
       // console.log('success sign up')
       this.setState({ step: 1 })
     } catch (err) {
-      console.log(err)
+      this.setState({ authError: err })
+      console.log('this.state.authError', this.state.authError)
     }
   }
 
@@ -54,7 +57,7 @@ class Authenticate extends Component {
     try {
       await Auth.confirmSignUp(username, authenticationCode).then(this.routeChange())
     } catch (err) {
-      console.log('error', err)
+      this.setState({ authError: err })
     }
   }
 
@@ -72,7 +75,7 @@ class Authenticate extends Component {
             this.closeModal()
           }}
         >
-          <img src="http://i65.tinypic.com/29ehdth.png" alt="close" />
+          <img src="https://i.imgur.com/dOUsAsy.png" alt="close" />
         </button>
         {this.state.step === 0 && (
           <div className="auth-section">
@@ -104,6 +107,9 @@ class Authenticate extends Component {
               // id="phone"
               style={styles.input}
             />
+
+            {this.state.authError && <ErrorMessage message={this.state.authError.message} />}
+
             <button className="sign-up" onClick={this.signUp}>
               Send Authentication Code
             </button>

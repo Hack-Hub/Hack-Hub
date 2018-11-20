@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 // import ImageUpload from '../NewPost/ImageUpload'
-import BannerLibrary from '../BannerAndIconLibrary.js/BannerLibrary'
-import IconLibrary from '../BannerAndIconLibrary.js/IconLibrary'
+import BannerLibrary from '../BannerAndIconLibrary/BannerLibrary'
+import IconLibrary from '../BannerAndIconLibrary/IconLibrary'
 // import './NewSubHub.scss';
 
 class NewSubHub extends Component {

@@ -18,16 +18,22 @@ class BannerLibrary extends Component {
 
   render() {
     const colors = [
-      '#333745',
-      '#E63462',
-      '#FE5F55',
-      '#C7EFCF',
-      '#EEF5DB',
-      '#00B4A6',
-      '#007DB6',
-      '#FFE972',
-      '#9C7671',
-      '#0C192B',
+      '#777d80',
+      '#363f44',
+      '#f6402b',
+      '#ec1361',
+      '#9c1ab0',
+      '#6733bb',
+      '#3d4eb8',
+      '#1193f5',
+      '#01a6f6',
+      '#01bad6',
+      '#019587',
+      '#45af4b',
+      '#88c440',
+      '#ccdd1d',
+      '#f2e016',
+      '#fec200',
     ]
 
     console.log('this.state', this.state)

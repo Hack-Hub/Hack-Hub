@@ -18,13 +18,13 @@ class IconLibrary extends Component {
 
   render() {
     const icons = [
-      <img src="http://i67.tinypic.com/2dmiejk.jpg" alt="icon" />,
-      <img src="http://i64.tinypic.com/zl7n6a.jpg" alt="icon" />,
-      <img src="http://i67.tinypic.com/11uuohy.jpg" alt="icon" />,
-      <img src="http://i67.tinypic.com/2vmim29.jpg" alt="icon" />,
-      <img src="http://i64.tinypic.com/2q00fx5.jpg" alt="icon" />,
-      <img src="http://i65.tinypic.com/250ngk1.jpg" alt="icon" />,
-      <img src="http://i67.tinypic.com/2819e90.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/nzXTQyt.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/aSgCIpy.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/mdfx1WG.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/2qriWaZ.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/02XRV8N.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/kn2frv5.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/7IKsJ45.jpg" alt="icon" />,
     ]
 
     console.log('this.state', this.state)

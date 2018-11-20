@@ -3,6 +3,7 @@ import './SignIn.scss'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import { Auth } from 'aws-amplify'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 class SignIn extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class SignIn extends Component {
       username: '',
       password: '',
       user: {},
+      signInError: '',
       // authState: props.authState,
       // authData: props.authData,
     }
@@ -35,7 +37,10 @@ class SignIn extends Component {
       //   .then(data => console.log('data', data))
       //   .catch(err => console.log('err', err))
 
-      .catch(err => console.log('err', err))
+      .catch(err => {
+        console.log('err', err)
+        this.setState({ signInError: 'Sorry, your username/password is incorrect.' })
+      })
   }
 
   postUserToTable() {
@@ -68,6 +73,7 @@ class SignIn extends Component {
   render() {
     console.log('this.props', this.props)
     console.log('this.state', this.state)
+
     return (
       <div className="SignIn--container">
         <button
@@ -76,7 +82,7 @@ class SignIn extends Component {
             this.closeModal()
           }}
         >
-          <img src="http://i65.tinypic.com/29ehdth.png" alt="close" />
+          <img src="https://i.imgur.com/dOUsAsy.png" alt="close" />
         </button>
         <div className="auth-section">
           <h3>Sign In</h3>
@@ -93,6 +99,7 @@ class SignIn extends Component {
             type="password"
             style={styles.input}
           />
+          {this.state.signInError && <ErrorMessage message={this.state.signInError} />}
           <button className="sign-up" onClick={this.signIn}>
             Sign In
           </button>
