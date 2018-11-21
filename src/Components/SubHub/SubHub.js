@@ -47,7 +47,7 @@ class SubHub extends Component {
 
   render() {
     console.log('this.props', this.props)
-    const { subhubName, icon, banner, themeColor, desc } = this.state
+    const { subhubName, icon, themeColor, desc } = this.state
     console.log('this.state', this.state)
     return (
       <div className="SubHub--container">
@@ -75,7 +75,6 @@ class SubHub extends Component {
           </div>
         </section>
         <Switch>
-          {/* TODO!! CHANGE THIS FIRST ROUTE TO A RENDER ROUTE FOR SUB HUB ID */}
           <Route path="/subhub/:id/postfeed" component={PostFeed} />
           <Route path="/subhub/:id/chat" component={Chat} />
         </Switch>

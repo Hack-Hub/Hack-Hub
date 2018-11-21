@@ -1,19 +1,25 @@
 import React, { Component } from 'react'
-//import './IconLibrary.css';
+import './IconLibrary.scss'
 
 class IconLibrary extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedIcons: '',
+      selectedIcon: '',
     }
 
-    this.setSelectedIcons = this.setSelectedIcons.bind(this)
+    this.setSelectedIcon = this.setSelectedIcon.bind(this)
+    this.sendIcon = this.sendIcon.bind(this)
   }
 
-  setSelectedIcons(icons) {
-    this.setState({ selectedIcons: icons })
-    this.props.setColor(this.state.selectedIcons)
+  async setSelectedIcon(icon) {
+    await this.setState({ selectedIcon: icon.props.src })
+    await this.sendIcon(this.state.selectedIcon)
+  }
+
+  sendIcon() {
+    console.log('this.state.selectedIcon', this.state.selectedIcon)
+    this.props.setIcon(this.state.selectedIcon)
   }
 
   render() {
@@ -25,6 +31,12 @@ class IconLibrary extends Component {
       <img src="https://i.imgur.com/02XRV8N.jpg" alt="icon" />,
       <img src="https://i.imgur.com/kn2frv5.jpg" alt="icon" />,
       <img src="https://i.imgur.com/7IKsJ45.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/2ez4bmd.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/Zz6lKgS.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/jro66FX.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/BvD3DM0.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/pg523eJ.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/su9ocmC.jpg" alt="icon" />,
     ]
 
     console.log('this.state', this.state)
@@ -32,8 +44,12 @@ class IconLibrary extends Component {
       <div className="IconLibrary--container">
         {icons.map(icon => {
           return (
-            <div className="icons" key={icon}>
-              <button style={{ background: icon }} onClick={() => this.setSelectedIcons(icon)}>
+            <div key={icon.props.src}>
+              <button
+                className="single-icon"
+                // style={{ background: 'none', outline: 'none' }}
+                onClick={() => this.setSelectedIcon(icon)}
+              >
                 {icon}
               </button>
             </div>

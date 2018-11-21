@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700');
+
+$font-family: 'Montserrat', sans-serif;
+$blue: #0000f7;
+$light-blue: #00a7f7;
+$light-gray: #f5f5f5;
+$dark-gray: #888888;
+$black: #252525;
+$light-black: #323232;
+
+* {
+  box-sizing: border-box;
+}
+
+.NewSubHub--Container {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 0 auto;
+  justify-content: space-between;
+  margin-top: 2%;
+  color: $light-gray;
+  background: $light-black;
+  box-shadow: 2px 6px 8px -2px rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  // align-items: center;
+
+  h3 {
+    padding-bottom: 10px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  .ruler {
+    width: 100%;
+    border-top: 1px solid $blue;
+    margin-bottom: 10px;
+    // padding: 4px 0px;
+  }
+
+  .newhub-input {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    align-items: center;
+    margin-bottom: 50px;
+
+    h5 {
+      padding-bottom: 20px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      font-size: 12px;
+      margin-top: 20px;
+      text-transform: uppercase;
+    }
+
+    input {
+      margin: 0px auto 30px auto;
+      width: 80%;
+      border-bottom: 1px solid $black;
+      padding: 4px;
+      font-family: $font-family;
+      color: $light-gray;
+      text-align: center;
+      outline: none;
+      font-weight: 200;
+    }
+  }
+
+  .submit-subhub {
+    background: $blue;
+    font-family: $font-family;
+    width: 200px;
+    height: 30px;
+    color: $light-gray;
+    margin: 40px auto 20px auto;
+  }
+}

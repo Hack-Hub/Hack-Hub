@@ -17,7 +17,7 @@ $light-black: #323232;
   padding: 20px;
   margin: 25px auto;
   color: $light-gray;
-  background: #3b3b3bcc;
+  background: $light-black;
 
   h3 {
     padding-bottom: 10px;
@@ -34,7 +34,7 @@ $light-black: #323232;
     flex-direction: column;
     align-items: flex-start;
 
-    .message{
+    .message {
       width: auto;
       max-width: 40%;
       height: auto;
@@ -50,7 +50,7 @@ $light-black: #323232;
     flex-direction: column;
     align-items: flex-end;
 
-    .message2{
+    .message2 {
       width: auto;
       max-width: 40%;
       height: auto;

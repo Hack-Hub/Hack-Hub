@@ -66,7 +66,6 @@ class Authenticate extends Component {
   }
 
   render() {
-    console.log('this.state', this.state)
     return (
       <div className="Authentication--container">
         <button
