@@ -87,7 +87,7 @@ class NewPost extends Component {
       )
     }
     // console.log('this.state.userId', this.state.userId)
-
+    console.log('this.state.subhub_id', this.state.subhub_id)
     return (
       <div className="NewPost--Container">
         {this.state.userId === null && (

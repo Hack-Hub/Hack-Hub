@@ -47,10 +47,10 @@ class GetSubHub extends Component {
           placeholder="Enter Subhub Name"
         />
         <button style={styles.button} onClick={this.findSubHub}>
-          Find SubHub
+          Enter SubHub
         </button>
 
-        <select style={styles.select} onChange={this.props.setSubHubID}>
+        <select style={styles.select} onChange={event => this.props.setID(event.target.value)}>
           <option value={null}>Select SubHub</option>
           {subOptions}
         </select>
