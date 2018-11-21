@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-//import './BannerLibrary.css';
+import './BannerLibrary.scss'
 
 class BannerLibrary extends Component {
   constructor(props) {
@@ -9,10 +9,15 @@ class BannerLibrary extends Component {
     }
 
     this.setSelectedColor = this.setSelectedColor.bind(this)
+    this.sendColor = this.sendColor.bind(this)
   }
 
-  setSelectedColor(color) {
-    this.setState({ selectedColor: color })
+  async setSelectedColor(color) {
+    await this.setState({ selectedColor: color })
+    await this.sendColor(color)
+  }
+
+  sendColor() {
     this.props.setColor(this.state.selectedColor)
   }
 
@@ -36,14 +41,17 @@ class BannerLibrary extends Component {
       '#fec200',
     ]
 
-    console.log('this.state', this.state)
     return (
       <div className="BannerLibrary--container">
         {colors.map(color => {
           return (
             <div key={color}>
-              <button style={{ background: color }} onClick={() => this.setSelectedColor(color)}>
-                {color}
+              <button
+                className="single-color"
+                style={{ background: color }}
+                onClick={() => this.setSelectedColor(color)}
+              >
+                {/* {color} */}
               </button>
             </div>
           )

@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700');
+
+$font-family: 'Montserrat', sans-serif;
+$blue: #0000f7;
+$light-blue: #00a7f7;
+$light-gray: #f5f5f5;
+$dark-gray: #888888;
+$black: #252525;
+$light-black: #323232;
+
+* {
+  box-sizing: border-box;
+}
+.BannerLibrary--container {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+
+.single-color {
+  width: 3.2vw;
+  display: block;
+  height: 15px;
+  transition: all 0.2s ease;
+}
+
+.single-color:hover {
+  border-bottom: 6px $light-black solid;
+}

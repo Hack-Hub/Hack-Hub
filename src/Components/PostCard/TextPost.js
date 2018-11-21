@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function TextPost(props) {
-  console.log('props', props)
   const {
     post_date_time,
     post_id,
