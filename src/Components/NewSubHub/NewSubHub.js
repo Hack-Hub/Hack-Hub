@@ -31,7 +31,7 @@ class NewSubHub extends Component {
   }
 
   setIcon = URL => {
-    console.log('URL', URL)
+    // console.log('URL', URL)
     this.setState({ sh_icon: URL })
   }
   //axios post call
@@ -54,7 +54,6 @@ class NewSubHub extends Component {
   }
 
   render() {
-    console.log('this.state', this.state)
     return (
       <div className="NewSubHub--Container">
         <h3>New SubHub</h3>
