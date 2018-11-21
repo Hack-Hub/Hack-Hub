@@ -41,7 +41,7 @@ class NewPost extends Component {
   }
   //called in ImageUpload
   setImageURL = URL => {
-    console.log(URL)
+    // console.log(URL)
     this.setState({ imageURL: URL })
   }
 
@@ -75,7 +75,7 @@ class NewPost extends Component {
     }
 
     return (
-      <div className="newPost">
+      <div className="NewPost--Container">
         <h1>New Post</h1>
         <GetSubHub setID={this.setSubHubID} />
         <button name="Text" onClick={this.handleTypeChange}>

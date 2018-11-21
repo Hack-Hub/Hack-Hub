@@ -46,9 +46,8 @@ class SubHub extends Component {
   // }
 
   render() {
-    console.log('this.props', this.props)
     const { subhubName, icon, themeColor, desc } = this.state
-    console.log('this.state', this.state)
+
     return (
       <div className="SubHub--container">
         <section className="banner" style={{ background: themeColor, marginTop: '-100px' }}>

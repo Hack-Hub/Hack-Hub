@@ -44,14 +44,13 @@ class SignIn extends Component {
   }
 
   postUserToTable() {
-    console.log('hi')
     // console.log('this.state.user.pool.client.clientId', this.state.user.pool.clientId)
     axios
       .post('/api/newUser', {
         username: this.state.user.username,
       })
       .then(response => {
-        console.log('response.data[0].user_id', response.data[0].user_id)
+        // console.log('response.data[0].user_id', response.data[0].user_id)
         axios
           .post('/api/userSession', {
             user_id: response.data[0].user_id,
@@ -71,8 +70,8 @@ class SignIn extends Component {
   }
 
   render() {
-    console.log('this.props', this.props)
-    console.log('this.state', this.state)
+    // console.log('this.props', this.props)
+    // console.log('this.state', this.state)
 
     return (
       <div className="SignIn--container">

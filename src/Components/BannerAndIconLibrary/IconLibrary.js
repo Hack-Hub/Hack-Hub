@@ -18,7 +18,7 @@ class IconLibrary extends Component {
   }
 
   sendIcon() {
-    console.log('this.state.selectedIcon', this.state.selectedIcon)
+    // console.log('this.state.selectedIcon', this.state.selectedIcon)
     this.props.setIcon(this.state.selectedIcon)
   }
 
@@ -39,7 +39,6 @@ class IconLibrary extends Component {
       <img src="https://i.imgur.com/su9ocmC.jpg" alt="icon" />,
     ]
 
-    console.log('this.state', this.state)
     return (
       <div className="IconLibrary--container">
         {icons.map(icon => {

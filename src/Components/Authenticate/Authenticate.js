@@ -48,7 +48,7 @@ class Authenticate extends Component {
       this.setState({ step: 1 })
     } catch (err) {
       this.setState({ authError: err })
-      console.log('this.state.authError', this.state.authError)
+      // console.log('this.state.authError', this.state.authError)
     }
   }
 
