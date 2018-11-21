@@ -26,20 +26,22 @@ class SearchResults extends Component {
   }
 
   componentDidMount() {
-    this.getUser()
     const { id } = this.props.match.params
     this.setState({ searchResults: id })
-    this.state.userId !== null && this.getSubhubCurrentUserFollows()
+    this.getUser()
+    // this.state.userId !== null && this.getSubhubCurrentUserFollows()
     this.getSubhubs()
     this.getPosts()
   }
 
   getUser() {
     axios.get('/api/currentUser').then(response => {
-      if (!response.length) {
+      console.log('response', response)
+      if (!response.data.length) {
         return
       } else {
         this.setState({ userId: response.data[0].user_id })
+        this.getSubhubCurrentUserFollows(this.state.userId)
       }
     })
   }
@@ -105,6 +107,7 @@ class SearchResults extends Component {
   }
 
   render() {
+    console.log('this.state', this.state)
     // console.log('this.state.subscribeError', this.state.subscribeError)
     return (
       <div className="SearchResults--container">
@@ -137,7 +140,7 @@ class SearchResults extends Component {
                         .delete(
                           `/api/deleteFollow/${this.state.userId}/${individualSubhub.subhub_id}`
                         )
-                        .then(this.getSubhubCurrentUserFollows(this.state.userId))
+                        .then(await this.getSubhubCurrentUserFollows(this.state.userId))
                     }
                   >
                     Unsubscribe
