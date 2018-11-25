@@ -13,7 +13,6 @@ class SearchResults extends Component {
       subhubResults: [],
       postResults: [],
       followedHubs: [],
-      // change user id when req.sessions is fixed
       userId: null,
       subscribeError: '',
     }
@@ -29,7 +28,6 @@ class SearchResults extends Component {
     const { id } = this.props.match.params
     this.setState({ searchResults: id })
     this.getUser()
-    // this.state.userId !== null && this.getSubhubCurrentUserFollows()
     this.getSubhubs()
     this.getPosts()
   }
@@ -60,6 +58,7 @@ class SearchResults extends Component {
   }
   getPosts() {
     axios.get('/api/getAllPosts').then(response => {
+      console.log('response', response)
       const posts = response.data
       const filteredPosts = []
       for (let i = 0; i < posts.length; i++) {
@@ -135,6 +134,7 @@ class SearchResults extends Component {
                 </div>
                 {follows ? (
                   <button
+                    className="subscribe-button"
                     onClick={async () =>
                       await axios
                         .delete(
@@ -147,6 +147,7 @@ class SearchResults extends Component {
                   </button>
                 ) : (
                   <button
+                    className="subscribe-button"
                     onClick={() => {
                       if (this.state.userId === null) {
                         this.handleNullUser()
@@ -163,8 +164,11 @@ class SearchResults extends Component {
           })}
         </div>
 
-        <div className="Post-Results--Container">
+        <div className="Subhub-Results--Container" style={{ marginTop: '30px' }}>
+          <h3>POSTS</h3>
+          <div className="ruler" />
           {this.state.postResults.map(post => {
+            console.log('post', post)
             return (
               <div key={post.post_id} className="individual-post-section">
                 <PostCard
