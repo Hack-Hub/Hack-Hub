@@ -21,6 +21,7 @@ $light-black: #323232;
   position: fixed;
   background-color: $black;
   top: 0;
+  z-index: 100;
 
   .left-nav {
     width: 20%;

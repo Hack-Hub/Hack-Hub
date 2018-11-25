@@ -13,12 +13,24 @@ class NewSubHub extends Component {
       sh_icon: '',
       sh_banner: '',
       theme_color: '',
+      userId: null,
     }
 
     this.setColor = this.setColor.bind(this)
     this.setIcon = this.setIcon.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidMount() {
+    axios.get('/api/currentUser').then(async response => {
+      // console.log('response', response)
+      if (!response.data.length) {
+        return
+      } else {
+        await this.setState({ userId: response.data[0].user_id })
+      }
+    })
   }
 
   setColor(color) {
@@ -56,6 +68,11 @@ class NewSubHub extends Component {
   render() {
     return (
       <div className="NewSubHub--Container">
+        {this.state.userId === null && (
+          <div style={{ margin: '30px auto' }}>
+            <h1>You must be signed in to create a new subhub.</h1>
+          </div>
+        )}
         <h3>New SubHub</h3>
         <div className="ruler" />
         <section className="newhub-input">

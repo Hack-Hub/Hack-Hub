@@ -36,6 +36,7 @@ class IconLibrary extends Component {
       <img src="https://i.imgur.com/jro66FX.jpg" alt="icon" />,
       <img src="https://i.imgur.com/BvD3DM0.jpg" alt="icon" />,
       <img src="https://i.imgur.com/pg523eJ.jpg" alt="icon" />,
+      <img src="https://i.imgur.com/uXubjnE.jpg" alt="icon" />,
       <img src="https://i.imgur.com/su9ocmC.jpg" alt="icon" />,
     ]
 

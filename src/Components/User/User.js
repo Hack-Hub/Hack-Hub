@@ -2,16 +2,19 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import PostCard from '../PostCard/PostCard'
 import { Link } from 'react-router-dom'
+import './User.scss'
 
 class User extends Component {
   constructor() {
     super()
 
     this.state = {
-      current_user: [],
+      current_user: {},
       followed_subs: [],
       posts: [],
     }
+
+    this.getSubhubCurrentUserFollows = this.getSubhubCurrentUserFollows.bind(this)
   }
 
   componentDidMount() {
@@ -19,21 +22,26 @@ class User extends Component {
       this.setState({ current_user: res.data[0] })
     })
 
-    axios.get('/api/getUserSubs').then(res => {
-      this.setState({ followed_subs: res.data })
-    })
+    this.getSubhubCurrentUserFollows()
 
     axios.get('/api/getUserPosts').then(res => {
+      console.log('res', res)
       this.setState({ posts: res.data })
     })
   }
 
+  getSubhubCurrentUserFollows() {
+    axios.get(`/api/getUserSubs/${this.props.match.params.id}`).then(res => {
+      this.setState({ followed_subs: res.data })
+    })
+  }
+
   render() {
-    // console.log(this.state)
+    console.log(this.state)
     return (
-      <div>
-        <div className="Subhub-Results--Container">
-          <h3>SUBHUBS</h3>
+      <div className="User--Container">
+        <div className="Subhub-Results--Container ">
+          <h3>FOLLOWED SUBHUBS</h3>
           <div className="ruler" />
           {this.state.followed_subs.map(sub => {
             return (
@@ -49,7 +57,17 @@ class User extends Component {
                 <div className="subhub-right">
                   <p>{sub.sh_desc}</p>
                 </div>
-                <button>Unsubscribe</button>
+                <button
+                  onClick={async () =>
+                    await axios
+                      .delete(
+                        `/api/deleteFollow/${this.state.current_user.user_id}/${sub.subhub_id}`
+                      )
+                      .then(await this.getSubhubCurrentUserFollows())
+                  }
+                >
+                  Unsubscribe
+                </button>
               </div>
             )
           })}
@@ -57,6 +75,7 @@ class User extends Component {
 
         <div>
           {this.state.posts.map(post => {
+            console.log('post', post)
             return (
               <div key={post.post_id}>
                 <PostCard post={post} />
