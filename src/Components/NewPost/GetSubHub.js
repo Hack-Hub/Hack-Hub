@@ -1,35 +1,40 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from "react";
+import axios from "axios";
 
 class GetSubHub extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      subhubName: '',
+      subhubName: "",
       subhubOptions: [],
       userId: null,
-      nullUserWarning: '',
-    }
+      nullUserWarning: ""
+    };
 
-    this.handleChange = this.handleChange.bind(this)
-    this.findSubHub = this.findSubHub.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.findSubHub = this.findSubHub.bind(this);
   }
 
   componentDidMount() {
-    axios.get(`/api/getUserSubs/${this.props.userId}`).then(subhubs => {
-      this.setState({ subhubOptions: subhubs.data })
-    })
+    axios
+      .get('/api/getUserSubs')
+      .then(subhubs => {
+        this.setState({ subhubOptions: subhubs.data });
+      })
+      .catch(error => console.log(error));
   }
 
   handleChange = event => {
-    this.setState({ subhubName: event.target.value })
-  }
+    this.setState({ subhubName: event.target.value });
+  };
 
   findSubHub = () => {
-    axios.get('/api/getSubByName/?name=' + this.state.subhubName).then(subhubs => {
-      this.setState({ subhubOptions: subhubs.data })
-    })
-  }
+    axios
+      .get("/api/getSubByName/?name=" + this.state.subhubName)
+      .then(subhubs => {
+        this.setState({ subhubOptions: subhubs.data });
+      });
+  };
 
   render() {
     // console.log('this.props', this.props)
@@ -37,7 +42,7 @@ class GetSubHub extends Component {
       <option key={idx} value={subhub.subhub_id}>
         {subhub.sh_name}
       </option>
-    ))
+    ));
     return (
       <div className="GetSubHub--Container" style={styles.container}>
         <h5>Enter SubHub</h5>
@@ -47,23 +52,31 @@ class GetSubHub extends Component {
           placeholder="Enter Subhub Name"
         />
         <button style={styles.button} onClick={this.findSubHub}>
-         Search SubHubs
+          Search SubHubs
         </button>
 
-        <select style={styles.select} onChange={event => this.props.setID(event.target.value)}>
+        <select
+          style={styles.select}
+          onChange={event => this.props.setID(event.target.value)}
+        >
           <option value={null}>Select SubHub</option>
           {subOptions}
         </select>
       </div>
-    )
+    );
   }
 }
 
 const styles = {
-  container: { display: 'flex', flexDirection: 'column' },
-  button: { backgroundColor: '#0000f7', color: 'white', width: '100px', margin: '0 auto' },
-  subhubName: { width: '500px' },
-  select: { width: '300px', margin: '10px auto' },
-}
+  container: { display: "flex", flexDirection: "column" },
+  button: {
+    backgroundColor: "#0000f7",
+    color: "white",
+    width: "100px",
+    margin: "0 auto"
+  },
+  subhubName: { width: "500px" },
+  select: { width: "300px", margin: "10px auto" }
+};
 
-export default GetSubHub
+export default GetSubHub;
