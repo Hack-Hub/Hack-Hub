@@ -13,7 +13,7 @@ class Nav extends Component {
       isLoggedIn: false,
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.handleEnter = this.handleEnter.bind(this)
     this.reRenderResultsPage = this.reRenderResultsPage.bind(this)
     this.handleRandomState = this.handleRandomState.bind(this)
   }
@@ -22,7 +22,8 @@ class Nav extends Component {
     this.setState({ searchResults: event.target.value })
   }
 
-  handleKeyPress(event,selectedPage){
+  handleEnter(event){
+    //Allows search to be done when enter key is pressed.
     console.log('event',event);
     if(event.keyCode === 13){
       this.props.history.push(`/searchResults/${this.state.searchResults}`)
@@ -57,7 +58,7 @@ class Nav extends Component {
 
         <div className="right-nav">
           <div className="search-bar">
-            <input className="search-input" name="searchResults" onChange={this.handleChange} onKeyDown={(selectedPage) => this.handleKeyPress(selectedPage)} />
+            <input className="search-input" name="searchResults" onChange={this.handleChange} onKeyDown={this.handleEnter} />
 
             <Link
               to={`/searchResults/${this.state.searchResults}`}
