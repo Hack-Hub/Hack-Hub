@@ -70,7 +70,7 @@ class SearchResults extends Component {
   }
 
   getSubhubCurrentUserFollows() {
-    axios.get(`/api/getUserSubs/${this.state.user}`).then(async response => {
+    axios.get(`/api/getUserSubs`).then(async response => {
       // console.log('response', response)
       await this.setState({
         followedHubs: response.data.map(hub => hub.subhub_id),
