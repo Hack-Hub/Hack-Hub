@@ -13,12 +13,21 @@ class Nav extends Component {
       isLoggedIn: false,
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
     this.reRenderResultsPage = this.reRenderResultsPage.bind(this)
     this.handleRandomState = this.handleRandomState.bind(this)
   }
 
   handleChange(event) {
     this.setState({ searchResults: event.target.value })
+  }
+
+  handleKeyPress(event,selectedPage){
+    console.log('event',event);
+    if(event.keyCode === 13){
+      this.props.history.push(`/searchResults/${this.state.searchResults}`)
+      window.location.reload()
+    }
   }
 
   reRenderResultsPage(selectedPage) {
@@ -48,7 +57,7 @@ class Nav extends Component {
 
         <div className="right-nav">
           <div className="search-bar">
-            <input className="search-input" name="searchResults" onChange={this.handleChange} />
+            <input className="search-input" name="searchResults" onChange={this.handleChange} onKeyDown={(selectedPage) => this.handleKeyPress(selectedPage)} />
 
             <Link
               to={`/searchResults/${this.state.searchResults}`}
