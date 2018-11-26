@@ -14,6 +14,7 @@ class SubHub extends Component {
       banner: '',
       themeColor: this.props.theme_color,
       desc: '',
+      posts: [],
     }
 
     this.getSubhubInfo = this.getSubhubInfo.bind(this)
@@ -22,7 +23,10 @@ class SubHub extends Component {
 
   componentDidMount() {
     this.getSubhubInfo()
-    // this.getSubhubPosts()
+    axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(res => {
+      console.log('res', res)
+      this.setState({ posts: res.data })
+    })
   }
 
   getSubhubInfo() {
@@ -42,6 +46,7 @@ class SubHub extends Component {
   // getSubhubPosts() {
   //   axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(response => {
   //     console.log('response', response)
+  //     this.setState({ posts: response.data })
   //   })
   // }
 
@@ -74,7 +79,7 @@ class SubHub extends Component {
           </div>
         </section>
         <Switch>
-          <Route path="/subhub/:id/postfeed" component={PostFeed} />
+          <Route path="/subhub/:id/postfeed" render={() => <PostFeed />} />
           <Route path="/subhub/:id/chat" component={Chat} />
         </Switch>
       </div>

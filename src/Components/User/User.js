@@ -3,6 +3,7 @@ import axios from 'axios'
 import PostCard from '../PostCard/PostCard'
 import { Link } from 'react-router-dom'
 import './User.scss'
+import ImageUpload from '../NewPost/ImageUpload'
 
 class User extends Component {
   constructor() {
@@ -12,9 +13,11 @@ class User extends Component {
       current_user: {},
       followed_subs: [],
       posts: [],
+      editProfilePhoto: false,
     }
 
     this.getSubhubCurrentUserFollows = this.getSubhubCurrentUserFollows.bind(this)
+    this.editProfilePhoto = this.editProfilePhoto.bind(this)
   }
 
   componentDidMount() {
@@ -25,7 +28,6 @@ class User extends Component {
     this.getSubhubCurrentUserFollows()
 
     axios.get('/api/getUserPosts').then(res => {
-      console.log('res', res)
       this.setState({ posts: res.data })
     })
   }
@@ -36,11 +38,31 @@ class User extends Component {
     })
   }
 
+  editProfilePhoto() {
+    this.setState({ editProfilePhoto: true })
+  }
+
   render() {
-    console.log(this.state)
     return (
       <div className="User--Container">
-        <div className="Subhub-Results--Container ">
+        {this.state.editProfilePhoto && (
+          <div className="edit-profile-pic">
+            <ImageUpload setImageURL={this.setImageURL} />
+          </div>
+        )}
+
+        <div className="Profile--Container" style={{ marginBottom: '20px' }}>
+          <div className="subhub-left">
+            <img src={this.state.current_user.user_photo} alt="user" />
+            <h3>{this.state.current_user.username}</h3>
+          </div>
+          <div className="subhub-right">
+            <button className="edit-button" onClick={() => this.editProfilePhoto()}>
+              Edit Photo
+            </button>
+          </div>
+        </div>
+        <div className="Subhub-Results--Container">
           <h3>FOLLOWED SUBHUBS</h3>
           <div className="ruler" />
           {this.state.followed_subs.map(sub => {
@@ -58,12 +80,13 @@ class User extends Component {
                   <p>{sub.sh_desc}</p>
                 </div>
                 <button
+                  className="user-button"
                   onClick={async () =>
                     await axios
                       .delete(
                         `/api/deleteFollow/${this.state.current_user.user_id}/${sub.subhub_id}`
                       )
-                      .then(await this.getSubhubCurrentUserFollows())
+                      .then(this.getSubhubCurrentUserFollows())
                   }
                 >
                   Unsubscribe
@@ -75,7 +98,6 @@ class User extends Component {
 
         <div>
           {this.state.posts.map(post => {
-            console.log('post', post)
             return (
               <div key={post.post_id}>
                 <PostCard post={post} />
