@@ -104,8 +104,6 @@ class SearchResults extends Component {
   }
 
   render() {
-    // console.log('this.state', this.state)
-    // console.log('this.state.subscribeError', this.state.subscribeError)
     return (
       <div className="SearchResults--container">
         <div style={{ background: '#f5f5f5' }}>

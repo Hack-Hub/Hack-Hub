@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import PostCard from '../PostCard/PostCard'
+import PostFeed from '../PostFeed/PostFeed'
 import { Link } from 'react-router-dom'
 import './User.scss'
 
@@ -71,31 +71,13 @@ render() {
                     <div className="subhub-right">
                     <p>{sub.sh_desc}</p>
                     </div>
-                    {/* <button
-                    className="user-button"
-                    onClick={async () =>
-                        await axios
-                        .delete(
-                            `/api/deleteFollow/${this.state.current_user.user_id}/${sub.subhub_id}`
-                        )
-                        .then(this.getSubhubCurrentUserFollows())
-                    }
-                    >
-                    Unsubscribe
-                    </button> */}
                 </div>
                 )
             })}
             </div>
 
             <div>
-            {this.state.posts.map(post => {
-                return (
-                <div key={post.post_id}>
-                    <PostCard post={post} />
-                </div>
-                )
-            })}
+            <PostFeed posts={this.state.posts}/>
             </div>
         </div>
         )
