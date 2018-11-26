@@ -35,6 +35,14 @@ $light-black: #323232;
     h1 {
       color: $light-gray;
       font-weight: 200;
+      border-bottom: 1px solid transparent;
+    }
+    h1:hover {
+      border-bottom: 1px solid $light-gray;
+    }
+
+    a {
+      text-decoration: none;
     }
 
     .left-postcard {
@@ -63,6 +71,10 @@ $light-black: #323232;
           color: $light-gray;
           text-transform: capitalize;
           font-size: 12px;
+          border-bottom: 1px solid transparent;
+        }
+        a:hover {
+          border-bottom: 1px solid $light-gray;
         }
       }
     }

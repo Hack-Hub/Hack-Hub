@@ -34,7 +34,6 @@ class SearchResults extends Component {
 
   getUser() {
     axios.get('/api/currentUser').then(response => {
-      console.log('response', response)
       if (!response.data.length) {
         return
       } else {
@@ -58,7 +57,6 @@ class SearchResults extends Component {
   }
   getPosts() {
     axios.get('/api/getAllPosts').then(response => {
-      console.log('response', response)
       const posts = response.data
       const filteredPosts = []
       for (let i = 0; i < posts.length; i++) {
@@ -106,7 +104,7 @@ class SearchResults extends Component {
   }
 
   render() {
-    console.log('this.state', this.state)
+    // console.log('this.state', this.state)
     // console.log('this.state.subscribeError', this.state.subscribeError)
     return (
       <div className="SearchResults--container">
@@ -168,7 +166,6 @@ class SearchResults extends Component {
           <h3>POSTS</h3>
           <div className="ruler" />
           {this.state.postResults.map(post => {
-            console.log('post', post)
             return (
               <div key={post.post_id} className="individual-post-section">
                 <PostCard
