@@ -48,8 +48,6 @@ class NewPost extends Component {
       image_url: imageURL,
     })
     .then(response=>{
-      console.log('response',response);
-      console.log('this.props',this.props);
       this.props.history.push('/postview/'+response.data[0].post_id)
     })
   }
