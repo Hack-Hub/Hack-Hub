@@ -28,4 +28,13 @@ module.exports = {
       })
       .catch(err => console.log('err', err))
   },
+  getSubs(req, res) {
+    const db = req.app.get('db')
+    db.followed
+      .get_user_subs(req.params.userId)
+      .then(subs => {
+        return res.status(200).json(subs)
+      })
+      .catch(err => console.log('err', err))
+  }
 }
