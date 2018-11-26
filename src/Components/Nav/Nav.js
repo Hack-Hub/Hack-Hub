@@ -84,7 +84,7 @@ class Nav extends Component {
               <Link onClick={() => this.handleRandomeState()} to="/signOut">
                 Sign Out
               </Link>
-              <Link to={`/user/${this.props.user.user_id}`}>Profile</Link>
+              <Link to={`/profile/${this.props.user.user_id}`}>Profile</Link>
             </div>
           ) : (
             <div className="auth-links">

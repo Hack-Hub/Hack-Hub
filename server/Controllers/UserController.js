@@ -48,4 +48,13 @@ module.exports = {
       })
       .catch(err => console.log('err', err))
   },
+  getUser(req, res) {
+    const db = req.app.get('db')
+    db.users
+      .getUserID(req.params.user_id)
+      .then(response => {
+        return res.status(200).json(response)
+      })
+      .catch(err => console.log('err', err))
+  }
 }

@@ -14,6 +14,7 @@ const express = require('express'),
     getPostsBySub,
     getPostByID,
     getUserPosts,
+    getUserPosts2
   } = require('./Controllers/PostsController'),
   {
     postUpVote,
@@ -34,8 +35,9 @@ const express = require('express'),
     getCurrentUser,
     editUserName,
     editUserPhoto,
+    getUser
   } = require('./Controllers/UserController'),
-  { getUserSubs, addFollow, deleteFollow } = require('./Controllers/FollowedSubsController'),
+  { getUserSubs, addFollow, deleteFollow, getSubs } = require('./Controllers/FollowedSubsController'),
   { getAllSubhubs, getAllPosts } = require('./Controllers/SearchbarController'),
   session = require('express-session')
 
@@ -61,6 +63,7 @@ app.get('/api/getPosts', getPosts)
 app.get('/api/getSubPosts/:subhub_id', getPostsBySub)
 app.get('/api/getPostByID/:post_id', getPostByID)
 app.get('/api/getUserPosts', getUserPosts)
+app.get('/api/getUserPosts2/:userId', getUserPosts2)
 app.post('/api/newPost', newPost)
 app.put('/api/editPost:id', editPost)
 app.delete('/api/deletePost/:id', deletePost)
@@ -87,7 +90,8 @@ app.put('/api/editSub/:subhub_id', editSub)
 app.delete('/api/deleteSub/:subhub_id', deleteSub)
 
 //Followed Subhubs
-app.get('/api/getUserSubs/:userId', getUserSubs)
+app.get('/api/getUserSubs', getUserSubs)
+app.get('/api/getSubs/:userId', getSubs)
 app.post('/api/addFollow', addFollow)
 app.delete('/api/deleteFollow/:userId/:subhubId', deleteFollow)
 
@@ -102,6 +106,7 @@ app.post('/api/destroySession', (req, res) => {
   req.session.destroy()
 })
 app.get('/api/currentUser', getCurrentUser)
+app.get('/api/getUser/:user_id', getUser)
 app.put('/api/editUserName/:userId', editUserName)
 app.put('/api/editUserPhoto/:userId', editUserPhoto)
 
