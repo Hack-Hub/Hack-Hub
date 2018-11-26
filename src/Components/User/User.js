@@ -16,6 +16,7 @@ class User extends Component {
     }
 
     this.getSubhubCurrentUserFollows = this.getSubhubCurrentUserFollows.bind(this)
+    this.getLoggedInUserSubs = this.getLoggedInUserSubs.bind(this)
 }
 
 componentDidMount() {
@@ -58,6 +59,7 @@ render() {
             <h3>FOLLOWED SUBHUBS</h3>
             <div className="ruler" />
             {this.state.followed_subs.map(sub => {
+                const follows = this.state.loggedInUserSubs.includes(sub.subhub_id)
                 return (
                 <div key={sub.subhub_id} className="individual-subhub-section">
                     <div className="subhub-left">
