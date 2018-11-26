@@ -13,12 +13,22 @@ class Nav extends Component {
       isLoggedIn: false,
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleEnter = this.handleEnter.bind(this)
     this.reRenderResultsPage = this.reRenderResultsPage.bind(this)
     this.handleRandomState = this.handleRandomState.bind(this)
   }
 
   handleChange(event) {
     this.setState({ searchResults: event.target.value })
+  }
+
+  handleEnter(event){
+    //Allows search to be done when enter key is pressed.
+    console.log('event',event);
+    if(event.keyCode === 13){
+      this.props.history.push(`/searchResults/${this.state.searchResults}`)
+      window.location.reload()
+    }
   }
 
   reRenderResultsPage(selectedPage) {
@@ -41,14 +51,14 @@ class Nav extends Component {
     return (
       <div className="Nav--container">
         <div className="left-nav">
-          <Link to="/">
+          <Link to="/dashboard">
             <img className="nav-logo" src="https://i.imgur.com/RM92Yuk.png" alt="hack-hub-logo" />
           </Link>
         </div>
 
         <div className="right-nav">
           <div className="search-bar">
-            <input className="search-input" name="searchResults" onChange={this.handleChange} />
+            <input className="search-input" name="searchResults" onChange={this.handleChange} onKeyDown={this.handleEnter} />
 
             <Link
               to={`/searchResults/${this.state.searchResults}`}
