@@ -29,6 +29,7 @@ class SearchResults extends Component {
     this.setState({ searchResults: id })
     this.getUser()
     this.getSubhubs()
+    this.getSubhubCurrentUserFollows()
     this.getPosts()
   }
 
@@ -70,8 +71,7 @@ class SearchResults extends Component {
   }
 
   getSubhubCurrentUserFollows() {
-    axios.get(`/api/getUserSubs/${this.state.user}`).then(async response => {
-      // console.log('response', response)
+    axios.get(`/api/getUserSubs`).then(async response => {
       await this.setState({
         followedHubs: response.data.map(hub => hub.subhub_id),
       })
@@ -135,10 +135,8 @@ class SearchResults extends Component {
                     className="subscribe-button"
                     onClick={async () =>
                       await axios
-                        .delete(
-                          `/api/deleteFollow/${this.state.userId}/${individualSubhub.subhub_id}`
-                        )
-                        .then(await this.getSubhubCurrentUserFollows(this.state.userId))
+                        .delete(`/api/deleteFollow/${individualSubhub.subhub_id}`)
+                        .then(await this.getSubhubCurrentUserFollows())
                     }
                   >
                     Unsubscribe

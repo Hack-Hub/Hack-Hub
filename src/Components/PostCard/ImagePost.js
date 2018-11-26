@@ -13,6 +13,9 @@ function ImagePost(props) {
     username,
     user_photo,
   } = props.post
+
+  const date = new Date(post_date_time)
+
   return (
     <div className="PostCard--container">
       <section className="Card--section--header">
@@ -29,7 +32,8 @@ function ImagePost(props) {
           <div className="subhub-name">
             <Link to={`/subhub/${subhub_id}/postfeed`}>{sh_name}</Link>
           </div>
-          <div className="time-stamp">{post_date_time}</div>
+
+          <div className="time-stamp">{date.toDateString()}</div>
         </div>
       </section>
       <section className="Card--section--body">
