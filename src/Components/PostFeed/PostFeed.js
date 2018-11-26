@@ -11,7 +11,6 @@ class PostFeed extends Component {
   }
   componentDidUpdate(prevProps){
     if(this.props.posts !==prevProps.posts){
-      console.log('this.props',this.props.posts);
       this.setState({posts:this.props.posts})
     }
   }

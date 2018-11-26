@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Votes from '../Votes/Votes'
 
 function URLPost(props) {
   const {
@@ -12,6 +13,7 @@ function URLPost(props) {
     sh_name,
     username,
     user_photo,
+    votes
   } = props.post
   return (
     <div className="PostCard--container">
@@ -38,17 +40,7 @@ function URLPost(props) {
         </p>
       </section>
       <section className="bottom">
-        <div className="votes-section">
-          {/* bring in votes component here */}
-          <i className="fa fa-2x fa-arrow-up" />
-          <p>1234</p>
-          <i className="fa fa-2x fa-arrow-down" />
-        </div>
-        {/* <div className="user">
-          <p>
-            user: <span>{username}</span>
-          </p>
-        </div> */}
+      <Votes votes={votes} post_id={post_id}/>
       </section>
     </div>
   )
