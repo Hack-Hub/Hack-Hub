@@ -13,10 +13,10 @@ class Votes extends Component {
     
     render() {
         return (
-            <div>
-                <button onClick={this.handleUpVote}>Upvote</button>
+            <div className="votes-section">
+                <button className="fa fa-2x fa-arrow-up" onClick={this.handleUpVote}></button>
                 {this.props.votes}
-                <button onClick={this.handleDownVote}>Downvote</button>
+                <button  className="fa fa-2x fa-arrow-down" onClick={this.handleDownVote}></button>
             </div>
         );
     }
