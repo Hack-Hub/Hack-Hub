@@ -4,7 +4,7 @@ import Votes from '../Votes/Votes'
 
 function URLPost(props) {
   const {
-    image_url,
+    web_url,
     post_date_time,
     post_id,
     subhub_id,
@@ -36,8 +36,8 @@ function URLPost(props) {
         <Link to={`/postview/${post_id}`}>
           <h1>{title}</h1>
         </Link>
-        <p className="image">
-          <img src={image_url} alt="" />
+        <p className="URL">
+        <a href={web_url} target="_blank" rel='noopener noreferrer' >{web_url}</a>
         </p>
       </section>
       <section className="bottom">

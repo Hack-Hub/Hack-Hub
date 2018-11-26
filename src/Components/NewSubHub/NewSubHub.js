@@ -15,11 +15,6 @@ class NewSubHub extends Component {
       theme_color: '',
       userId: null,
     }
-
-    this.setColor = this.setColor.bind(this)
-    this.setIcon = this.setIcon.bind(this)
-    this.handleInput = this.handleInput.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -33,7 +28,7 @@ class NewSubHub extends Component {
     })
   }
 
-  setColor(color) {
+  setColor=(color)=> {
     this.setState({ theme_color: color, sh_banner: color })
   }
 
@@ -51,7 +46,7 @@ class NewSubHub extends Component {
     const { sh_name, sh_desc, sh_icon, sh_banner, theme_color } = this.state
     axios
       .post('/api/newSub', { sh_name, sh_desc, sh_icon, sh_banner, theme_color })
-      .then(() => {
+      .then((response) => {
         this.setState({
           sh_name: '',
           sh_desc: '',
@@ -59,6 +54,7 @@ class NewSubHub extends Component {
           sh_banner: this.state.sh_banner,
           theme_color: this.state.theme_color,
         })
+        this.props.history.push(`subhub/${response.data[0].subhub_id}/postfeed`)
       })
       .catch(error => {
         alert(error)

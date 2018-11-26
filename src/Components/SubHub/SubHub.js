@@ -18,7 +18,6 @@ class SubHub extends Component {
     }
 
     this.getSubhubInfo = this.getSubhubInfo.bind(this)
-    // this.getSubhubPosts = this.getSubhubPosts.bind(this)
   }
 
   componentDidMount() {
@@ -28,7 +27,14 @@ class SubHub extends Component {
       this.setState({ posts: res.data })
     })
   }
-
+  componentDidUpdate(prevProps){
+    if(prevProps.match.params !==this.props.match.params){
+      axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(res => {
+        console.log('res.data',res.data);
+        this.setState({ posts: res.data })
+      })
+    }
+  }
   getSubhubInfo() {
     axios.get(`/api/getSub/${this.props.match.params.id}`).then(response => {
       // response.data[0]
