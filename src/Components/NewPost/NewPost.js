@@ -47,6 +47,11 @@ class NewPost extends Component {
       web_url: URL,
       image_url: imageURL,
     })
+    .then(response=>{
+      console.log('response',response);
+      console.log('this.props',this.props);
+      this.props.history.push('/postview/'+response.data[0].post_id)
+    })
   }
   //called in GetSubHub
   setSubHubID = id => {

@@ -41,7 +41,7 @@ class Nav extends Component {
     return (
       <div className="Nav--container">
         <div className="left-nav">
-          <Link to="/">
+          <Link to="/dashboard">
             <img className="nav-logo" src="https://i.imgur.com/RM92Yuk.png" alt="hack-hub-logo" />
           </Link>
         </div>
