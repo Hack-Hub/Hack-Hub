@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700');
+
+$font-family: 'Montserrat', sans-serif;
+$blue: #0000f7;
+$light-blue: #00a7f7;
+$light-gray: #f5f5f5;
+$dark-gray: #888888;
+$black: #252525;
+$light-black: #323232;
+
+* {
+  box-sizing: border-box;
+}
+
+.IconLibrary--container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: safe center;
+  margin: 0 auto;
+  width: 70%;
+
+  .single-icon {
+    width: 100px;
+    padding: 10px;
+  }
+
+  img {
+    width: 100%;
+  }
+}

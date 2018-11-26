@@ -3,6 +3,7 @@ import './SignIn.scss'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import { Auth } from 'aws-amplify'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 class SignIn extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class SignIn extends Component {
       username: '',
       password: '',
       user: {},
+      signInError: '',
       // authState: props.authState,
       // authData: props.authData,
     }
@@ -30,23 +32,25 @@ class SignIn extends Component {
     const { username, password } = this.state
     await Auth.signIn(username, password)
       .then(user => this.setState({ user }))
-      // await Auth.confirmSignIn(this.state.user)
-      //   // .then(data => console.log('data', data))
-      //   .catch(err => console.log('err', err))
       .then(() => this.postUserToTable(this.state.user))
+      // await Auth.confirmSignIn(this.state.user)
+      //   .then(data => console.log('data', data))
+      //   .catch(err => console.log('err', err))
 
-      .catch(err => console.log('err', err))
+      .catch(err => {
+        console.log('err', err)
+        this.setState({ signInError: 'Sorry, your username/password is incorrect.' })
+      })
   }
 
   postUserToTable() {
     // console.log('this.state.user.pool.client.clientId', this.state.user.pool.clientId)
     axios
       .post('/api/newUser', {
-        userClientId: this.state.user.pool.clientId,
         username: this.state.user.username,
       })
       .then(response => {
-        console.log('response.data[0].user_id', response.data[0].user_id)
+        // console.log('response.data[0].user_id', response.data[0].user_id)
         axios
           .post('/api/userSession', {
             user_id: response.data[0].user_id,
@@ -68,6 +72,7 @@ class SignIn extends Component {
   render() {
     // console.log('this.props', this.props)
     // console.log('this.state', this.state)
+
     return (
       <div className="SignIn--container">
         <button
@@ -76,7 +81,7 @@ class SignIn extends Component {
             this.closeModal()
           }}
         >
-          <img src="http://i65.tinypic.com/29ehdth.png" alt="close" />
+          <img src="https://i.imgur.com/dOUsAsy.png" alt="close" />
         </button>
         <div className="auth-section">
           <h3>Sign In</h3>
@@ -93,6 +98,7 @@ class SignIn extends Component {
             type="password"
             style={styles.input}
           />
+          {this.state.signInError && <ErrorMessage message={this.state.signInError} />}
           <button className="sign-up" onClick={this.signIn}>
             Sign In
           </button>

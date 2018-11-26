@@ -12,8 +12,9 @@ class SubHub extends Component {
       subhubName: '',
       icon: '',
       banner: '',
-      themeColor: '',
+      themeColor: this.props.theme_color,
       desc: '',
+      posts: [],
     }
 
     this.getSubhubInfo = this.getSubhubInfo.bind(this)
@@ -22,7 +23,10 @@ class SubHub extends Component {
 
   componentDidMount() {
     this.getSubhubInfo()
-    // this.getSubhubPosts()
+    axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(res => {
+      console.log('res', res)
+      this.setState({ posts: res.data })
+    })
   }
 
   getSubhubInfo() {
@@ -42,14 +46,16 @@ class SubHub extends Component {
   // getSubhubPosts() {
   //   axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(response => {
   //     console.log('response', response)
+  //     this.setState({ posts: response.data })
   //   })
   // }
 
   render() {
-    const { subhubName, icon, banner, themeColor, desc } = this.state
+    const { subhubName, icon, themeColor, desc } = this.state
+
     return (
       <div className="SubHub--container">
-        <section className="banner" style={{ background: themeColor }}>
+        <section className="banner" style={{ background: themeColor, marginTop: '-100px' }}>
           <div className="banner-container">
             <img src={icon} alt="subhub" />
             <div className="subhub-name">
@@ -73,8 +79,7 @@ class SubHub extends Component {
           </div>
         </section>
         <Switch>
-          {/* TODO!! CHANGE THIS FIRST ROUTE TO A RENDER ROUTE FOR SUB HUB ID */}
-          <Route path="/subhub/:id/postfeed" component={PostFeed} />
+          <Route path="/subhub/:id/postfeed" render={() => <PostFeed />} />
           <Route path="/subhub/:id/chat" component={Chat} />
         </Switch>
       </div>

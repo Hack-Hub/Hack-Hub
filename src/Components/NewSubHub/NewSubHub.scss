@@ -12,7 +12,7 @@ $light-black: #323232;
   box-sizing: border-box;
 }
 
-.NewPost--Container {
+.NewSubHub--Container {
   display: flex;
   flex-direction: column;
   width: 70%;
@@ -23,6 +23,7 @@ $light-black: #323232;
   background: $light-black;
   box-shadow: 2px 6px 8px -2px rgba(0, 0, 0, 0.6);
   padding: 20px;
+  // align-items: center;
 
   h3 {
     padding-bottom: 10px;
@@ -36,16 +37,15 @@ $light-black: #323232;
     width: 100%;
     border-top: 1px solid $blue;
     margin-bottom: 10px;
+    // padding: 4px 0px;
   }
 
-  .newpost-input {
-    text-align: center;
+  .newhub-input {
     display: flex;
     flex-direction: column;
     padding-top: 20px;
     align-items: center;
     margin-bottom: 50px;
-    // width: 100%;
 
     h5 {
       padding-bottom: 20px;
@@ -57,7 +57,8 @@ $light-black: #323232;
     }
 
     input {
-      margin: 0px auto 10px auto;
+      margin: 0px auto 30px auto;
+      width: 80%;
       border-bottom: 1px solid $black;
       padding: 4px;
       font-family: $font-family;
@@ -66,36 +67,14 @@ $light-black: #323232;
       outline: none;
       font-weight: 200;
     }
-
-    .newpost-type {
-      margin: 10px auto;
-      button {
-        color: $light-gray;
-        background: $blue;
-        margin: 15px 5px;
-        font-weight: 200;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        padding: 5px 15px;
-      }
-    }
-
-    button {
-      font-family: $font-family;
-      // margin: 0px auto 30px auto;
-    }
-
-    .text-input {
-      width: 500px;
-    }
   }
 
-  .submit-post {
+  .submit-subhub {
     background: $blue;
     font-family: $font-family;
     width: 200px;
+    height: 30px;
     color: $light-gray;
-    margin: 0 auto;
-    padding: 5px;
+    margin: 40px auto 20px auto;
   }
 }

@@ -12,7 +12,7 @@ export default class LandingPage extends Component {
     return (
       <div className="LandingPage--container">
         <section className="landing-section">
-          <img src="http://i64.tinypic.com/ndplcw.jpg" alt="logo-2" />
+          <img src="https://i.imgur.com/MY2lCYx.png" alt="logo-2" />
           <h3>Welcome to Hack-Hub</h3>
           <p>
             Dale a tu cuerpo alegria Macarena Que tu cuerpo es pa' darle alegria cosa buena Dale a

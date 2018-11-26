@@ -14,8 +14,21 @@ class NewPost extends Component {
       URL: null,
       imageURL: null,
       subhub_id: 0,
+      userId: null,
     }
   }
+
+  componentDidMount() {
+    axios.get('/api/currentUser').then(async response => {
+      // console.log('response', response)
+      if (!response.data.length) {
+        return
+      } else {
+        await this.setState({ userId: response.data[0].user_id })
+      }
+    })
+  }
+
   //set state according to name of input
   handleInput = event => {
     this.setState({ [event.target.name]: event.target.value })
@@ -41,7 +54,7 @@ class NewPost extends Component {
   }
   //called in ImageUpload
   setImageURL = URL => {
-    console.log(URL)
+    // console.log(URL)
     this.setState({ imageURL: URL })
   }
 
@@ -53,7 +66,7 @@ class NewPost extends Component {
       inputType = (
         <div>
           <h5>Text</h5>
-          <input name="text" onChange={this.handleInput} />
+          <input name="text" className="text-input" onChange={this.handleInput} />
         </div>
       )
     }
@@ -61,7 +74,7 @@ class NewPost extends Component {
       inputType = (
         <div>
           <h5>URL</h5>
-          <input name="URL" onChange={this.handleInput} />
+          <input name="URL" className="text-input" onChange={this.handleInput} />
         </div>
       )
     }
@@ -75,22 +88,36 @@ class NewPost extends Component {
     }
 
     return (
-      <div className="newPost">
-        <h1>New Post</h1>
-        <GetSubHub setID={this.setSubHubID} />
-        <button name="Text" onClick={this.handleTypeChange}>
-          Text
+      <div className="NewPost--Container">
+        {this.state.userId === null && (
+          <div style={{ margin: '30px auto' }}>
+            <h1>You must be signed in to create a new post.</h1>
+          </div>
+        )}
+        <h3>New Post</h3>
+        <div className="ruler" />
+
+        <section className="newpost-input">
+          <GetSubHub userId={this.state.userId} setID={this.setSubHubID} />
+
+          <section className="newpost-type">
+            <button name="Text" onClick={this.handleTypeChange}>
+              Text
+            </button>
+            <button name="URL" onClick={this.handleTypeChange}>
+              URL
+            </button>
+            <button name="Image" onClick={this.handleTypeChange}>
+              Image
+            </button>
+          </section>
+          <h5>Title</h5>
+          <input name="title" className="text-input" onChange={this.handleInput} />
+          {inputType}
+        </section>
+        <button className="submit-post" onClick={this.handleSubmit}>
+          Submit Post
         </button>
-        <button name="URL" onClick={this.handleTypeChange}>
-          URL
-        </button>
-        <button name="Image" onClick={this.handleTypeChange}>
-          Image
-        </button>
-        <h5>Title</h5>
-        <input name="title" onChange={this.handleInput} />
-        {inputType}
-        <button onClick={this.handleSubmit}>Submit Post</button>
       </div>
     )
   }

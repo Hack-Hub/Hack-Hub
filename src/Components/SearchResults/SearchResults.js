@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './SearchResults.scss'
 import PostCard from '../PostCard/PostCard'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 class SearchResults extends Component {
   constructor(props) {
@@ -12,23 +13,34 @@ class SearchResults extends Component {
       subhubResults: [],
       postResults: [],
       followedHubs: [],
-      // change user id when req.sessions is fixed
-      userId: 1,
+      userId: null,
+      subscribeError: '',
     }
 
     this.handleSubscribe = this.handleSubscribe.bind(this)
-    // this.handleUnsubscribe = this.handleUnsubscribe.bind(this)
     this.getSubhubs = this.getSubhubs.bind(this)
     this.getPosts = this.getPosts.bind(this)
     this.getSubhubCurrentUserFollows = this.getSubhubCurrentUserFollows.bind(this)
+    this.handleNullUser = this.handleNullUser.bind(this)
   }
 
   componentDidMount() {
     const { id } = this.props.match.params
     this.setState({ searchResults: id })
+    this.getUser()
     this.getSubhubs()
     this.getPosts()
-    this.getSubhubCurrentUserFollows()
+  }
+
+  getUser() {
+    axios.get('/api/currentUser').then(response => {
+      if (!response.data.length) {
+        return
+      } else {
+        this.setState({ userId: response.data[0].user_id })
+        this.getSubhubCurrentUserFollows(this.state.userId)
+      }
+    })
   }
 
   getSubhubs() {
@@ -58,10 +70,9 @@ class SearchResults extends Component {
   }
 
   getSubhubCurrentUserFollows() {
-    // TODO!!!! CHANGE 1 WHEN USER SESSIONS IS FIXED
-    axios.get(`/api/getUserSubs/${1}`).then(response => {
+    axios.get(`/api/getUserSubs/${this.state.user}`).then(async response => {
       // console.log('response', response)
-      this.setState({
+      await this.setState({
         followedHubs: response.data.map(hub => hub.subhub_id),
       })
     })
@@ -78,10 +89,28 @@ class SearchResults extends Component {
       })
   }
 
+  handleNullUser() {
+    this.setState({
+      subscribeError: 'Must be logged in to subscribe to a subhub',
+    })
+    setTimeout(
+      function() {
+        this.setState({
+          subscribeError: '',
+        })
+      }.bind(this),
+      3000
+    )
+  }
+
   render() {
+    // console.log('this.state', this.state)
+    // console.log('this.state.subscribeError', this.state.subscribeError)
     return (
       <div className="SearchResults--container">
-        {/* <h1>Search Results</h1> */}
+        <div style={{ background: '#f5f5f5' }}>
+          {this.state.subscribeError && <ErrorMessage message={this.state.subscribeError} />}
+        </div>
         <div className="Subhub-Results--Container">
           <h3>SUBHUBS</h3>
           <div className="ruler" />
@@ -103,17 +132,28 @@ class SearchResults extends Component {
                 </div>
                 {follows ? (
                   <button
-                    onClick={async () => {
-                      axios.delete(
-                        `/api/deleteFollow/${this.state.userId}/${individualSubhub.subhub_id}`
-                      )
-                      await this.getSubhubCurrentUserFollows()
-                    }}
+                    className="subscribe-button"
+                    onClick={async () =>
+                      await axios
+                        .delete(
+                          `/api/deleteFollow/${this.state.userId}/${individualSubhub.subhub_id}`
+                        )
+                        .then(await this.getSubhubCurrentUserFollows(this.state.userId))
+                    }
                   >
                     Unsubscribe
                   </button>
                 ) : (
-                  <button onClick={() => this.handleSubscribe(individualSubhub.subhub_id)}>
+                  <button
+                    className="subscribe-button"
+                    onClick={() => {
+                      if (this.state.userId === null) {
+                        this.handleNullUser()
+                      } else {
+                        this.handleSubscribe(individualSubhub.subhub_id)
+                      }
+                    }}
+                  >
                     Subscribe
                   </button>
                 )}
@@ -122,7 +162,9 @@ class SearchResults extends Component {
           })}
         </div>
 
-        <div className="Post-Results--Container">
+        <div className="Subhub-Results--Container" style={{ marginTop: '30px' }}>
+          <h3>POSTS</h3>
+          <div className="ruler" />
           {this.state.postResults.map(post => {
             return (
               <div key={post.post_id} className="individual-post-section">
