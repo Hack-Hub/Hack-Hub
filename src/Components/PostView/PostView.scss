@@ -45,6 +45,16 @@ $light-black: #323232;
         color: $dark-gray;
       }
     }
+    .subhub-body {
+      width: 80%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+
+      p {
+        margin-bottom: 15px;
+      }
+    }
   }
 
   .post-container {
@@ -77,5 +87,21 @@ $light-black: #323232;
         color: $dark-gray;
       }
     }
+  }
+}
+
+.Comments--container {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  margin: 0 auto;
+  justify-content: space-between;
+  margin-top: 3%;
+
+  .comments {
+    background: $light-gray;
+    width: 76%;
+    padding: 20px;
+    min-height: 600px;
   }
 }

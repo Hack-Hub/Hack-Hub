@@ -11,6 +11,8 @@ module.exports = {
   },
   addFollow(req, res) {
     const db = req.app.get('db')
+    console.log('req.body', req.body)
+    console.log('req.session', req.session)
     db.followed
       .add_follow([req.body.subhubId, req.body.userId])
       .then(response => {
@@ -37,5 +39,5 @@ module.exports = {
         return res.status(200).json(subs)
       })
       .catch(err => console.log('err', err))
-  }
+  },
 }

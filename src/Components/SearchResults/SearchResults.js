@@ -56,6 +56,7 @@ class SearchResults extends Component {
       this.setState({ subhubResults: filteredSubhubs })
     })
   }
+
   getPosts() {
     axios.get('/api/getAllPosts').then(response => {
       const posts = response.data
