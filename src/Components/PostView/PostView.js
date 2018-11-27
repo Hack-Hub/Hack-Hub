@@ -111,7 +111,9 @@ class PostView extends Component {
 
     return (
       <div>
-        <div style={{ background: '#f5f5f5' }}>
+        <div
+          style={{ background: '#f5f5f5', width: '80%', margin: '0 auto', paddingBottom: '0px' }}
+        >
           {this.state.subscribeError && <ErrorMessage message={this.state.subscribeError} />}
         </div>
         <div className="PostView--container">
@@ -182,11 +184,11 @@ class PostView extends Component {
                 </a>
               )}
             </div>
+            {/* <div className="ruler" /> */}
+            <div className="Comments--container">
+              <Comments post={this.state.post} />
+            </div>
           </section>
-        </div>
-        <div className="Comments--container">
-          <section className="leftpadding-container" />
-          <Comments post={this.state.post} />
         </div>
       </div>
     )

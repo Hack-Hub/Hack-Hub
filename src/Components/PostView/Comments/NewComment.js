@@ -30,13 +30,16 @@ class NewComment extends Component {
   render() {
     return (
       <div className="New-Comment--Container">
-        <h3>New Comment</h3>
         <textarea
           onChange={this.handleChange}
-          placeholder="type here..."
+          placeholder="New Comment..."
           value={this.state.comment_text}
+          style={{ fontFamily: 'Montserrat', padding: '10px' }}
+          className="desc-font"
         />
-        <button onClick={this.handlePost}>Post Comment</button>
+        <button className="primary-button post" onClick={this.handlePost}>
+          Post
+        </button>
       </div>
     )
   }
