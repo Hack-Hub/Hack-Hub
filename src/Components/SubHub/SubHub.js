@@ -4,6 +4,7 @@ import { Route, Switch, Link } from 'react-router-dom'
 import Chat from '../Chat/Chat'
 import PostFeed from '../PostFeed/PostFeed'
 import axios from 'axios'
+import SubHubSubscribe from './SubHubSubscribe';
 
 class SubHub extends Component {
   constructor(props) {
@@ -23,14 +24,12 @@ class SubHub extends Component {
   componentDidMount() {
     this.getSubhubInfo()
     axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(res => {
-      console.log('res.data',res.data);
       this.setState({ posts: res.data })
     })
   }
   componentDidUpdate(prevProps){
     if(prevProps.match.params !==this.props.match.params){
       axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(res => {
-        console.log('res.data',res.data);
         this.setState({ posts: res.data })
       })
     }
@@ -75,6 +74,10 @@ class SubHub extends Component {
             >
               Chat
             </Link>
+          </div>
+          <div>
+          <SubHubSubscribe subhub_id={this.props.match.params.id}/>
+          <Link to={'/newpost'}>New Post</Link>
           </div>
         </section>
         <Switch>

@@ -5,18 +5,17 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import { withRouter } from 'react-router-dom'
+import SubHubSubscribe from '../SubHub/SubHubSubscribe';
 
 class PostView extends Component {
   constructor(props) {
     super(props)
     this.state = {
       post: {},
-      followedSubHubs: [],
       userId: null,
       subscribeError: '',
     }
 
-    this.handleNullUser = this.handleNullUser.bind(this)
     this.getUser = this.getUser.bind(this)
     // this.handleRoute = this.handleRoute.bind(this)
   }
@@ -26,7 +25,6 @@ class PostView extends Component {
       this.setState({ post: response.data[0] })
     })
     this.getUser()
-    // this.getSubhubCurrentUserFollows()
   }
 
   getUser() {
@@ -35,55 +33,12 @@ class PostView extends Component {
         return
       } else {
         this.setState({ userId: response.data[0].user_id })
-        this.getSubhubCurrentUserFollows(this.state.userId)
       }
     })
   }
 
-  getSubhubCurrentUserFollows() {
-    axios.get(`/api/getUserSubs`).then(res => {
-      this.setState({ followedSubHubs: res.data })
-    })
-  }
-
-  handleSubscribe(subhubId) {
-    console.log('hi')
-    axios
-      .post('/api/addFollow', {
-        subhubId: subhubId,
-        userId: this.state.userId,
-      })
-      .then(() => {
-        this.getSubhubCurrentUserFollows()
-      })
-  }
-
-  handleNullUser() {
-    this.setState({
-      subscribeError: 'Must be logged in to subscribe to a subhub',
-    })
-    setTimeout(
-      function() {
-        this.setState({
-          subscribeError: '',
-        })
-      }.bind(this),
-      3000
-    )
-  }
-
-  // handleRoute(web_url) {
-  //   const path = web_url
-  //   this.props.history.push(path)
-  // }
-
   render() {
-    const follows =
-      Object.values(this.state.followedSubHubs).findIndex(follow => {
-        return follow.subhub_id === this.state.post.subhub_id
-      }) !== -1
-
-
+ 
     const {
       sh_name,
       username,
@@ -125,34 +80,7 @@ class PostView extends Component {
             </div>
             <div className="subhub-body">
               <p className="desc-font">{sh_desc}</p>
-
-              {follows ? (
-                <button
-                  className="subscribe-button primary-button"
-                  // style={{ background: this.state.post.theme_color }}
-
-                  onClick={async () =>
-                    await axios
-                      .delete(`/api/deleteFollow/${subhub_id}`)
-                      .then(await this.getSubhubCurrentUserFollows(this.state.userId))
-                  }
-                >
-                  Unsubscribe
-                </button>
-              ) : (
-                <button
-                  className="subscribe-button primary-button"
-                  onClick={() => {
-                    if (this.state.userId === null) {
-                      this.handleNullUser()
-                    } else {
-                      this.handleSubscribe(subhub_id)
-                    }
-                  }}
-                >
-                  Subscribe
-                </button>
-              )}
+              <SubHubSubscribe subhub_id={subhub_id}/>
             </div>
           </section>
           <section className="post-container">
