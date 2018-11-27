@@ -2,7 +2,6 @@ module.exports = {
   postUpVote(req, res) {
     const { post_id } = req.body
     const { user_id } = req.session
-    console.log('user_id', user_id)
     const db = req.app.get('db')
     //check if user already voted on a post
     db.post_votes.p_getVotes([post_id, user_id]).then(response => {
@@ -46,6 +45,20 @@ module.exports = {
       } else {
         db.post_votes.p_postDownVote([post_id, user_id]).then(() => {
           res.sendStatus(200)
+        })
+      }
+    })
+  },
+  getVotes(req, res) {
+    const { id } = req.params
+    const { user_id } = req.session
+    const db = req.app.get('db')
+    db.post_votes.p_getVotes([id, user_id]).then(response => {
+      if (response.length) {
+        res.status(200).send(response)
+      } else {
+        db.post_votes.p_getScore(id).then(response => {
+          res.status(200).send(response)
         })
       }
     })

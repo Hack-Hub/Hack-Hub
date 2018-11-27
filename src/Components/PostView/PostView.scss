@@ -114,12 +114,17 @@ $light-black: #323232;
         margin-left: 10px;
         color: $light-gray;
         border-bottom: 1px solid transparent;
+        text-decoration: none;
       }
       h3:hover {
         font-size: 1.25vw;
         margin-left: 10px;
         color: $light-gray;
         border-bottom: 1px solid $light-gray;
+      }
+
+      a {
+        text-decoration: none;
       }
     }
   }

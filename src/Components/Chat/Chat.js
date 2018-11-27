@@ -57,9 +57,7 @@ class Chat extends Component {
 
     axios.get(`/api/getMessages/${this.props.match.params.id}`).then(res => {
       this.setState({ messages: [...this.state.messages, ...res.data] })
-    })
-
-    this.scrollToBottom();
+    }).then(this.scrollToBottom())
   }
 
   // sendScroll = () => {
@@ -94,10 +92,10 @@ class Chat extends Component {
 
     return (
       <div className="Chat--container">
-        <h3></h3>
+        <h3>Chat</h3>
         <div className="messageList">
           {messageList}
-          <div ref={bottom => {this.bottom = bottom}}/>>
+          <div ref={bottom => {this.bottom = bottom}}/>
         </div>
         <div>
           <input

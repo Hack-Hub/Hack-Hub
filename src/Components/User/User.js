@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import PostCard from '../PostCard/PostCard'
+import PostFeed from '../PostFeed/PostFeed'
 import { Link } from 'react-router-dom'
 import './User.scss'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 class User extends Component {
     constructor() {
@@ -12,10 +13,16 @@ class User extends Component {
         current_user: {},
         followed_subs: [],
         posts: [],
-        loggedInUserSubs: []
+        loggedInUserSubs: [],
+        userId: null,
+        subscribeError: ''
     }
 
     this.getSubhubCurrentUserFollows = this.getSubhubCurrentUserFollows.bind(this)
+    this.getLoggedInUserSubs = this.getLoggedInUserSubs.bind(this)
+    this.getUser = this.getUser.bind(this)
+    this.handleSubscribe = this.handleSubscribe.bind(this)
+    this.handleNullUser = this.handleNullUser.bind(this)
 }
 
 componentDidMount() {
@@ -24,17 +31,28 @@ componentDidMount() {
     })
 
     this.getSubhubCurrentUserFollows()
-
     this.getLoggedInUserSubs()
+    this.getUser()
 
     axios.get(`/api/getUserPosts2/${this.props.match.params.userId}`).then(res => {
         this.setState({ posts: res.data })
     })
 }
 
+getUser() {
+    axios.get('/api/currentUser').then(response => {
+        if (!response.data.length) {
+        return
+    } else {
+        this.setState({ userId: response.data[0].user_id })
+        this.getSubhubCurrentUserFollows(this.state.userId)
+        }
+    })
+}
+
 getLoggedInUserSubs() {
-    axios.get('/api/getUserSubs').then(res => {
-        this.setState({loggedInUserSubs: res.data})
+    axios.get('/api/getUserSubs').then(async res => {
+        await this.setState({loggedInUserSubs: res.data.map(hub => hub.subhub_id)})
     })
 }
 
@@ -44,10 +62,37 @@ getSubhubCurrentUserFollows() {
     })
 }
 
+handleNullUser() {
+    this.setState({
+        subscribeError: 'Must be logged in to subscribe to a subhub',
+    })
+    setTimeout(
+        function() {
+            this.setState({
+            subscribeError: '',
+            })
+        }.bind(this),
+        3000
+    )
+}
+
+handleSubscribe(subhubId) {
+    axios
+        .post('/api/addFollow', {
+            userId: this.state.userId,
+            subhubId: subhubId,
+        })
+        .then(() => {
+            this.getLoggedInUserSubs()
+        })
+}
+
 render() {
-    console.log(this.state);
     return (
         <div className="User--Container">
+            <div style={{ background: '#f5f5f5' }}>
+                {this.state.subscribeError && <ErrorMessage message={this.state.subscribeError} />}
+            </div>
             <div className="Profile--Container" style={{ marginBottom: '20px' }}>
             <div className="subhub-left">
                 <img src={this.state.current_user.user_photo} alt="user" />
@@ -58,6 +103,7 @@ render() {
             <h3>FOLLOWED SUBHUBS</h3>
             <div className="ruler" />
             {this.state.followed_subs.map(sub => {
+                const follows = this.state.loggedInUserSubs.includes(sub.subhub_id)
                 return (
                 <div key={sub.subhub_id} className="individual-subhub-section">
                     <div className="subhub-left">
@@ -71,31 +117,40 @@ render() {
                     <div className="subhub-right">
                     <p>{sub.sh_desc}</p>
                     </div>
-                    {/* <button
+                    {follows ? (
+                    <button
                     className="user-button"
                     onClick={async () =>
                         await axios
                         .delete(
-                            `/api/deleteFollow/${this.state.current_user.user_id}/${sub.subhub_id}`
+                            `/api/deleteFollow/${this.state.userId}/${sub.subhub_id}`
                         )
-                        .then(this.getSubhubCurrentUserFollows())
+                        .then( await this.getLoggedInUserSubs())
                     }
                     >
                     Unsubscribe
-                    </button> */}
+                    </button>
+                    ) : (
+                    <button
+                        className="user-button"
+                        onClick={() => {
+                        if (this.state.userId === null) {
+                            this.handleNullUser()
+                        } else {
+                            this.handleSubscribe(sub.subhub_id)
+                        }
+                        }}
+                    >
+                        Subscribe
+                    </button>
+                    )}
                 </div>
                 )
             })}
             </div>
 
             <div>
-            {this.state.posts.map(post => {
-                return (
-                <div key={post.post_id}>
-                    <PostCard post={post} />
-                </div>
-                )
-            })}
+            <PostFeed posts={this.state.posts}/>
             </div>
         </div>
         )
