@@ -8,11 +8,11 @@ module.exports = {
       //if user already voted then delete or update vote depending on selection
       if (response.length) {
         if (response[0].vote_status === 1) {
-          db.post_votes.p_deleteUpVote([response[0].vote_id,post_id]).then(() => {
+          db.post_votes.p_deleteUpVote([response[0].vote_id, post_id]).then(() => {
             res.sendStatus(200)
           })
         } else {
-          db.post_votes.p_updateToUpVote([response[0].vote_id,post_id]).then(() => {
+          db.post_votes.p_updateToUpVote([response[0].vote_id, post_id]).then(() => {
             res.sendStatus(200)
           })
         }
@@ -23,7 +23,6 @@ module.exports = {
         })
       }
     })
-    
   },
   postDownVote(req, res) {
     const { post_id } = req.body
@@ -34,11 +33,11 @@ module.exports = {
       //if user already voted then delete or update vote depending on selection
       if (response.length) {
         if (response[0].vote_status === -1) {
-          db.post_votes.p_deleteDownVote([response[0].vote_id,post_id]).then(() => {
+          db.post_votes.p_deleteDownVote([response[0].vote_id, post_id]).then(() => {
             res.sendStatus(200)
           })
         } else {
-          db.post_votes.p_updateToDownVote([response[0].vote_id,post_id]).then(() => {
+          db.post_votes.p_updateToDownVote([response[0].vote_id, post_id]).then(() => {
             res.sendStatus(200)
           })
         }
@@ -49,21 +48,19 @@ module.exports = {
         })
       }
     })
-    
   },
-  getVotes(req,res){
+  getVotes(req, res) {
     const { id } = req.params
     const { user_id } = req.session
     const db = req.app.get('db')
-    db.post_votes.p_getVotes([id,user_id]).then(response=>{
-      if(response.length){
+    db.post_votes.p_getVotes([id, user_id]).then(response => {
+      if (response.length) {
         res.status(200).send(response)
-      }else{
-        db.post_votes.p_getScore(id).then(response=>{
+      } else {
+        db.post_votes.p_getScore(id).then(response => {
           res.status(200).send(response)
         })
       }
     })
-    .catch()
-  }
+  },
 }

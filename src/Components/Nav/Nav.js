@@ -22,10 +22,10 @@ class Nav extends Component {
     this.setState({ searchResults: event.target.value })
   }
 
-  handleEnter(event){
+  handleEnter(event) {
     //Allows search to be done when enter key is pressed.
-    console.log('event',event);
-    if(event.keyCode === 13){
+    console.log('event', event)
+    if (event.keyCode === 13) {
       this.props.history.push(`/searchResults/${this.state.searchResults}`)
       window.location.reload()
     }
@@ -58,13 +58,19 @@ class Nav extends Component {
 
         <div className="right-nav">
           <div className="search-bar">
-            <input className="search-input" name="searchResults" onChange={this.handleChange} onKeyDown={this.handleEnter} />
+            <input
+              className="search-input"
+              name="searchResults"
+              onChange={this.handleChange}
+              onKeyDown={this.handleEnter}
+            />
 
             <Link
               to={`/searchResults/${this.state.searchResults}`}
               onClick={selectedPage => this.reRenderResultsPage(selectedPage)}
+              style={{ borderBottom: '1px solid transparent' }}
             >
-              <i className="fa fa-2x fa-search" />
+              <i className="fa fa-2x fa-search search" />
             </Link>
 
             {/* <Link to={{pathname: '/searchResults',}}/> */}

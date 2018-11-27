@@ -1,25 +1,32 @@
-import React, { Component } from "react";
-import "./PostCard.scss";
-import { Link } from "react-router-dom";
-import Votes from "../Votes/Votes";
-import TextPost from "./TextPost";
-import ImagePost from "./ImagePost";
-import URLPost from "./URLPost";
+import React, { Component } from 'react'
+import './PostCard.scss'
+import { Link } from 'react-router-dom'
+import Votes from '../Votes/Votes'
+import TextPost from './TextPost'
+import ImagePost from './ImagePost'
+import URLPost from './URLPost'
 
 class PostCard extends Component {
   render() {
-    const{ post }= this.props
+    const { post } = this.props
 
-    let postType = null;
+    let postType = null
     if (post.text_content) {
-      postType = <TextPost post={this.props.post} />;
+      postType = <TextPost post={this.props.post} />
     }
     if (post.image_url) {
-      postType = <ImagePost post={this.props.post} />;
+      postType = <ImagePost post={this.props.post} />
     }
     if (post.web_url) {
-      postType = <URLPost post={this.props.post} />;
+      postType = <URLPost post={this.props.post} />
     }
+
+    const date = new Date(post.post_date_time)
+
+    const time = date.toLocaleTimeString(navigator.language, {
+      hour: '2-digit',
+      minute: '2-digit',
+    })
 
     return (
       <div className="PostCard--container">
@@ -30,13 +37,13 @@ class PostCard extends Component {
               <h1>{post.username}</h1>
             </Link>
           </div>
-          <div className="right-postcard">
-            <div className="subhub-name">
-              <Link to={`/subhub/${post.subhub_id}/postfeed`}>
-                {post.sh_name}
-              </Link>
-            </div>
-            <div className="time-stamp">{post.post_date_time}</div>
+
+          <div className="right">
+            <p className="desc-font" style={{ textTransform: 'uppercase' }}>
+              <Link to={`/subhub/${post.subhub_id}/postfeed`}>{post.sh_name}</Link> <span>| </span>
+              {time} <span>| </span>
+              {date.toDateString()}
+            </p>
           </div>
         </section>
 
@@ -47,7 +54,7 @@ class PostCard extends Component {
           <Votes votes={post.votes} post_id={post.post_id} />
         </section>
       </div>
-    );
+    )
   }
 }
-export default PostCard;
+export default PostCard
