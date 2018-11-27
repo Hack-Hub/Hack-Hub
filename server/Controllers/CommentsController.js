@@ -13,7 +13,6 @@ module.exports = {
     db.comments
       .new_comment([post_id, user_id, comment_text, parent_comment_id])
       .then(comments => {
-        console.log('comments', comments)
         return res.status(200).json(comments)
       })
       .catch(err => console.log('err', err))
