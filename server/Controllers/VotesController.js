@@ -23,6 +23,7 @@ module.exports = {
         })
       }
     })
+    
   },
   postDownVote(req, res) {
     const { post_id } = req.body
@@ -48,6 +49,7 @@ module.exports = {
         })
       }
     })
+    
   },
   getVotes(req,res){
     const { id } = req.params
@@ -62,5 +64,6 @@ module.exports = {
         })
       }
     })
+    .catch()
   }
 }

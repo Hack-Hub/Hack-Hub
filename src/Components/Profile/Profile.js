@@ -13,16 +13,19 @@ class Profile extends Component {
       current_user: {},
       followed_subs: [],
       posts: [],
-      editProfilePhoto: false,
+      editProfile: false,
+      profileURL:'',
+      userName:''
     }
-
-    this.getSubhubCurrentUserFollows = this.getSubhubCurrentUserFollows.bind(this)
-    this.editProfilePhoto = this.editProfilePhoto.bind(this)
   }
 
   componentDidMount() {
     axios.get('/api/currentUser').then(res => {
-      this.setState({ current_user: res.data[0] })
+      if(res.data.length){
+        this.setState({ current_user: res.data[0],userName:res.data[0].username })
+      }else{
+        this.props.history.push('/user/'+this.props.match.params.userId)
+      }
     })
 
     this.getSubhubCurrentUserFollows()
@@ -32,34 +35,50 @@ class Profile extends Component {
     })
   }
 
-  getSubhubCurrentUserFollows() {
+  getSubhubCurrentUserFollows=()=> {
     axios.get(`/api/getUserSubs`).then(res => {
       this.setState({ followed_subs: res.data })
     })
   }
 
-  editProfilePhoto() {
-    this.setState({ editProfilePhoto: true })
+  handleChange=(event)=>{
+    this.setState({userName:event.target.value})
+  }
+  editSave=()=> {
+    this.setState({ editProfile: !this.state.editProfile })
+    if(this.state.userName !==this.state.current_user.userName){
+      axios.put('/api/editUserName',{username:this.state.userName})
+    }
+  }
+  savePhoto(imageURL){
+    this.setState({profileURL:imageURL},()=>axios.put('/api/editUserPhoto/',{user_photo:this.state.profileURL}))
   }
 
   render() {
+    let editSave,userField;
+    if(!this.state.editProfile){
+      editSave='Edit Profile'
+      userField= <h3>{this.state.current_user.username}</h3>
+    }
+    if(this.state.editProfile){
+      editSave='Save'
+      userField = <input value={this.state.userName} onChange={this.handleChange}></input>
+    }
     return (
       <div className="User--Container">
-        {this.state.editProfilePhoto && (
+        {this.state.editProfile && (
           <div className="edit-profile-pic">
-            <ImageUpload setImageURL={this.setImageURL} />
+            <ImageUpload setImageURL={this.savePhoto} />
           </div>
         )}
 
         <div className="Profile--Container" style={{ marginBottom: '20px' }}>
           <div className="subhub-left">
             <img src={this.state.current_user.user_photo} alt="user" />
-            <h3>{this.state.current_user.username}</h3>
+            {userField}
           </div>
           <div className="subhub-right">
-            <button className="edit-button" onClick={() => this.editProfilePhoto()}>
-              Edit Photo
-            </button>
+          <button className="edit-button" onClick={this.editSave}>{editSave}</button>
           </div>
         </div>
         <div className="Subhub-Results--Container">

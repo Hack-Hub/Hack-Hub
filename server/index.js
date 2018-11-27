@@ -107,8 +107,8 @@ app.post('/api/destroySession', (req, res) => {
 })
 app.get('/api/currentUser', getCurrentUser)
 app.get('/api/getUser/:user_id', getUser)
-app.put('/api/editUserName/:userId', editUserName)
-app.put('/api/editUserPhoto/:userId', editUserPhoto)
+app.put('/api/editUserName', editUserName)
+app.put('/api/editUserPhoto', editUserPhoto)
 
 // Searchbar
 app.get('/api/getAllSubhubs', getAllSubhubs)
