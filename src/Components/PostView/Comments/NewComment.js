@@ -21,6 +21,7 @@ class NewComment extends Component {
       .then(() => {
         this.setState({ comment_text: '' })
       })
+      .then(this.props.updateReply())
   }
 
   handleChange = event => {

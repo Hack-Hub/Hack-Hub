@@ -83,8 +83,6 @@ class PostView extends Component {
         return follow.subhub_id === this.state.post.subhub_id
       }) !== -1
 
-    console.log('follows', follows)
-    console.log('this.state', this.state)
 
     const {
       sh_name,
