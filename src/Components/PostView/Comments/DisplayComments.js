@@ -17,43 +17,18 @@ class DisplayComments extends Component {
       hour: '2-digit',
       minute: '2-digit',
     })
-
-    if (this.props.comment.children.length) {
-      return (
-        <div style={{ background: 'blue' }}>
-          <h1>{this.props.comment.comment_text}</h1>
-          <h3>{commentDate.toDateString()}</h3>
-          <h3>{time}</h3>
-
-          <textarea
-            value={this.state.commentText}
-            onChange={event => this.setState({ commentText: event.target.value })}
-            placeholder="reply..."
-          />
-
-          <button
-            onClick={() => {
-              console.log('this.props', this.props)
-              axios
-                .post('/api/newComment', {
-                  post_id: this.props.comment.post_id,
-                  comment_text: this.state.commentText,
-                  parent_comment_id: this.props.comment.comment_id,
-                })
-                .then(this.props.updateReply())
-            }}
-          >
-            COMMENT PARENT COMMENT
-          </button>
-          <Comment comments={this.props.comment.children} updateReply={this.props.updateReply} />
+    return (
+      <div className="comment-container">
+        <div className="left-of-bubble">
+          <img src={this.props.comment.user_photo} alt="user" />
         </div>
-      )
-    } else {
-      return (
-        <div className="comment-segment" style={{ background: 'red' }}>
+
+        <div className="comment talk-bubble tri-right border btm-right-in">
+          <div className="comment-header">{this.props.comment.username}</div>
           <h1>{this.props.comment.comment_text}</h1>
           <h3>{commentDate.toDateString()}</h3>
           <h3>{time}</h3>
+
           <textarea
             value={this.state.commentText}
             onChange={event => this.setState({ commentText: event.target.value })}
@@ -61,8 +36,7 @@ class DisplayComments extends Component {
           />
 
           <button
-            onClick={() => {
-              console.log('this.props', this.props)
+            onClick={() =>
               axios
                 .post('/api/newComment', {
                   post_id: this.props.comment.post_id,
@@ -70,13 +44,16 @@ class DisplayComments extends Component {
                   parent_comment_id: this.props.comment.children.comment_id,
                 })
                 .then(this.props.updateReply())
-            }}
+            }
           >
             COMMENT
           </button>
+          {this.props.comment.children.length && (
+            <Comment comments={this.props.comment.children} updateReply={this.props.updateReply} />
+          )}
         </div>
-      )
-    }
+      </div>
+    )
   }
 }
 
