@@ -16,7 +16,6 @@ class Comments extends Component {
   //get comments once post has loaded
   componentDidUpdate(prevProps) {
     if (prevProps.post !== this.props.post) {
-      console.log('prevProps.post', prevProps.post)
       axios.get('/api/getcomments/' + this.props.post.post_id).then(comments => {
         this.commentSetUp(comments.data)
       })
@@ -35,7 +34,6 @@ class Comments extends Component {
       }
       return !comment.parent_comment_id
     })
-    console.log('ParentComments', ParentComments)
     this.setState({ comments: ParentComments })
   }
 
@@ -50,6 +48,7 @@ class Comments extends Component {
   }
 
   updateReply() {
+    console.log('update reply');
     axios.get('/api/getcomments/' + this.props.post.post_id).then(comments => {
       this.commentSetUp(comments.data)
     })
@@ -58,7 +57,7 @@ class Comments extends Component {
   render() {
     return (
       <div className="Comments--container">
-        <NewComment post_id={this.props.post.post_id} parent_id={null} />
+        <NewComment post_id={this.props.post.post_id} parent_id={null} updateReply={this.updateReply} />
 
         <div className="comments">
           <h3>Comments</h3>
