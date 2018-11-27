@@ -50,6 +50,7 @@ class Comments extends Component {
   }
 
   updateReply() {
+    console.log('hi')
     axios.get('/api/getcomments/' + this.props.post.post_id).then(comments => {
       this.commentSetUp(comments.data)
     })

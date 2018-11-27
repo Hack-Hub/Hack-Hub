@@ -11,6 +11,7 @@ class DisplayComments extends Component {
   }
 
   render() {
+    console.log('this.props', this.props)
     const commentDate = new Date(this.props.comment.comment_date_time)
     const time = commentDate.toLocaleTimeString(navigator.language, {
       hour: '2-digit',
@@ -31,17 +32,18 @@ class DisplayComments extends Component {
           />
 
           <button
-            onClick={() =>
+            onClick={() => {
+              console.log('this.props', this.props)
               axios
                 .post('/api/newComment', {
-                  post_id: this.props.comment.children.post_id,
+                  post_id: this.props.comment.post_id,
                   comment_text: this.state.commentText,
-                  parent_comment_id: this.props.comment.children.parent_comment_id,
+                  parent_comment_id: this.props.comment.comment_id,
                 })
                 .then(this.props.updateReply())
-            }
+            }}
           >
-            COMMENT
+            COMMENT PARENT COMMENT
           </button>
           <Comment comments={this.props.comment.children} updateReply={this.props.updateReply} />
         </div>
@@ -60,15 +62,12 @@ class DisplayComments extends Component {
 
           <button
             onClick={() => {
-              console.log(
-                'this.props.comment.parent_comment_id',
-                this.props.comment.parent_comment_id
-              )
+              console.log('this.props', this.props)
               axios
                 .post('/api/newComment', {
                   post_id: this.props.comment.post_id,
                   comment_text: this.state.commentText,
-                  parent_comment_id: this.props.comment.comment_id,
+                  parent_comment_id: this.props.comment.children.comment_id,
                 })
                 .then(this.props.updateReply())
             }}
@@ -84,7 +83,7 @@ class DisplayComments extends Component {
 class Comment extends Component {
   render() {
     return (
-      <div className="individual-comment" style={{ background: 'green' }}>
+      <div className="individual-comment">
         {this.props.comments.map(comment => {
           return (
             <DisplayComments
