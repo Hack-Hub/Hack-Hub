@@ -48,10 +48,11 @@ class Comments extends Component {
 
   render() {
     return (
-      <div className="Comments--Container">
-        <div>Comments</div>
-        <NewComment post_id={this.props.post.post_id} parent_id={null} />
+      <div className="comments">
+        <h3>Comments</h3>
+        <div className="ruler" />
         <Comment comments={this.state.comments} />
+        <NewComment post_id={this.props.post.post_id} parent_id={null} />
       </div>
     )
   }

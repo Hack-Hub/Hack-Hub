@@ -43,6 +43,8 @@ $light-black: #323232;
 
     a {
       text-decoration: none;
+      font-weight: 300;
+      color: $light-gray;
     }
 
     .left-postcard {
@@ -63,6 +65,13 @@ $light-black: #323232;
     }
     .right-postcard {
       padding: 2px;
+
+      a {
+        border-bottom: 1px solid transparent;
+      }
+      a:hover {
+        border-bottom: 1px solid $light-gray;
+      }
 
       .subhub-name {
         margin-bottom: 5px;
@@ -149,5 +158,9 @@ $light-black: #323232;
         }
       }
     }
+  }
+
+  a {
+    color: $light-gray;
   }
 }

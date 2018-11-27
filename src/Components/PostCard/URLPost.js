@@ -13,9 +13,16 @@ function URLPost(props) {
     sh_name,
     username,
     user_photo,
-    votes
+    votes,
   } = props.post
+
   const date = new Date(post_date_time)
+
+  const time = date.toLocaleTimeString(navigator.language, {
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+
   return (
     <div className="PostCard--container">
       <section className="Card--section--header">
@@ -25,11 +32,15 @@ function URLPost(props) {
             <h1>{username}</h1>
           </Link>
         </div>
-        <div className="right-postcard">
-          <div className="subhub-name">
-            <Link to={`/subhub/${subhub_id}/postfeed`}>{sh_name}</Link>
-          </div>
-          <div className="time-stamp">{date.toDateString()}</div>
+        <div className="right-postcard right">
+          <p className="desc-font">
+            <Link to={`/subhub/${subhub_id}/postfeed`} style={{ letterSpacing: '1px' }}>
+              {sh_name}
+            </Link>
+            <span> | </span>
+            {time} <span>| </span>
+            {date.toDateString()}
+          </p>
         </div>
       </section>
       <section className="Card--section--body">
@@ -37,11 +48,13 @@ function URLPost(props) {
           <h1>{title}</h1>
         </Link>
         <p className="URL">
-        <a href={web_url} target="_blank" rel='noopener noreferrer' >{web_url}</a>
+          <a href={web_url} target="_blank" rel="noopener noreferrer">
+            {web_url}
+          </a>
         </p>
       </section>
       <section className="bottom">
-      <Votes votes={votes} post_id={post_id}/>
+        <Votes votes={votes} post_id={post_id} />
       </section>
     </div>
   )

@@ -4,6 +4,7 @@ import Comments from './Comments/Comments'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
+import { withRouter } from 'react-router-dom'
 
 class PostView extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class PostView extends Component {
 
     this.handleNullUser = this.handleNullUser.bind(this)
     this.getUser = this.getUser.bind(this)
+    // this.handleRoute = this.handleRoute.bind(this)
   }
   componentDidMount() {
     const { postId } = this.props.match.params
@@ -70,6 +72,11 @@ class PostView extends Component {
     )
   }
 
+  // handleRoute(web_url) {
+  //   const path = web_url
+  //   this.props.history.push(path)
+  // }
+
   render() {
     const follows =
       Object.values(this.state.followedSubHubs).findIndex(follow => {
@@ -79,7 +86,29 @@ class PostView extends Component {
     console.log('follows', follows)
     console.log('this.state', this.state)
 
-    const { sh_name, username, theme_color, sh_desc, subhub_id } = this.state.post
+    const {
+      sh_name,
+      username,
+      theme_color,
+      sh_desc,
+      subhub_id,
+      post_date_time,
+      image_url,
+      user_id,
+      title,
+      web_url,
+    } = this.state.post
+
+    const date = new Date(post_date_time)
+
+    const time = date.toLocaleTimeString(navigator.language, {
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+
+    const hasImage = image_url !== null
+    const hasURL = web_url !== null
+
     return (
       <div>
         <div style={{ background: '#f5f5f5' }}>
@@ -100,6 +129,8 @@ class PostView extends Component {
               {follows ? (
                 <button
                   className="subscribe-button primary-button"
+                  // style={{ background: this.state.post.theme_color }}
+
                   onClick={async () =>
                     await axios
                       .delete(`/api/deleteFollow/${subhub_id}`)
@@ -127,19 +158,39 @@ class PostView extends Component {
           <section className="post-container">
             <div className="theme-color" style={{ background: theme_color }} />
             <div className="post-container-header">
-              <img src="https://i.ytimg.com/vi/m380BLVOrkI/hqdefault.jpg" alt="user" />
-              <h3>{username}</h3>
+              <div className="left">
+                <img src="https://i.ytimg.com/vi/m380BLVOrkI/hqdefault.jpg" alt="user" />
+                <Link to={`/user/${user_id}`}>
+                  <h3>{username}</h3>
+                </Link>
+              </div>
+              <div className="right">
+                <p className="desc-font" style={{ textTransform: 'uppercase' }}>
+                  {time} <span>| </span>
+                  {date.toDateString()}
+                </p>
+              </div>
+            </div>
+            <div className="post-container-body">
+              <h3 className="subtitle" style={{ marginLeft: '0px' }}>
+                {title}
+              </h3>
+              {hasImage && <img src={image_url} alt="post" />}
+              {hasURL && (
+                <a className="desc-font" href={web_url} target="_blank" rel="noopener noreferrer">
+                  {web_url}
+                </a>
+              )}
             </div>
           </section>
         </div>
         <div className="Comments--container">
           <section className="leftpadding-container" />
-          <section className="comments">
-            <Comments post={this.state.post} />
-          </section>
+          <Comments post={this.state.post} />
         </div>
       </div>
     )
   }
 }
-export default PostView
+
+export default withRouter(PostView)
