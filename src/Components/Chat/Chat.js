@@ -12,8 +12,8 @@ class Chat extends Component {
       messages: [],
       current_user: {
         username: 'Anonymous',
-        user_id: 0,
-      },
+        user_id: 0
+      }
     }
 
     this.socket = io('localhost:3001')
@@ -30,7 +30,7 @@ class Chat extends Component {
       user_id: this.state.current_user.user_id,
       message_text: this.state.message,
     }
-    axios.post('/api/newMessage',message).then(this.setState({message: ''})).then(this.scrollToBottom());
+    axios.post('/api/newMessage',message).then(this.setState({message: ''})).then(() => this.scrollToBottom());
 
     this.socket.emit('send_message', {
       username: this.state.current_user.username,
@@ -40,7 +40,7 @@ class Chat extends Component {
   }
 
   scrollToBottom = () => {
-    this.bottom.scrollIntoView({behavior: 'smooth'})
+    this.bottom.scrollIntoView({behavior: 'smooth', block: 'end'})
   }
 
   componentDidMount() {
@@ -57,13 +57,8 @@ class Chat extends Component {
 
     axios.get(`/api/getMessages/${this.props.match.params.id}`).then(res => {
       this.setState({ messages: [...this.state.messages, ...res.data] })
-    }).then(this.scrollToBottom())
+    }).then(() => this.scrollToBottom())
   }
-
-  // sendScroll = () => {
-  //   this.sendMessage();
-  //   this.scrollToBottom();
-  // }
 
 
   render() {
@@ -98,13 +93,15 @@ class Chat extends Component {
           <div ref={bottom => {this.bottom = bottom}}/>
         </div>
         <div>
-          <input
-            type="text"
-            placeholder="Message"
-            value={message}
-            onChange={e => this.setState({ message: e.target.value })}
-            className="inputMessage"
-          />
+          <form onSubmit={this.sendMessage}>
+            <input
+              type="text"
+              placeholder="Message"
+              value={message}
+              onChange={e => this.setState({ message: e.target.value })}
+              className="inputMessage"  
+            />
+          </form>
           <button onClick={this.sendMessage} className="send">
             Send
           </button>
