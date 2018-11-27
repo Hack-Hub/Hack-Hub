@@ -26,10 +26,10 @@ module.exports = {
   },
 
   editUserName(req, res) {
-    const { userId } = req.params
+    const { user_id } = req.session
     const { username } = req.body
     const db = req.app.get('db')
-    db.users.editUserName([userId, username])
+    db.users.editUserName([user_id, username])
     return res
       .sendStatus(200)
       .json('okie dokie')
@@ -38,13 +38,13 @@ module.exports = {
   },
 
   editUserPhoto(req, res) {
-    const { userId } = req.params
+    const { user_id } = req.session
     const { user_photo } = req.body
     const db = req.app.get('db')
     db.users
-      .editUserPhoto([userId, user_photo])
+      .editUserPhoto([user_id, user_photo])
       .then(() => {
-        return res.sendStatus(200).json('okie dokie')
+        return res.sendStatus(200)
       })
       .catch(err => console.log('err', err))
   },

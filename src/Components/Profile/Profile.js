@@ -13,16 +13,22 @@ class Profile extends Component {
       current_user: {},
       followed_subs: [],
       posts: [],
-      editProfilePhoto: false,
+      editProfile: false,
+      profileURL:''
     }
 
     this.getSubhubCurrentUserFollows = this.getSubhubCurrentUserFollows.bind(this)
-    this.editProfilePhoto = this.editProfilePhoto.bind(this)
+    this.editSave =this.editSave.bind(this)
+    this.savePhoto = this.savePhoto.bind(this)
   }
 
   componentDidMount() {
     axios.get('/api/currentUser').then(res => {
-      this.setState({ current_user: res.data[0] })
+      if(res.data.length){
+        this.setState({ current_user: res.data[0] })
+      }else{
+        this.props.history.push('/user/'+this.props.match.params.userId)
+      }
     })
 
     this.getSubhubCurrentUserFollows()
@@ -38,28 +44,38 @@ class Profile extends Component {
     })
   }
 
-  editProfilePhoto() {
-    this.setState({ editProfilePhoto: true })
+  editSave() {
+    this.setState({ editProfile: !this.state.editProfile })
+  }
+  savePhoto(imageURL){
+    this.setState({profileURL:imageURL},()=>axios.put('/api/editUserPhoto/',{user_photo:this.state.profileURL}))
   }
 
   render() {
+    let editSave,userField;
+    if(!this.state.editProfile){
+      editSave='Edit Photo'
+      userField= <h3>{this.state.current_user.username}</h3>
+    }
+    if(this.state.editProfile){
+      editSave='Save'
+      userField = <input placeholder={this.state.current_user.username}></input>
+    }
     return (
       <div className="User--Container">
-        {this.state.editProfilePhoto && (
+        {this.state.editProfile && (
           <div className="edit-profile-pic">
-            <ImageUpload setImageURL={this.setImageURL} />
+            <ImageUpload setImageURL={this.savePhoto} />
           </div>
         )}
 
         <div className="Profile--Container" style={{ marginBottom: '20px' }}>
           <div className="subhub-left">
             <img src={this.state.current_user.user_photo} alt="user" />
-            <h3>{this.state.current_user.username}</h3>
+            {userField}
           </div>
           <div className="subhub-right">
-            <button className="edit-button" onClick={() => this.editProfilePhoto()}>
-              Edit Photo
-            </button>
+          <button className="edit-button" onClick={this.editSave}>{editSave}</button>
           </div>
         </div>
         <div className="Subhub-Results--Container">
