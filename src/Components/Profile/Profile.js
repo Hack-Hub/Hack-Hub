@@ -14,18 +14,15 @@ class Profile extends Component {
       followed_subs: [],
       posts: [],
       editProfile: false,
-      profileURL:''
+      profileURL:'',
+      userName:''
     }
-
-    this.getSubhubCurrentUserFollows = this.getSubhubCurrentUserFollows.bind(this)
-    this.editSave =this.editSave.bind(this)
-    this.savePhoto = this.savePhoto.bind(this)
   }
 
   componentDidMount() {
     axios.get('/api/currentUser').then(res => {
       if(res.data.length){
-        this.setState({ current_user: res.data[0] })
+        this.setState({ current_user: res.data[0],userName:res.data[0].username })
       }else{
         this.props.history.push('/user/'+this.props.match.params.userId)
       }
@@ -38,14 +35,20 @@ class Profile extends Component {
     })
   }
 
-  getSubhubCurrentUserFollows() {
+  getSubhubCurrentUserFollows=()=> {
     axios.get(`/api/getUserSubs`).then(res => {
       this.setState({ followed_subs: res.data })
     })
   }
 
-  editSave() {
+  handleChange=(event)=>{
+    this.setState({userName:event.target.value})
+  }
+  editSave=()=> {
     this.setState({ editProfile: !this.state.editProfile })
+    if(this.state.userName !==this.state.current_user.userName){
+      axios.put('/api/editUserName',{username:this.state.userName})
+    }
   }
   savePhoto(imageURL){
     this.setState({profileURL:imageURL},()=>axios.put('/api/editUserPhoto/',{user_photo:this.state.profileURL}))
@@ -54,12 +57,12 @@ class Profile extends Component {
   render() {
     let editSave,userField;
     if(!this.state.editProfile){
-      editSave='Edit Photo'
+      editSave='Edit Profile'
       userField= <h3>{this.state.current_user.username}</h3>
     }
     if(this.state.editProfile){
       editSave='Save'
-      userField = <input placeholder={this.state.current_user.username}></input>
+      userField = <input value={this.state.userName} onChange={this.handleChange}></input>
     }
     return (
       <div className="User--Container">
