@@ -44,7 +44,7 @@ module.exports = {
         }
         //if user did not vote yet then add new vote
       } else {
-        db.post_votes.p_postDownVotes([post_id, user_id]).then(() => {
+        db.post_votes.p_postDownVote([post_id, user_id]).then(() => {
           res.sendStatus(200)
         })
       }
