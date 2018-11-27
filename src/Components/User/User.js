@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import PostCard from '../PostCard/PostCard'
+import PostFeed from '../PostFeed/PostFeed'
 import { Link } from 'react-router-dom'
 import './User.scss'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
@@ -150,13 +150,7 @@ render() {
             </div>
 
             <div>
-            {this.state.posts.map(post => {
-                return (
-                <div key={post.post_id}>
-                    <PostCard post={post} />
-                </div>
-                )
-            })}
+            <PostFeed posts={this.state.posts}/>
             </div>
         </div>
         )
