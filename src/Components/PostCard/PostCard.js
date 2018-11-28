@@ -48,6 +48,11 @@ class PostCard extends Component {
               {time} <span>| </span>
               {date.toDateString()}
             </p>
+            <p id="mobile" style={{ textTransform: 'uppercase' }}>
+              <Link to={`/subhub/${post.subhub_id}/postfeed`}>{post.sh_name}</Link>
+              {time}
+              {date.toDateString()}
+            </p>
           </div>
         </section>
         <section className="Card--section--body">

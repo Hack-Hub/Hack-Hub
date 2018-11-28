@@ -72,3 +72,16 @@ $light-black: #323232;
     outline: none;
   }
 }
+
+@media(max-width: 415px){
+  .SignIn--container {
+    width: 90%;
+
+    .auth-section {
+
+      input {
+        width: 200px;
+      }
+    }
+  }
+}

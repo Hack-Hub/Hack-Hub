@@ -79,3 +79,17 @@ $light-black: #323232;
     outline: none;
   }
 }
+
+@media(max-width: 415px){
+  .Authentication--container {
+    width: 90%;
+
+    .auth-section {
+      padding: 15px;
+
+      input {
+        width: 230px;
+      }
+    }
+  }
+}

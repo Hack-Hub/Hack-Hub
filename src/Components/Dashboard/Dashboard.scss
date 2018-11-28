@@ -5,3 +5,9 @@
   width: 70%;
   margin: 0 auto;
 }
+
+@media(max-width: 415px){
+  .Dashboard--container{
+    width: 90%
+  }
+}

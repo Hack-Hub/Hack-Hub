@@ -91,3 +91,34 @@ $light-black: #323232;
     }
   }
 }
+
+@media(max-width: 415px){
+  .SubHub--container {
+
+    .banner {
+      justify-content: flex-start;
+      align-items: flex-start;
+      height: 170px;
+
+      .banner-container {
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 60px 20px;
+
+        img {
+          height: 50px;
+          width: 50px;
+          margin-bottom: 10px;
+        }
+
+        h1 {
+          font-size: 30px;
+        }
+    
+        p {
+          display: none;
+        }
+      }
+    }
+  }
+}
