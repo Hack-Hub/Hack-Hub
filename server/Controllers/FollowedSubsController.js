@@ -14,7 +14,7 @@ module.exports = {
     console.log('req.body', req.body)
     console.log('req.session', req.session)
     db.followed
-      .add_follow([req.body.subhubId, req.body.userId])
+      .add_follow([req.body.subhubId, req.session.user_id])
       .then(response => {
         return res.status(200).json(response)
       })

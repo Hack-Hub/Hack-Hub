@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import './SearchResults.scss'
 import PostCard from '../PostCard/PostCard'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
+import SubHubSubscribe from '../SubHub/SubHubSubscribe';
 
 class SearchResults extends Component {
   constructor(props) {
@@ -12,16 +13,11 @@ class SearchResults extends Component {
       searchResults: '',
       subhubResults: [],
       postResults: [],
-      followedHubs: [],
       userId: null,
-      subscribeError: '',
     }
 
-    this.handleSubscribe = this.handleSubscribe.bind(this)
     this.getSubhubs = this.getSubhubs.bind(this)
     this.getPosts = this.getPosts.bind(this)
-    this.getSubhubCurrentUserFollows = this.getSubhubCurrentUserFollows.bind(this)
-    this.handleNullUser = this.handleNullUser.bind(this)
   }
 
   componentDidMount() {
@@ -29,7 +25,6 @@ class SearchResults extends Component {
     this.setState({ searchResults: id })
     this.getUser()
     this.getSubhubs()
-    this.getSubhubCurrentUserFollows()
     this.getPosts()
   }
 
@@ -39,7 +34,6 @@ class SearchResults extends Component {
         return
       } else {
         this.setState({ userId: response.data[0].user_id })
-        this.getSubhubCurrentUserFollows(this.state.userId)
       }
     })
   }
@@ -71,39 +65,6 @@ class SearchResults extends Component {
     })
   }
 
-  getSubhubCurrentUserFollows() {
-    axios.get(`/api/getUserSubs`).then(async response => {
-      await this.setState({
-        followedHubs: response.data.map(hub => hub.subhub_id),
-      })
-    })
-  }
-
-  handleSubscribe(subhubId) {
-    axios
-      .post('/api/addFollow', {
-        userId: this.state.userId,
-        subhubId: subhubId,
-      })
-      .then(() => {
-        this.getSubhubCurrentUserFollows()
-      })
-  }
-
-  handleNullUser() {
-    this.setState({
-      subscribeError: 'Must be logged in to subscribe to a subhub',
-    })
-    setTimeout(
-      function() {
-        this.setState({
-          subscribeError: '',
-        })
-      }.bind(this),
-      3000
-    )
-  }
-
   render() {
     return (
       <div className="SearchResults--container">
@@ -115,7 +76,6 @@ class SearchResults extends Component {
           <div className="ruler" />
 
           {this.state.subhubResults.map(individualSubhub => {
-            const follows = this.state.followedHubs.includes(individualSubhub.subhub_id)
             return (
               <div key={individualSubhub.subhub_id} className="individual-subhub-section">
                 <div className="subhub-left">
@@ -129,31 +89,7 @@ class SearchResults extends Component {
                 <div className="subhub-right">
                   <p>{individualSubhub.sh_desc}</p>
                 </div>
-                {follows ? (
-                  <button
-                    className="subscribe-button"
-                    onClick={async () =>
-                      await axios
-                        .delete(`/api/deleteFollow/${individualSubhub.subhub_id}`)
-                        .then(await this.getSubhubCurrentUserFollows())
-                    }
-                  >
-                    Unsubscribe
-                  </button>
-                ) : (
-                  <button
-                    className="subscribe-button"
-                    onClick={() => {
-                      if (this.state.userId === null) {
-                        this.handleNullUser()
-                      } else {
-                        this.handleSubscribe(individualSubhub.subhub_id)
-                      }
-                    }}
-                  >
-                    Subscribe
-                  </button>
-                )}
+                <SubHubSubscribe subhub_id={individualSubhub.subhub_id}/>
               </div>
             )
           })}
@@ -167,10 +103,6 @@ class SearchResults extends Component {
               <div key={post.post_id} className="individual-post-section">
                 <PostCard
                   post={post}
-                  // postId={post.post_id}
-                  // postTitle={post.title}
-                  // postContent={post.text_content}
-                  // timePosted={post.post_date_time}
                 />
               </div>
             )

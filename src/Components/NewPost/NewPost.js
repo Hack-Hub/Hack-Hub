@@ -13,19 +13,17 @@ class NewPost extends Component {
       text: null,
       URL: null,
       imageURL: null,
+      videoURL: null,
       subhub_id: 0,
       userId: null,
     }
   }
 
   componentDidMount() {
-    axios.get('/api/currentUser').then(async response => {
-      // console.log('response', response)
-      if (!response.data.length) {
-        return
-      } else {
-        await this.setState({ userId: response.data[0].user_id })
-      }
+    axios.get('/api/currentUser').then(response => {
+      if (response.data.length) {
+        this.setState({ userId: response.data[0].user_id })
+      } 
     })
   }
 
@@ -35,17 +33,18 @@ class NewPost extends Component {
   }
   //change post type and null all values
   handleTypeChange = event => {
-    this.setState({ postType: event.target.name, title: null, text: null, URL: null, image: null })
+    this.setState({ postType: event.target.name, text: null, URL: null, imageURL: null, videoURL:null })
   }
   //axios post call
   handleSubmit = () => {
-    const { title, text, URL, imageURL, subhub_id } = this.state
+    const { title, text, URL, imageURL, videoURL, subhub_id } = this.state
     axios.post('/api/newPost', {
       subhub_id,
       title,
       text_content: text,
       web_url: URL,
       image_url: imageURL,
+      video_url: videoURL,
     })
     .then(response=>{
       this.props.history.push('/postview/'+response.data[0].post_id)
@@ -57,38 +56,20 @@ class NewPost extends Component {
   }
   //called in ImageUpload
   setImageURL = URL => {
-    // console.log(URL)
-    this.setState({ imageURL: URL })
+    if(this.state.postType==='Image'){
+      this.setState({ imageURL: URL })
+    }else if(this.state.postType==='Video'){
+      this.setState({ videoURL: URL })
+    }
   }
 
   render() {
     const { postType } = this.state
     //conditionally render the post type depending on the button selection
-    let inputType = postType
-    if (postType === 'Text') {
-      inputType = (
-        <div>
-          <h5>Text</h5>
-          <input name="text" className="text-input" onChange={this.handleInput} />
-        </div>
-      )
-    }
-    if (postType === 'URL') {
-      inputType = (
-        <div>
-          <h5>URL</h5>
-          <input name="URL" className="text-input" onChange={this.handleInput} />
-        </div>
-      )
-    }
-    if (postType === 'Image') {
-      inputType = (
-        <div>
-          <h5>Image</h5>
-          <ImageUpload setImageURL={this.setImageURL} />
-        </div>
-      )
-    }
+    let inputType;
+    if (postType === 'Text') {inputType = <input name="text" className="text-input" onChange={this.handleInput} />}
+    if (postType === 'URL') {inputType = <input name="URL" className="text-input" onChange={this.handleInput} />}
+    if (postType === 'Image'||postType === 'Video') {inputType = <ImageUpload setImageURL={this.setImageURL} />}
 
     return (
       <div className="NewPost--Container">
@@ -103,6 +84,9 @@ class NewPost extends Component {
         <section className="newpost-input">
           <GetSubHub userId={this.state.userId} setID={this.setSubHubID} />
 
+          <h5>Title</h5>
+          <input name="title" className="text-input" onChange={this.handleInput} value={this.state.title} />
+          <h5>Post Type</h5>
           <section className="newpost-type">
             <button name="Text" onClick={this.handleTypeChange}>
               Text
@@ -113,10 +97,14 @@ class NewPost extends Component {
             <button name="Image" onClick={this.handleTypeChange}>
               Image
             </button>
+            <button name="Video" onClick={this.handleTypeChange}>
+              Video/GIF
+            </button>
           </section>
-          <h5>Title</h5>
-          <input name="title" className="text-input" onChange={this.handleInput} />
-          {inputType}
+          <div>
+          <h5>{postType}</h5>
+         {inputType}
+        </div>
         </section>
         <button className="submit-post" onClick={this.handleSubmit}>
           Submit Post

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Votes from '../Votes/Votes'
 import TextPost from './TextPost'
 import ImagePost from './ImagePost'
+import VideoPost from './VideoPost'
 import URLPost from './URLPost'
 
 class PostCard extends Component {
@@ -19,6 +20,9 @@ class PostCard extends Component {
     }
     if (post.web_url) {
       postType = <URLPost post={this.props.post} />
+    }
+    if (post.video_url) {
+      postType = <VideoPost post={this.props.post} />
     }
 
     const date = new Date(post.post_date_time)
@@ -51,9 +55,13 @@ class PostCard extends Component {
             </p>
           </div>
         </section>
-
+        <section className="Card--section--body">
+        <Link to={`/postview/${post.post_id}`}>
+        <h1>{post.title}</h1>
+        </Link>
         {/* Post Type */}
         {postType}
+        </section>
         <section className="bottom">
           {/* Votes */}
           <Votes votes={post.votes} post_id={post.post_id} />

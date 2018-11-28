@@ -13,12 +13,20 @@ class ImageUpload extends Component {
     }
 
     handleChange = e => {
-        const file = e.target.files[0]
-        this.setState({
-            fileURL: URL.createObjectURL(file),
-            file,
-            filename: file.name
-        })
+        if(e.target.files[0]){
+            const file = e.target.files[0]
+            this.setState({
+                fileURL: URL.createObjectURL(file),
+                file,
+                filename: file.name
+            })
+        }else{
+            this.setState({
+                fileURL:'',
+                file:'',
+                filename:''
+            })
+        }
     }
 
     saveFile = () => {
@@ -47,8 +55,10 @@ class ImageUpload extends Component {
         return (
             <div>
                 <input type='file' onChange={this.handleChange}></input>
-                <button onClick={this.saveFile}>Save File</button>
-                <img src={this.state.fileURL} alt='' />
+                <button onClick={this.saveFile}>Save</button>
+               <div>
+                   {this.state.filename}
+               </div>
             </div>
         );
     }

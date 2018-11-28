@@ -1,10 +1,10 @@
 module.exports = {
   newPost(req, res) {
     let db = req.app.get('db')
-    const { subhub_id, title, image_url, web_url, text_content } = req.body
+    const { subhub_id, title, image_url, web_url, text_content, video_url } = req.body
     const { user_id } = req.session
     db.posts
-      .newPost([user_id, subhub_id, title, image_url, web_url, text_content])
+      .newPost([user_id, subhub_id, title, image_url, web_url, text_content, video_url])
       .then(response => {
         return res.status(200).send(response)
       })
