@@ -23,14 +23,12 @@ class SubHub extends Component {
   componentDidMount() {
     this.getSubhubInfo()
     axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(res => {
-      console.log('res.data',res.data);
       this.setState({ posts: res.data })
     })
   }
-  componentDidUpdate(prevProps){
-    if(prevProps.match.params !==this.props.match.params){
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params !== this.props.match.params) {
       axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(res => {
-        console.log('res.data',res.data);
         this.setState({ posts: res.data })
       })
     }
@@ -78,7 +76,10 @@ class SubHub extends Component {
           </div>
         </section>
         <Switch>
-          <Route path="/subhub/:id/postfeed" render={(props) => <PostFeed {...props} posts={this.state.posts} />} />
+          <Route
+            path="/subhub/:id/postfeed"
+            render={props => <PostFeed {...props} posts={this.state.posts} />}
+          />
           <Route path="/subhub/:id/chat" component={Chat} />
         </Switch>
       </div>

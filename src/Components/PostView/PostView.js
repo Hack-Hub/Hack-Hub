@@ -47,7 +47,6 @@ class PostView extends Component {
   }
 
   handleSubscribe(subhubId) {
-    console.log('hi')
     axios
       .post('/api/addFollow', {
         subhubId: subhubId,

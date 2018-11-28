@@ -21,7 +21,7 @@ export default class LandingPage extends Component {
           </p>
 
           <div className="buttons">
-            <Link to="/dashboard">Explore</Link>
+            <Link to="/dashboard/voteCount">Explore</Link>
             <Link to="/signIn">Sign In</Link>
           </div>
         </section>

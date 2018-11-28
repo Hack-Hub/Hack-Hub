@@ -15,6 +15,15 @@ module.exports = {
       return res.status(200).send(response)
     })
   },
+  orderPostsByVoteCount(req, res) {
+    let db = req.app.get('db')
+    db.posts
+      .getAllPostsByVoteCount()
+      .then(response => {
+        return res.status(200).send(response)
+      })
+      .catch(err => console.log('err', err))
+  },
   getPostsBySub(req, res) {
     let db = req.app.get('db')
     const { subhub_id } = req.params
@@ -55,5 +64,5 @@ module.exports = {
     db.posts.get_user_posts(req.params.userId).then(posts => {
       return res.status(200).json(posts)
     })
-  }
+  },
 }

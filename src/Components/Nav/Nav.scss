@@ -123,3 +123,12 @@ $light-black: #323232;
     color: $blue;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .Nav--container {
+    background-color: red;
+    .search-bar {
+      position: absolute;
+    }
+  }
+}
