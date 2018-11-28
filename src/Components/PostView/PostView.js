@@ -38,7 +38,15 @@ class PostView extends Component {
   }
 
   render() {
+<<<<<<< HEAD
  
+=======
+    const follows =
+      Object.values(this.state.followedSubHubs).findIndex(follow => {
+        return follow.subhub_id === this.state.post.subhub_id
+      }) !== -1
+
+>>>>>>> master
     const {
       sh_name,
       username,
@@ -112,7 +120,7 @@ class PostView extends Component {
             </div>
             {/* <div className="ruler" /> */}
             <div className="Comments--container">
-              <Comments post={this.state.post} />
+              <Comments post={this.state.post} userId={this.state.userId} />
             </div>
           </section>
         </div>

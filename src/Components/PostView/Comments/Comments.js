@@ -48,7 +48,7 @@ class Comments extends Component {
   }
 
   updateReply() {
-    console.log('update reply');
+    console.log('update reply')
     axios.get('/api/getcomments/' + this.props.post.post_id).then(comments => {
       this.commentSetUp(comments.data)
     })
@@ -57,7 +57,12 @@ class Comments extends Component {
   render() {
     return (
       <div className="Comments--container">
-        <NewComment post_id={this.props.post.post_id} parent_id={null} updateReply={this.updateReply} />
+        <NewComment
+          post_id={this.props.post.post_id}
+          parent_id={null}
+          updateReply={this.updateReply}
+          userId={this.props.userId}
+        />
 
         <div className="comments">
           <h3>Comments</h3>

@@ -16,11 +16,7 @@ const express = require('express'),
     getUserPosts,
     getUserPosts2,
   } = require('./Controllers/PostsController'),
-  {
-    postUpVote,
-    postDownVote,
-    getVotes,
-  } = require('./Controllers/VotesController'),
+  { postUpVote, postDownVote, getVotes } = require('./Controllers/VotesController'),
   { getMessages, newMessage } = require('./Controllers/MessagesController'),
   {
     getComments,
@@ -80,7 +76,7 @@ app.get('/api/getVotes/:id', getVotes)
 //Comments
 app.get('/api/getComments/:post_id', getComments)
 app.post('/api/newComment', newComment)
-app.put('/api/editComment:comment_id', editComment)
+app.put('/api/editComment/:comment_id', editComment)
 app.delete('/api/deleteComment/:comment_id', deleteComment)
 
 //Messages
