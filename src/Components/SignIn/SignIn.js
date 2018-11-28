@@ -59,8 +59,6 @@ class SignIn extends Component {
 
   routeChange() {
     this.props && this.props.setLoggedIn()
-    // const path = this.props.location.pathname.slice(0, 7)
-
     const path = this.props.location.pathname.split('').filter((char, idx) => {
       const newPath = []
       if (idx >= 7) {

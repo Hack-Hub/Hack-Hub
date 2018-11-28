@@ -47,7 +47,6 @@ class NewComment extends Component {
   }
 
   render() {
-    console.log('this.state.userId', this.state.userId)
     return (
       <div className="New-Comment--Container">
         <textarea

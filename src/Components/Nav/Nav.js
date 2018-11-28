@@ -47,7 +47,6 @@ class Nav extends Component {
   }
 
   render() {
-    console.log('this.props.location', this.props.location)
     const currentUser = this.props.user && this.props.user.user_id !== ''
     return (
       <div className="Nav--container">

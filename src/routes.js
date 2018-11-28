@@ -14,7 +14,6 @@ import Profile from './Components/Profile/Profile'
 import User from './Components/User/User'
 
 export default function Routes(props) {
-  console.log('props', props)
   return (
     <Switch>
       <Route exact path="/" component={LandingPage} />
