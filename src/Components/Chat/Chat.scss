@@ -11,7 +11,6 @@ $light-black: #323232;
 .Chat--container {
   display: flex;
   flex-direction: column;
-  // justify-content: center;
   width: 70%;
   height: 60vh;
   padding: 20px;
@@ -83,4 +82,34 @@ $light-black: #323232;
   border-bottom: 2px solid $light-black;
   width: 80%;
   font-family: 'Kalam', sans-serif;
+}
+
+
+@media(max-width: 415px){
+  .Chat--container {
+    width: 90%;
+    height: 65vh;
+
+    .currentUserMessage {
+      font-size: 12px;
+  
+      .message {
+        max-width: 40%;
+        padding: 10px;
+      }
+    }
+  
+    .otherUsers {
+      font-size: 12px;
+
+      .message2 {
+        max-width: 40%;
+        padding: 10px;
+      }
+    }
+
+    .send {
+      width: 20%;
+    }
+  }
 }

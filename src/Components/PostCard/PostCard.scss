@@ -67,6 +67,10 @@ $light-black: #323232;
       padding: 2px;
       letter-spacing: 1px;
 
+      #mobile{
+        display: none;
+      }
+
       a {
         border-bottom: 1px solid transparent;
       }
@@ -168,5 +172,20 @@ $light-black: #323232;
 
   a {
     color: $light-gray;
+  }
+
+  #mobile{
+    display: none;
+  }
+}
+
+@media(max-width: 415px){
+  .desc-font {
+    display: none
+  }
+
+  #mobile {
+    display: block;
+    color: red;
   }
 }

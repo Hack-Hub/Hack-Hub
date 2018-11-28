@@ -170,3 +170,31 @@ $light-black: #323232;
         }
     }
 }
+
+@media (max-width: 415px){
+    .User--Container {
+            width: 90%;
+
+            .Subhub-Results--Container {
+
+                .individual-subhub-section {
+                    flex-direction: column;
+
+                    .subhub-left {
+                        flex-direction: row;
+                        align-items: flex-start;
+                        min-width: none;
+                    }
+                }
+        
+                p {
+                    display: none;
+                }
+
+                .user-button {
+                    margin-left: 44px;
+            }
+        }
+    
+    }
+}

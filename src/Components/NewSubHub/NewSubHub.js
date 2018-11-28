@@ -57,7 +57,7 @@ class NewSubHub extends Component {
         this.props.history.push(`subhub/${response.data[0].subhub_id}/postfeed`)
       })
       .catch(error => {
-        alert(error)
+        alert("Subhub name already exists")
       })
   }
 

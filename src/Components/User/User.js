@@ -107,15 +107,15 @@ render() {
                 return (
                 <div key={sub.subhub_id} className="individual-subhub-section">
                     <div className="subhub-left">
-                    <div className="talk-bubble tri-right border btm-right-in" alt="subhub">
-                        <img src={sub.sh_icon} alt="subhub-icon" />
-                    </div>
-                    <Link to={`/subhub/${sub.subhub_id}/postfeed`}>
-                        <h1>{sub.sh_name}</h1>
-                    </Link>
+                        <div className="talk-bubble tri-right border btm-right-in" alt="subhub">
+                            <img src={sub.sh_icon} alt="subhub-icon" />
+                        </div>
+                        <Link to={`/subhub/${sub.subhub_id}/postfeed`}>
+                            <h1>{sub.sh_name}</h1>
+                        </Link>
                     </div>
                     <div className="subhub-right">
-                    <p>{sub.sh_desc}</p>
+                        <p>{sub.sh_desc}</p>
                     </div>
                     {follows ? (
                     <button
