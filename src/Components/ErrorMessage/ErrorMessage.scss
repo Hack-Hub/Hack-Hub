@@ -7,6 +7,18 @@ $light-black: #323232;
 
 .ErrorMessage--container {
   font-size: 10px;
-  color: $light-black;
   padding: 20px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 30px;
+  margin-right: 0px;
+  padding-right: 0px;
+  height: 100px;
+  z-index: 300;
+  color: $light-gray;
+
+  input::placeholder {
+    color: $light-gray;
+  }
 }

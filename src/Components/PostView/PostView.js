@@ -83,7 +83,6 @@ class PostView extends Component {
         return follow.subhub_id === this.state.post.subhub_id
       }) !== -1
 
-
     const {
       sh_name,
       username,
@@ -184,7 +183,7 @@ class PostView extends Component {
             </div>
             {/* <div className="ruler" /> */}
             <div className="Comments--container">
-              <Comments post={this.state.post} />
+              <Comments post={this.state.post} userId={this.state.userId} />
             </div>
           </section>
         </div>

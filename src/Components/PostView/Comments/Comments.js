@@ -61,6 +61,7 @@ class Comments extends Component {
           post_id={this.props.post.post_id}
           parent_id={null}
           updateReply={this.updateReply}
+          userId={this.props.userId}
         />
 
         <div className="comments">

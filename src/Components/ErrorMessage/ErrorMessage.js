@@ -1,10 +1,11 @@
 import React from 'react'
 import './ErrorMessage.scss'
+import MessageStyle from './MessageStyle'
 
 const ErrorMessage = props => {
   return (
     <div className="ErrorMessage--container">
-      <p>{props.message}</p>
+      <MessageStyle message={props.message} />
     </div>
   )
 }

@@ -29,7 +29,11 @@ class DisplayComments extends Component {
 
   loggedInUser = () => {
     axios.get('/api/currentUser').then(res => {
-      this.setState({ currentUserId: res.data[0].user_id })
+      if (!res.data.length) {
+        this.setState({ currentUserId: null })
+      } else {
+        this.setState({ currentUserId: res.data[0].user_id })
+      }
     })
   }
 
@@ -40,7 +44,6 @@ class DisplayComments extends Component {
   }
 
   editComment = () => {
-    console.log('hi')
     axios.put(`/api/editComment/${this.props.comment.comment_id}`, {
       post_id: this.props.comment.post_id,
       comment_text: this.state.commentText,
@@ -71,7 +74,6 @@ class DisplayComments extends Component {
       commentBox = null
     }
 
-    console.log('this.props', this.props)
     const loggedInUser = this.props.comment.user_id === this.state.currentUserId
 
     return (
