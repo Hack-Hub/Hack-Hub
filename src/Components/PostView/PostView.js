@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import { withRouter } from 'react-router-dom'
 import SubHubSubscribe from '../SubHub/SubHubSubscribe';
+import ImagePost from '../PostCard/ImagePost';
+import URLPost from '../PostCard/URLPost';
+import VideoPost from '../PostCard/VideoPost';
+import TextPost from '../PostCard/TextPost';
 
 class PostView extends Component {
   constructor(props) {
@@ -38,15 +42,7 @@ class PostView extends Component {
   }
 
   render() {
-<<<<<<< HEAD
- 
-=======
-    const follows =
-      Object.values(this.state.followedSubHubs).findIndex(follow => {
-        return follow.subhub_id === this.state.post.subhub_id
-      }) !== -1
 
->>>>>>> master
     const {
       sh_name,
       username,
@@ -58,6 +54,8 @@ class PostView extends Component {
       user_id,
       title,
       web_url,
+      video_url,
+      text_content
     } = this.state.post
 
     const date = new Date(post_date_time)
@@ -66,9 +64,11 @@ class PostView extends Component {
       hour: '2-digit',
       minute: '2-digit',
     })
-
-    const hasImage = image_url !== null
-    const hasURL = web_url !== null
+    let displayPostType;
+    if(image_url){displayPostType=<ImagePost post={this.state.post} />}
+    if(web_url){displayPostType=<URLPost post={this.state.post} />}
+    if(video_url){displayPostType=<VideoPost post={this.state.post} />}
+    if(text_content){displayPostType=<TextPost post={this.state.post} />}
 
     return (
       <div>
@@ -108,15 +108,10 @@ class PostView extends Component {
               </div>
             </div>
             <div className="post-container-body">
-              <h3 className="subtitle" style={{ marginLeft: '0px' }}>
+            <h3 className="subtitle" style={{ marginLeft: '0px' }}>
                 {title}
               </h3>
-              {hasImage && <img src={image_url} alt="post" />}
-              {hasURL && (
-                <a className="desc-font" href={web_url} target="_blank" rel="noopener noreferrer">
-                  {web_url}
-                </a>
-              )}
+              {displayPostType}
             </div>
             {/* <div className="ruler" /> */}
             <div className="Comments--container">

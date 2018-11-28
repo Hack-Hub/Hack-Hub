@@ -75,10 +75,12 @@ class SubHub extends Component {
               Chat
             </Link>
           </div>
-          <div>
-          <SubHubSubscribe subhub_id={this.props.match.params.id}/>
-          <Link to={'/newpost'}>New Post</Link>
-          </div>
+          <section className="links">
+          <div className="links-container" width='200px'>
+              <SubHubSubscribe subhub_id={this.props.match.params.id}  className="subhub-links"/>
+              <Link to={'/newpost'}  className="subhub-links" id='post'>New Post</Link>
+              </div>
+          </section>
         </section>
         <Switch>
           <Route path="/subhub/:id/postfeed" render={(props) => <PostFeed {...props} posts={this.state.posts} />} />

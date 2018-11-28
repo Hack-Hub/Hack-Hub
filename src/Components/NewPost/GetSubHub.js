@@ -17,7 +17,7 @@ class GetSubHub extends Component {
 
   componentDidMount() {
     axios
-      .get('/api/getUserSubs')
+      .get("/api/getUserSubs")
       .then(subhubs => {
         this.setState({ subhubOptions: subhubs.data });
       })
@@ -45,15 +45,17 @@ class GetSubHub extends Component {
     ));
     return (
       <div className="GetSubHub--Container" style={styles.container}>
-        <h5>Enter SubHub</h5>
-        <input
-          onChange={this.handleChange}
-          style={styles.subhubName}
-          placeholder="Enter Subhub Name"
-        />
-        <button style={styles.button} onClick={this.findSubHub}>
-          Search SubHubs
-        </button>
+        <h5>SubHub</h5>
+        <div>
+          <input
+            onChange={this.handleChange}
+            style={styles.subhubName}
+            placeholder="Enter Subhub Name"
+          />
+          <button style={styles.button} onClick={this.findSubHub}>
+            Search SubHubs
+          </button>
+        </div>
 
         <select
           style={styles.select}
