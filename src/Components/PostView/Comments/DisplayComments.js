@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Comments.scss'
 import NewComment from './NewComment'
 import axios from 'axios'
+import { CommentStyle } from './CommentStyle'
 
 class DisplayComments extends Component {
   constructor(props) {
@@ -12,13 +13,22 @@ class DisplayComments extends Component {
       collapseMode: false,
       currentUserId: null,
       editToggle: false,
+
+      // commentsArray: [],
     }
   }
 
   componentDidMount() {
     this.loggedInUser()
     this.setState({ commentText: this.props.comment.comment_text })
+    // this.getCommentsArray()
   }
+
+  // getCommentsArray = () => {
+  //   axios.get('/api/getcomments/' + this.props.comment.post_id).then(res => {
+  //     this.setState({ commentsArray: res.data })
+  //   })
+  // }
 
   handleReplyToggle = () => {
     this.setState({ replyMode: !this.state.replyMode })
@@ -77,42 +87,48 @@ class DisplayComments extends Component {
     const loggedInUser = this.props.comment.user_id === this.state.currentUserId
 
     return (
-      <div className="comment-container" style={{ background: 'red' }}>
-        <div className="left-of-bubble">
-          <img src={this.props.comment.user_photo} alt="user" />
-        </div>
-        <div className="bubble talk-bubble tri-right border btm-right-in">
-          <div className="bubble-content">
-            {this.state.editToggle ? (
-              <div>
-                <input
-                  value={this.state.commentText}
-                  onChange={event => this.setState({ commentText: event.target.value })}
-                />
-                <button onClick={() => this.editComment()}>submit</button>
-              </div>
-            ) : (
-              <h1>{this.props.comment.comment_text}</h1>
-            )}
-            <h3>{commentDate.toDateString()}</h3>
-            <h3>{time}</h3>
-            {loggedInUser && (
-              <div>
-                <button onClick={() => this.deleteComment()}>delete</button>
-                <button onClick={() => this.setState({ editToggle: !this.state.editToggle })}>
-                  edit
-                </button>
-              </div>
-            )}
-
-            <button onClick={this.handleReplyToggle}>Reply</button>
-            <button onClick={this.handleCollapseToggle}>Collapse Replies</button>
+      <div>
+        <CommentStyle lastChild={this.props.lastChild} className="comment-container">
+          <div className="left-of-bubble">
+            <img src={this.props.comment.user_photo} alt="user" />
           </div>
+          <div className="bubble talk-bubble tri-right border btm-right-in">
+            <div className="bubble-content">
+              {this.state.editToggle ? (
+                <div>
+                  <input
+                    value={this.state.commentText}
+                    onChange={event => this.setState({ commentText: event.target.value })}
+                  />
+                  <button onClick={() => this.editComment()}>submit</button>
+                </div>
+              ) : (
+                <h1>{this.props.comment.comment_text}</h1>
+              )}
+              <div className="date-and-time">
+                <h3>{commentDate.toDateString()}</h3>
+                <h3>{time}</h3>
+              </div>
+              {loggedInUser && (
+                <div className="edit-comment">
+                  <button onClick={() => this.deleteComment()}>Delete</button>
+                  <button onClick={() => this.setState({ editToggle: !this.state.editToggle })}>
+                    Edit
+                  </button>
+                </div>
+              )}
 
-          {/* Reply button being rendered toggles commentBox  */}
-          {commentBox}
-          {reply}
-        </div>
+              <div className="reply-and-collapse">
+                <button onClick={this.handleReplyToggle}>Reply</button>
+                <button onClick={this.handleCollapseToggle}>Collapse Replies</button>
+              </div>
+            </div>
+
+            {/* Reply button being rendered toggles commentBox  */}
+            {commentBox}
+            {reply}
+          </div>
+        </CommentStyle>
       </div>
     )
   }
@@ -121,10 +137,11 @@ class DisplayComments extends Component {
 class Comment extends Component {
   render() {
     return (
-      <div className="individual-comment">
+      <div>
         {this.props.comments.map(comment => {
           return (
             <DisplayComments
+              lastChild={this.props.lastChild}
               key={comment.comment_id}
               comment={comment}
               updateReply={this.props.updateReply}

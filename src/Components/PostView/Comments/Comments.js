@@ -9,10 +9,12 @@ class Comments extends Component {
     super(props)
     this.state = {
       comments: [],
+      commentsArray: [],
     }
 
     this.updateReply = this.updateReply.bind(this)
   }
+
   //get comments once post has loaded
   componentDidUpdate(prevProps) {
     if (prevProps.post !== this.props.post) {
@@ -24,6 +26,7 @@ class Comments extends Component {
 
   commentSetUp = commentsArr => {
     let ParentComments = commentsArr
+    this.setState({ commentsArray: ParentComments })
     ParentComments = ParentComments.map(comment => {
       comment.children = []
       return comment
@@ -55,6 +58,12 @@ class Comments extends Component {
   }
 
   render() {
+    const lastChild = this.state.commentsArray.filter((comment, idx) => {
+      console.log('comment.children', comment.children)
+      return comment.children && !comment.children.length
+    })
+    console.log('lastChild', lastChild)
+
     return (
       <div className="Comments--container">
         <NewComment
@@ -68,7 +77,13 @@ class Comments extends Component {
           <h3>Comments</h3>
           <div className="ruler" />
 
-          <Comment comments={this.state.comments} updateReply={this.updateReply} />
+          <Comment
+            // commentsArray={this.state.commentsArray}
+            lastChild={lastChild}
+            comments={this.state.comments}
+            updateReply={this.updateReply}
+            style={{ marginTop: '200px' }}
+          />
         </div>
       </div>
     )

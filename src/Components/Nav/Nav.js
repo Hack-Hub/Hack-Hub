@@ -96,7 +96,8 @@ class Nav extends Component {
           ) : (
             <div className="auth-links">
               <Link to="/authenticate">Sign Up</Link>
-              <Link to="/signIn">Sign In</Link>
+              <Link to={`/signIn${this.props && this.props.location.pathname}`}>Sign In</Link>
+              {/* <Link to={{ pathname: '/signIn', currentPage: this.props.location }}>Sign In</Link> */}
             </div>
           )}
         </div>

@@ -92,25 +92,25 @@ class PostView extends Component {
             </div>
           </section>
           <section className="post-container">
-            <div className="theme-color" style={{ background: theme_color }} />
-            <div className="post-container-header">
-              <div className="left">
-                <img src="https://i.ytimg.com/vi/m380BLVOrkI/hqdefault.jpg" alt="user" />
-                <Link to={`/user/${user_id}`}>
-                  <h3>{username}</h3>
-                </Link>
+              <div className="theme-color" style={{ background: theme_color }} />
+              <div className="post-container-header">
+                <div className="left">
+                  <img src="https://i.ytimg.com/vi/m380BLVOrkI/hqdefault.jpg" alt="user" />
+                  <Link to={`/user/${user_id}`}>
+                    <h3>{username}</h3>
+                  </Link>
+                </div>
+                <div className="right">
+                  <p className="desc-font" style={{ textTransform: 'uppercase' }}>
+                    {time} <span>| </span>
+                    {date.toDateString()}
+                  </p>
+                </div>
               </div>
-              <div className="right">
-                <p className="desc-font" style={{ textTransform: 'uppercase' }}>
-                  {time} <span>| </span>
-                  {date.toDateString()}
-                </p>
-              </div>
-            </div>
-            <div className="post-container-body">
-            <h3 className="subtitle" style={{ marginLeft: '0px' }}>
-                {title}
-              </h3>
+              <div className="post-container-body">
+                <h3 className="subtitle" style={{ marginLeft: '0px' }}>
+                  {title}
+                </h3>
               {displayPostType}
             </div>
             {/* <div className="ruler" /> */}
