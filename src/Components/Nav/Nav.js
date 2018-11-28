@@ -57,7 +57,7 @@ class Nav extends Component {
         </div>
 
         <div className="right-nav">
-          <div className="search-bar">
+          <div className="search-bar" id="desktop-search">
             <input
               className="search-input"
               name="searchResults"
@@ -72,8 +72,6 @@ class Nav extends Component {
             >
               <i className="fa fa-2x fa-search search" />
             </Link>
-
-            {/* <Link to={{pathname: '/searchResults',}}/> */}
           </div>
 
           <div className="vertical-bar" />
@@ -100,6 +98,22 @@ class Nav extends Component {
               {/* <Link to={{ pathname: '/signIn', currentPage: this.props.location }}>Sign In</Link> */}
             </div>
           )}
+        </div>
+        <div className="search-bar-mobile" id="mobile-search">
+          <input
+            className="search-input"
+            name="searchResults"
+            onChange={this.handleChange}
+            onKeyDown={this.handleEnter}
+          />
+
+          <Link
+            to={`/searchResults/${this.state.searchResults}`}
+            onClick={selectedPage => this.reRenderResultsPage(selectedPage)}
+            style={{ borderBottom: '1px solid transparent' }}
+          >
+            <i className="fa fa-2x fa-search search" />
+          </Link>
         </div>
       </div>
     )
