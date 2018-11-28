@@ -155,31 +155,33 @@ class PostView extends Component {
             </div>
           </section>
           <section className="post-container">
-            <div className="theme-color" style={{ background: theme_color }} />
-            <div className="post-container-header">
-              <div className="left">
-                <img src="https://i.ytimg.com/vi/m380BLVOrkI/hqdefault.jpg" alt="user" />
-                <Link to={`/user/${user_id}`}>
-                  <h3>{username}</h3>
-                </Link>
+            <div className="post-view-bg">
+              <div className="theme-color" style={{ background: theme_color }} />
+              <div className="post-container-header">
+                <div className="left">
+                  <img src="https://i.ytimg.com/vi/m380BLVOrkI/hqdefault.jpg" alt="user" />
+                  <Link to={`/user/${user_id}`}>
+                    <h3>{username}</h3>
+                  </Link>
+                </div>
+                <div className="right">
+                  <p className="desc-font" style={{ textTransform: 'uppercase' }}>
+                    {time} <span>| </span>
+                    {date.toDateString()}
+                  </p>
+                </div>
               </div>
-              <div className="right">
-                <p className="desc-font" style={{ textTransform: 'uppercase' }}>
-                  {time} <span>| </span>
-                  {date.toDateString()}
-                </p>
+              <div className="post-container-body">
+                <h3 className="subtitle" style={{ marginLeft: '0px' }}>
+                  {title}
+                </h3>
+                {hasImage && <img src={image_url} alt="post" />}
+                {hasURL && (
+                  <a className="desc-font" href={web_url} target="_blank" rel="noopener noreferrer">
+                    {web_url}
+                  </a>
+                )}
               </div>
-            </div>
-            <div className="post-container-body">
-              <h3 className="subtitle" style={{ marginLeft: '0px' }}>
-                {title}
-              </h3>
-              {hasImage && <img src={image_url} alt="post" />}
-              {hasURL && (
-                <a className="desc-font" href={web_url} target="_blank" rel="noopener noreferrer">
-                  {web_url}
-                </a>
-              )}
             </div>
             {/* <div className="ruler" /> */}
             <div className="Comments--container">
