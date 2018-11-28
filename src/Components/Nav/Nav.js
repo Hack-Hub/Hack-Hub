@@ -47,6 +47,7 @@ class Nav extends Component {
   }
 
   render() {
+    console.log('this.props.location', this.props.location)
     const currentUser = this.props.user && this.props.user.user_id !== ''
     return (
       <div className="Nav--container">
@@ -96,7 +97,8 @@ class Nav extends Component {
           ) : (
             <div className="auth-links">
               <Link to="/authenticate">Sign Up</Link>
-              <Link to="/signIn">Sign In</Link>
+              <Link to={`/signIn${this.props && this.props.location.pathname}`}>Sign In</Link>
+              {/* <Link to={{ pathname: '/signIn', currentPage: this.props.location }}>Sign In</Link> */}
             </div>
           )}
         </div>

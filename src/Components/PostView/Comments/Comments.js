@@ -68,7 +68,11 @@ class Comments extends Component {
           <h3>Comments</h3>
           <div className="ruler" />
 
-          <Comment comments={this.state.comments} updateReply={this.updateReply} />
+          <Comment
+            comments={this.state.comments}
+            updateReply={this.updateReply}
+            style={{ marginTop: '200px' }}
+          />
         </div>
       </div>
     )

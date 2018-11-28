@@ -119,10 +119,37 @@ class DisplayComments extends Component {
 }
 
 class Comment extends Component {
+  // constructor(props) {
+  //   super(props)
+  //   this.state = { commentsArray: [] }
+  // }
+
+  // componentDidMount() {
+  //   axios.get('/api/getcomments/' + this.props.comments.post_id).then(response => {
+  //     console.log('response', response)
+  //   })
+  // }
+
   render() {
+    // console.log('this.state', this.state)
+    // const compareParentComment = this.state.commentsArray.reduce(
+    //   (previousComment, currentComment) => {
+    //     console.log('previousComment', previousComment)
+    //     console.log('currentComment', currentComment)
+    //     if (previousComment.parent_comment_id !== currentComment.parent_comment_id) {
+    //       console.log('different id here', currentComment.comment_text)
+    //     }
+    //   }
+    // )
+    // console.log('compareParentComment', compareParentComment)
+
+    console.log('this.props.comments', this.props.comments)
+
     return (
-      <div className="individual-comment">
+      <div>
         {this.props.comments.map(comment => {
+          // console.log('comment', comment)
+
           return (
             <DisplayComments
               key={comment.comment_id}

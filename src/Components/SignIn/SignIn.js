@@ -13,8 +13,6 @@ class SignIn extends Component {
       password: '',
       user: {},
       signInError: '',
-      // authState: props.authState,
-      // authData: props.authData,
     }
 
     this.onChange = this.onChange.bind(this)
@@ -61,8 +59,18 @@ class SignIn extends Component {
 
   routeChange() {
     this.props && this.props.setLoggedIn()
-    const path = '/dashboard'
-    this.props.history.push(path)
+    // const path = this.props.location.pathname.slice(0, 7)
+
+    const path = this.props.location.pathname.split('').filter((char, idx) => {
+      const newPath = []
+      if (idx >= 7) {
+        newPath.push(char)
+      }
+      return newPath.join('')
+    })
+    const newPath = path.join('')
+
+    this.props.history.push(newPath)
   }
 
   closeModal() {
@@ -70,9 +78,6 @@ class SignIn extends Component {
   }
 
   render() {
-    // console.log('this.props', this.props)
-    // console.log('this.state', this.state)
-
     return (
       <div className="SignIn--container">
         <button
