@@ -1,4 +1,4 @@
-INSERT INTO posts(user_id,subhub_id,title,image_url,web_url,text_content,post_date_time,votes)
+INSERT INTO posts(user_id,subhub_id,title,image_url,web_url,text_content,video_url,post_date_time,votes)
 VALUES(
 -- user_id
 $1,
@@ -12,6 +12,8 @@ $4,
 $5,
 -- text_content
 $6,
+--video_url
+$7,
 -- post_date_time
 current_timestamp,
 -- votes initial value starts at 0
