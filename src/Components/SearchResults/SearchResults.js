@@ -2,9 +2,9 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './SearchResults.scss'
-import PostCard from '../PostCard/PostCard'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import SubHubSubscribe from '../SubHub/SubHubSubscribe';
+import PostFeed from '../PostFeed/PostFeed';
 
 class SearchResults extends Component {
   constructor(props) {
@@ -64,7 +64,19 @@ class SearchResults extends Component {
       this.setState({ postResults: filteredPosts })
     })
   }
-
+  handleNullUser=()=> {
+    this.setState({
+      subscribeError: 'Must be logged in to subscribe to a subhub',
+    })
+    setTimeout(
+      function() {
+        this.setState({
+          subscribeError: '',
+        })
+      }.bind(this),
+      3000
+    )
+  }
   render() {
     return (
       <div className="SearchResults--container">
@@ -89,7 +101,7 @@ class SearchResults extends Component {
                 <div className="subhub-right">
                   <p>{individualSubhub.sh_desc}</p>
                 </div>
-                <SubHubSubscribe subhub_id={individualSubhub.subhub_id}/>
+                <SubHubSubscribe subhub_id={individualSubhub.subhub_id} userId={this.state.userId} handleNullUser={this.handleNullUser}/>
               </div>
             )
           })}
@@ -98,15 +110,7 @@ class SearchResults extends Component {
         <div className="Subhub-Results--Container" style={{ marginTop: '30px' }}>
           <h3>POSTS</h3>
           <div className="ruler" />
-          {this.state.postResults.map(post => {
-            return (
-              <div key={post.post_id} className="individual-post-section">
-                <PostCard
-                  post={post}
-                />
-              </div>
-            )
-          })}
+         <PostFeed posts={this.state.postResults}/>
         </div>
       </div>
     )
