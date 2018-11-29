@@ -6,9 +6,11 @@ import TextPost from './TextPost'
 import ImagePost from './ImagePost'
 import VideoPost from './VideoPost'
 import URLPost from './URLPost'
+import CodeBlockPost from './CodeBlockPost'
 
 class PostCard extends Component {
   render() {
+    console.log('this.props', this.props)
     const { post } = this.props
 
     let postType = null
@@ -23,6 +25,9 @@ class PostCard extends Component {
     }
     if (post.video_url) {
       postType = <VideoPost post={this.props.post} />
+    }
+    if (post.code) {
+      postType = <CodeBlockPost post={this.props.post} />
     }
 
     const date = new Date(post.post_date_time)
@@ -56,11 +61,11 @@ class PostCard extends Component {
           </div>
         </section>
         <section className="Card--section--body">
-        <Link to={`/postview/${post.post_id}`}>
-        <h1>{post.title}</h1>
-        </Link>
-        {/* Post Type */}
-        {postType}
+          <Link to={`/postview/${post.post_id}`}>
+            <h1>{post.title}</h1>
+          </Link>
+          {/* Post Type */}
+          {postType}
         </section>
         <section className="bottom">
           {/* Votes */}
