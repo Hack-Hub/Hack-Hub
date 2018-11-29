@@ -78,8 +78,8 @@ const styles = {
     width: "100px",
     margin: "0 auto"
   },
-  subhubName: { width: "500px" },
-  select: { width: "300px", margin: "10px auto" }
+  subhubName: { width: "100%" },
+  select: { width: "100%", margin: "10px auto" }
 };
 
 export default GetSubHub;

@@ -81,3 +81,12 @@ $light-black: #323232;
     }
   }
 }
+
+@media(max-width: 768px){
+  .LandingPage--container {
+
+    .landing-section {
+      width: 80%;
+    }
+  }
+}

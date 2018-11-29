@@ -48,12 +48,16 @@ class PostCard extends Component {
           </div>
 
           <div className="right">
-            <p className="desc-font" style={{ textTransform: 'uppercase' }}>
+            <p className="desc-font" id="post-card-desktop" style={{ textTransform: 'uppercase' }}>
               <Link to={`/subhub/${post.subhub_id}/postfeed`}>{post.sh_name}</Link> <span>| </span>
               {time} <span>| </span>
               {date.toDateString()}
             </p>
-            <p id="mobile" style={{ textTransform: 'uppercase' }}>
+            <p
+              id="post-card-mobile"
+              style={{ textTransform: 'uppercase' }}
+              className="mobile-postcard"
+            >
               <Link to={`/subhub/${post.subhub_id}/postfeed`}>{post.sh_name}</Link>
               {time}
               {date.toDateString()}
