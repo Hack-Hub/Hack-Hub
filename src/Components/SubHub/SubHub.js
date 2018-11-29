@@ -27,8 +27,8 @@ class SubHub extends Component {
       this.setState({ posts: res.data })
     })
   }
-  componentDidUpdate(prevProps){
-    if(prevProps.match.params !==this.props.match.params){
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params !== this.props.match.params) {
       axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(res => {
         this.setState({ posts: res.data })
       })
@@ -83,7 +83,10 @@ class SubHub extends Component {
           </section>
         </section>
         <Switch>
-          <Route path="/subhub/:id/postfeed" render={(props) => <PostFeed {...props} posts={this.state.posts} />} />
+          <Route
+            path="/subhub/:id/postfeed"
+            render={props => <PostFeed {...props} posts={this.state.posts} />}
+          />
           <Route path="/subhub/:id/chat" component={Chat} />
         </Switch>
       </div>
