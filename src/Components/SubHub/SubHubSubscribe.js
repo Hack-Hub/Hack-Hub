@@ -1,45 +1,44 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { Component } from 'react'
+import axios from 'axios'
 import './Subscribe.scss'
 
 class SubHubSubscribe extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       followedHubs: [],
       subscribeError: '',
-      userId:null
-    };
-  }
-
-  componentDidMount(){
-    this.getSubhubCurrentUserFollows()
-  }
-  componentDidUpdate(prevState,prevProps){
-    if(this.props.userId !== prevProps.userId){
-      this.setState({userId:this.props.userId})
+      userId: null,
     }
   }
 
-  getSubhubCurrentUserFollows=()=> {
-      axios.get(`/api/getUserSubs`).then(response => {
+  componentDidMount() {
+    this.getSubhubCurrentUserFollows()
+  }
+  componentDidUpdate(prevState, prevProps) {
+    if (this.props.userId !== prevProps.userId) {
+      this.setState({ userId: this.props.userId })
+    }
+  }
+
+  getSubhubCurrentUserFollows = () => {
+    axios.get(`/api/getUserSubs`).then(response => {
       this.setState({
-        followedHubs: response.data.map(hub => hub.subhub_id)
-      });
-    });
+        followedHubs: response.data.map(hub => hub.subhub_id),
+      })
+    })
   }
 
   handleSubscribe(subhubId) {
     axios
-      .post("/api/addFollow", {
-        subhubId: subhubId
+      .post('/api/addFollow', {
+        subhubId: subhubId,
       })
       .then(() => {
-        this.getSubhubCurrentUserFollows();
-      });
+        this.getSubhubCurrentUserFollows()
+      })
   }
 
- 
   render() {
     const follows = this.state.followedHubs.includes(+this.props.subhub_id)
     return (
@@ -60,9 +59,9 @@ class SubHubSubscribe extends Component {
             className="subscribe-button"
             onClick={() => {
               if (this.state.userId === null) {
-                this.props.handleNullUser();
+                this.props.handleNullUser()
               } else {
-                this.handleSubscribe(this.props.subhub_id);
+                this.handleSubscribe(this.props.subhub_id)
               }
             }}
           >
@@ -70,8 +69,8 @@ class SubHubSubscribe extends Component {
           </button>
         )}
       </div>
-    );
+    )
   }
 }
 
-export default SubHubSubscribe;
+export default SubHubSubscribe

@@ -67,7 +67,7 @@ $light-black: #323232;
       padding: 2px;
       letter-spacing: 1px;
 
-      #mobile{
+      #mobile {
         display: none;
       }
 
@@ -130,7 +130,7 @@ $light-black: #323232;
     // border-top: 1px solid $blue;
     // background: rgba(255, 255, 255, 0.02);
     background: $blue;
-    height: 28px;
+    height: 34px;
     display: flex;
     color: $light-gray;
     font-weight: 400;
@@ -140,17 +140,17 @@ $light-black: #323232;
     color: $light-gray;
     font-size: 12px;
     flex-direction: row;
-    padding: 14px;
+    padding: 10px;
 
     .votes-section {
       display: flex;
       flex-direction: row;
-      margin-top: 2px;
       // flex-direction: flex-start;
       align-items: center;
+      padding-bottom: 4px;
 
       i {
-        margin: 0px 10px;
+        margin: 0px 12px;
         font-size: 14px;
         font-weight: 200;
         color: $light-gray;
@@ -179,14 +179,14 @@ $light-black: #323232;
     color: $light-gray;
   }
 
-  #mobile{
+  #mobile {
     display: none;
   }
 }
 
-@media(max-width: 415px){
+@media (max-width: 415px) {
   .desc-font {
-    display: none
+    display: none;
   }
 
   #mobile {
