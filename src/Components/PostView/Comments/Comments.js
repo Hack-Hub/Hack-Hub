@@ -57,7 +57,7 @@ class Comments extends Component {
   }
 
   render() {
-    const lastChild = this.state.commentsArray.filter((comment, idx) => {
+    const lastChild = this.state.commentsArray.filter(comment => {
       return comment.children && !comment.children.length
     })
 

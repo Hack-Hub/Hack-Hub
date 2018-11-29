@@ -8,6 +8,7 @@ const express = require('express'),
   { json } = require('body-parser'),
   {
     getPosts,
+    orderPostsByVoteCount,
     newPost,
     editPost,
     deletePost,
@@ -60,6 +61,7 @@ app.use(
 //-----Endpoints-----
 //Posts
 app.get('/api/getPosts', getPosts)
+app.get('/api/orderPostsByVote', orderPostsByVoteCount)
 app.get('/api/getSubPosts/:subhub_id', getPostsBySub)
 app.get('/api/getPostByID/:post_id', getPostByID)
 app.get('/api/getUserPosts', getUserPosts)
