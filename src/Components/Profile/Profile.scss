@@ -149,7 +149,7 @@ $light-black: #323232;
         letter-spacing: 2px;
         font-size: 12px;
         text-transform: uppercase;
-        margin-left: 30px;
+        // margin-left: 30px;
       }
     }
     .subhub-right {
@@ -167,6 +167,20 @@ $light-black: #323232;
       height: 30px;
       font-size: 12px;
       color: $light-gray;
+    }
+  }
+}
+
+@media(max-width: 415px){
+  .User--Container{
+    .Profile--Container {
+
+      .subhub-left {
+
+        h3 {
+          margin-left: 15px;
+        }
+      }
     }
   }
 }

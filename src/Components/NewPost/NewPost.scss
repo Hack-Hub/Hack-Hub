@@ -98,3 +98,9 @@ $light-black: #323232;
     padding: 5px;
   }
 }
+
+@media (max-width: 415px){
+  .NewPost--Container {
+    width: 90%;
+  }
+}
