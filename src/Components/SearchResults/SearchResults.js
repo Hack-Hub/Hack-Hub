@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './SearchResults.scss'
-import PostCard from '../PostCard/PostCard'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import SubHubSubscribe from '../SubHub/SubHubSubscribe';
 import PostFeed from '../PostFeed/PostFeed';

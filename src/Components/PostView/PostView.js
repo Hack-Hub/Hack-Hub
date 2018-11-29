@@ -57,7 +57,6 @@ class PostView extends Component {
       video_url,
       text_content
     } = this.state.post
-
     const date = new Date(post_date_time)
 
     const time = date.toLocaleTimeString(navigator.language, {
@@ -81,7 +80,7 @@ class PostView extends Component {
           <section className="subhub-container">
             <div className="theme-color" style={{ background: theme_color }} />
             <div className="subhub-container-header">
-              <img src="https://i.ytimg.com/vi/USAtCfAoMio/hqdefault.jpg" alt="subhub" />
+              <img src={this.state.post.sh_icon} alt="subhub" />
               <Link to={`/subhub/${subhub_id}/postfeed`}>
                 <h3>{sh_name}</h3>
               </Link>
@@ -95,7 +94,7 @@ class PostView extends Component {
               <div className="theme-color" style={{ background: theme_color }} />
               <div className="post-container-header">
                 <div className="left">
-                  <img src="https://i.ytimg.com/vi/m380BLVOrkI/hqdefault.jpg" alt="user" />
+                  <img src={this.state.post.user_photo} alt="user" />
                   <Link to={`/user/${user_id}`}>
                     <h3>{username}</h3>
                   </Link>

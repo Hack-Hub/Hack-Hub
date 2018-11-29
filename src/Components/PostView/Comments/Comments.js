@@ -51,7 +51,6 @@ class Comments extends Component {
   }
 
   updateReply() {
-    console.log('update reply')
     axios.get('/api/getcomments/' + this.props.post.post_id).then(comments => {
       this.commentSetUp(comments.data)
     })
@@ -59,10 +58,8 @@ class Comments extends Component {
 
   render() {
     const lastChild = this.state.commentsArray.filter((comment, idx) => {
-      console.log('comment.children', comment.children)
       return comment.children && !comment.children.length
     })
-    console.log('lastChild', lastChild)
 
     return (
       <div className="Comments--container">

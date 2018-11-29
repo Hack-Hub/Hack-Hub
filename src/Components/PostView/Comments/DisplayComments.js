@@ -66,9 +66,10 @@ class DisplayComments extends Component {
       hour: '2-digit',
       minute: '2-digit',
     })
-    let reply, commentBox
+    let displayChildren, commentBox, marginLength;
     if (this.props.comment.children.length && !this.state.collapseMode) {
-      reply = (
+      marginLength = 30 +this.props.comment.children.length*30;
+      displayChildren = (
         <Comment comments={this.props.comment.children} updateReply={this.props.updateReply} />
       )
     }
@@ -87,8 +88,8 @@ class DisplayComments extends Component {
     const loggedInUser = this.props.comment.user_id === this.state.currentUserId
 
     return (
-      <div>
-        <CommentStyle lastChild={this.props.lastChild} className="comment-container">
+      <div style={{margin:'30px'}}>
+        <CommentStyle lastChild={this.props.lastChild} className="comment-container" >
           <div className="left-of-bubble">
             <img src={this.props.comment.user_photo} alt="user" />
           </div>
@@ -126,7 +127,7 @@ class DisplayComments extends Component {
 
             {/* Reply button being rendered toggles commentBox  */}
             {commentBox}
-            {reply}
+            {displayChildren}
           </div>
         </CommentStyle>
       </div>
@@ -137,7 +138,7 @@ class DisplayComments extends Component {
 class Comment extends Component {
   render() {
     return (
-      <div>
+      <div > 
         {this.props.comments.map(comment => {
           return (
             <DisplayComments
