@@ -1,84 +1,102 @@
-import React, { Component } from 'react'
-import axios from 'axios'
-import PostCard from '../PostCard/PostCard'
-import { Link } from 'react-router-dom'
-import './Profile.scss'
-import ImageUpload from '../NewPost/ImageUpload'
+import React, { Component } from "react";
+import axios from "axios";
+import PostFeed from "../PostFeed/PostFeed";
+import { Link } from "react-router-dom";
+import "./Profile.scss";
+import ImageUpload from "../NewPost/ImageUpload";
 
 class Profile extends Component {
   constructor() {
-    super()
+    super();
 
     this.state = {
       current_user: {},
       followed_subs: [],
       posts: [],
       editProfile: false,
-      profileURL:'',
-      userName:''
-    }
+      profileURL: "",
+      userName: ""
+    };
   }
 
   componentDidMount() {
-    axios.get('/api/currentUser').then(res => {
-      if(res.data.length){
-        this.setState({ current_user: res.data[0],userName:res.data[0].username })
-      }else{
-        this.props.history.push('/user/'+this.props.match.params.userId)
+    axios.get("/api/currentUser").then(res => {
+      if (res.data.length) {
+        this.setState({
+          current_user: res.data[0],
+          userName: res.data[0].username
+        });
+      } else {
+        this.props.history.push("/user/" + this.props.match.params.userId);
       }
-    })
+    });
 
-    this.getSubhubCurrentUserFollows()
+    this.getSubhubCurrentUserFollows();
 
-    axios.get('/api/getUserPosts').then(res => {
-      this.setState({ posts: res.data })
-    })
+    axios.get("/api/getUserPosts").then(res => {
+      this.setState({ posts: res.data });
+    });
   }
 
-  getSubhubCurrentUserFollows=()=> {
+  getSubhubCurrentUserFollows = () => {
     axios.get(`/api/getUserSubs`).then(res => {
-      this.setState({ followed_subs: res.data })
-    })
-  }
+      this.setState({ followed_subs: res.data });
+    });
+  };
 
-  handleChange=(event)=>{
-    this.setState({userName:event.target.value})
-  }
-  editSave=()=> {
-    this.setState({ editProfile: !this.state.editProfile })
-    if(this.state.userName !==this.state.current_user.userName){
-      axios.put('/api/editUserName',{username:this.state.userName})
+  handleChange = event => {
+    this.setState({ userName: event.target.value });
+  };
+  editSave = () => {
+    this.setState({ editProfile: !this.state.editProfile });
+    if (this.state.userName !== this.state.current_user.username) {
+      axios.put("/api/editUserName", { username: this.state.userName });
     }
-  }
-  savePhoto(imageURL){
-    this.setState({profileURL:imageURL},()=>axios.put('/api/editUserPhoto/',{user_photo:this.state.profileURL}))
+  };
+  savePhoto(imageURL) {
+    this.setState({ profileURL: imageURL }, () =>
+      axios.put("/api/editUserPhoto/", { user_photo: this.state.profileURL })
+    );
   }
 
   render() {
-    let editSave,userField;
-    if(!this.state.editProfile){
-      editSave='Edit Profile'
-      userField= <h3>{this.state.current_user.username}</h3>
+    let editSave, userField;
+    if (!this.state.editProfile) {
+      editSave = "Edit Profile";
+      userField =null;
     }
-    if(this.state.editProfile){
-      editSave='Save'
-      userField = <input value={this.state.userName} onChange={this.handleChange}></input>
+    if (this.state.editProfile) {
+      editSave = "Save";
+      userField = (
+        <div><h5>User Name:</h5> 
+        <input
+          value={this.state.userName}
+          onChange={this.handleChange}
+          className="Profile--editInput"
+        />
+        </div>
+      );
     }
     return (
       <div className="User--Container">
-        {this.state.editProfile && (
-          <div className="edit-profile-pic">
-            <ImageUpload setImageURL={this.savePhoto} />
-          </div>
-        )}
-
-        <div className="Profile--Container" style={{ marginBottom: '20px' }}>
+        <div className="Profile--Container" style={{ marginBottom: "20px" }}>
           <div className="subhub-left">
             <img src={this.state.current_user.user_photo} alt="user" />
-            {userField}
+            <h3>{this.state.current_user.username}</h3>
           </div>
-          <div className="subhub-right">
-          <button className="edit-button" onClick={this.editSave}>{editSave}</button>
+            <div className="subhub-center">
+              {userField}
+              {this.state.editProfile && (
+                <div className="edit-profile-pic">
+                <h5>Profile Picture:</h5>
+                  <ImageUpload setImageURL={this.savePhoto} />
+                </div>
+              )}
+            </div>
+          <div className="subhub-rightSide">
+            <button className="edit-button" onClick={this.editSave}>
+              {editSave}
+            </button>
           </div>
         </div>
         <div className="Subhub-Results--Container">
@@ -88,7 +106,10 @@ class Profile extends Component {
             return (
               <div key={sub.subhub_id} className="individual-subhub-section">
                 <div className="subhub-left">
-                  <div className="talk-bubble tri-right border btm-right-in" alt="subhub">
+                  <div
+                    className="talk-bubble tri-right border btm-right-in"
+                    alt="subhub"
+                  >
                     <img src={sub.sh_icon} alt="subhub-icon" />
                   </div>
                   <Link to={`/subhub/${sub.subhub_id}/postfeed`}>
@@ -103,7 +124,9 @@ class Profile extends Component {
                   onClick={async () =>
                     await axios
                       .delete(
-                        `/api/deleteFollow/${this.state.current_user.user_id}/${sub.subhub_id}`
+                        `/api/deleteFollow/${this.state.current_user.user_id}/${
+                          sub.subhub_id
+                        }`
                       )
                       .then(this.getSubhubCurrentUserFollows())
                   }
@@ -111,22 +134,13 @@ class Profile extends Component {
                   Unsubscribe
                 </button>
               </div>
-            )
+            );
           })}
         </div>
-
-        <div>
-          {this.state.posts.map(post => {
-            return (
-              <div key={post.post_id}>
-                <PostCard post={post} />
-              </div>
-            )
-          })}
-        </div>
+        <PostFeed posts={this.state.posts} />
       </div>
-    )
+    );
   }
 }
 
-export default Profile
+export default Profile;

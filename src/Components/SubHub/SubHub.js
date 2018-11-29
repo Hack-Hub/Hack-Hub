@@ -5,6 +5,7 @@ import Chat from '../Chat/Chat'
 import PostFeed from '../PostFeed/PostFeed'
 import axios from 'axios'
 import SubHubSubscribe from './SubHubSubscribe';
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 class SubHub extends Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class SubHub extends Component {
       themeColor: this.props.theme_color,
       desc: '',
       posts: [],
+      subscribeError: '',
+      userId:null
     }
 
     this.getSubhubInfo = this.getSubhubInfo.bind(this)
@@ -27,8 +30,8 @@ class SubHub extends Component {
       this.setState({ posts: res.data })
     })
   }
-  componentDidUpdate(prevProps){
-    if(prevProps.match.params !==this.props.match.params){
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params !== this.props.match.params) {
       axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(res => {
         this.setState({ posts: res.data })
       })
@@ -47,7 +50,19 @@ class SubHub extends Component {
       })
     })
   }
-
+  handleNullUser=()=> {
+    this.setState({
+      subscribeError: 'Must be logged in to subscribe to a subhub',
+    })
+    setTimeout(
+      function() {
+        this.setState({
+          subscribeError: '',
+        })
+      }.bind(this),
+      3000
+    )
+  }
   render() {
     const { subhubName, icon, themeColor, desc } = this.state
 
@@ -60,6 +75,11 @@ class SubHub extends Component {
               <h1>{subhubName}</h1>
               <p>{desc}</p>
             </div>
+            <div
+          style={{ background: '#f5f5f5', width: '80%', margin: '0 auto', paddingBottom: '0px' }}
+        >
+          {this.state.subscribeError && <ErrorMessage message={this.state.subscribeError} />}
+        </div>
           </div>
         </section>
         <section className="links">
@@ -77,13 +97,16 @@ class SubHub extends Component {
           </div>
           <section className="links">
           <div className="links-container" width='200px'>
-              <SubHubSubscribe subhub_id={this.props.match.params.id}  className="subhub-links"/>
+              <SubHubSubscribe className="subhub-links" subhub_id={this.props.match.params.id}  userId={this.state.userId} handleNullUser={this.handleNullUser}/>
               <Link to={'/newpost'}  className="subhub-links" id='post'>New Post</Link>
               </div>
           </section>
         </section>
         <Switch>
-          <Route path="/subhub/:id/postfeed" render={(props) => <PostFeed {...props} posts={this.state.posts} />} />
+          <Route
+            path="/subhub/:id/postfeed"
+            render={props => <PostFeed {...props} posts={this.state.posts} />}
+          />
           <Route path="/subhub/:id/chat" component={Chat} />
         </Switch>
       </div>

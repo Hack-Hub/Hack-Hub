@@ -1,10 +1,10 @@
 module.exports = {
   newPost(req, res) {
     let db = req.app.get('db')
-    const { subhub_id, title, image_url, web_url, text_content, video_url } = req.body
+    const { subhub_id, title, image_url, web_url, text_content, video_url, code } = req.body
     const { user_id } = req.session
     db.posts
-      .newPost([user_id, subhub_id, title, image_url, web_url, text_content, video_url])
+      .newPost([user_id, subhub_id, title, image_url, web_url, text_content, video_url, code])
       .then(response => {
         return res.status(200).send(response)
       })
@@ -14,6 +14,15 @@ module.exports = {
     db.posts.getAllPosts().then(response => {
       return res.status(200).send(response)
     })
+  },
+  orderPostsByVoteCount(req, res) {
+    let db = req.app.get('db')
+    db.posts
+      .getAllPostsByVoteCount()
+      .then(response => {
+        return res.status(200).send(response)
+      })
+      .catch(err => console.log('err', err))
   },
   getPostsBySub(req, res) {
     let db = req.app.get('db')
@@ -55,5 +64,5 @@ module.exports = {
     db.posts.get_user_posts(req.params.userId).then(posts => {
       return res.status(200).json(posts)
     })
-  }
+  },
 }

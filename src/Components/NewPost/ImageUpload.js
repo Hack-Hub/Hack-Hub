@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Storage } from 'aws-amplify'
+import './NewPost.scss'
 
 
 class ImageUpload extends Component {
@@ -53,9 +54,9 @@ class ImageUpload extends Component {
 
     render() {
         return (
-            <div>
+            <div className="imageUpload">
                 <input type='file' onChange={this.handleChange}></input>
-                <button onClick={this.saveFile}>Save</button>
+                <button onClick={this.saveFile}>Save Image</button>
                <div>
                    {this.state.filename}
                </div>

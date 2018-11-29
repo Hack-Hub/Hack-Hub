@@ -15,7 +15,7 @@ $light-black: #323232;
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 20px;
+  // padding: 20px;
   margin: 0 auto;
   justify-content: space-between;
   box-sizing: border-box;
@@ -44,6 +44,7 @@ $light-black: #323232;
 }
 
 .New-Comment--Container {
+  margin-top: 30px;
   margin-bottom: 30px;
   display: flex;
   flex-direction: row;
@@ -51,7 +52,7 @@ $light-black: #323232;
 
   textarea {
     width: 100%;
-    height: 30px;
+    height: 40px;
     background: $black;
     color: $light-gray;
     border: none;
@@ -67,7 +68,7 @@ $light-black: #323232;
   }
 
   .post {
-    height: 30px;
+    height: 40px;
   }
 }
 

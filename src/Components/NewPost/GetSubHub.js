@@ -46,11 +46,12 @@ class GetSubHub extends Component {
     return (
       <div className="GetSubHub--Container" style={styles.container}>
         <h5>SubHub</h5>
-        <div>
+        <div className="GetSubHub--Inputs">
           <input
             onChange={this.handleChange}
             style={styles.subhubName}
             placeholder="Enter Subhub Name"
+            id="GetSubHub--Search"
           />
           <button style={styles.button} onClick={this.findSubHub}>
             Search SubHubs

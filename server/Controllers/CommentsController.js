@@ -22,7 +22,6 @@ module.exports = {
     db.comments
       .edit_comment([req.params.comment_id, req.body.post_id, req.body.comment_text])
       .then(comments => {
-        console.log('comments', comments)
         return res.status(200).json(comments)
       })
       .catch(err => console.log('err', err))

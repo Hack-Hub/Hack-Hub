@@ -5,11 +5,11 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import { withRouter } from 'react-router-dom'
-import SubHubSubscribe from '../SubHub/SubHubSubscribe';
-import ImagePost from '../PostCard/ImagePost';
-import URLPost from '../PostCard/URLPost';
-import VideoPost from '../PostCard/VideoPost';
-import TextPost from '../PostCard/TextPost';
+import SubHubSubscribe from '../SubHub/SubHubSubscribe'
+import ImagePost from '../PostCard/ImagePost'
+import URLPost from '../PostCard/URLPost'
+import VideoPost from '../PostCard/VideoPost'
+import TextPost from '../PostCard/TextPost'
 
 class PostView extends Component {
   constructor(props) {
@@ -40,9 +40,21 @@ class PostView extends Component {
       }
     })
   }
+  handleNullUser=()=> {
+    this.setState({
+      subscribeError: 'Must be logged in to subscribe to a subhub',
+    })
+    setTimeout(
+      function() {
+        this.setState({
+          subscribeError: '',
+        })
+      }.bind(this),
+      3000
+    )
+  }
 
   render() {
-
     const {
       sh_name,
       username,
@@ -55,20 +67,27 @@ class PostView extends Component {
       title,
       web_url,
       video_url,
-      text_content
+      text_content,
     } = this.state.post
-
     const date = new Date(post_date_time)
 
     const time = date.toLocaleTimeString(navigator.language, {
       hour: '2-digit',
       minute: '2-digit',
     })
-    let displayPostType;
-    if(image_url){displayPostType=<ImagePost post={this.state.post} />}
-    if(web_url){displayPostType=<URLPost post={this.state.post} />}
-    if(video_url){displayPostType=<VideoPost post={this.state.post} />}
-    if(text_content){displayPostType=<TextPost post={this.state.post} />}
+    let displayPostType
+    if (image_url) {
+      displayPostType = <ImagePost post={this.state.post} />
+    }
+    if (web_url) {
+      displayPostType = <URLPost post={this.state.post} />
+    }
+    if (video_url) {
+      displayPostType = <VideoPost post={this.state.post} />
+    }
+    if (text_content) {
+      displayPostType = <TextPost post={this.state.post} />
+    }
 
     return (
       <div>
@@ -81,36 +100,36 @@ class PostView extends Component {
           <section className="subhub-container">
             <div className="theme-color" style={{ background: theme_color }} />
             <div className="subhub-container-header">
-              <img src="https://i.ytimg.com/vi/USAtCfAoMio/hqdefault.jpg" alt="subhub" />
+              <img src={this.state.post.sh_icon} alt="subhub" />
               <Link to={`/subhub/${subhub_id}/postfeed`}>
                 <h3>{sh_name}</h3>
               </Link>
             </div>
             <div className="subhub-body">
               <p className="desc-font">{sh_desc}</p>
-              <SubHubSubscribe subhub_id={subhub_id}/>
+              <SubHubSubscribe subhub_id={subhub_id} userId={this.state.userId} handleNullUser={this.handleNullUser}/>
             </div>
           </section>
           <section className="post-container">
-              <div className="theme-color" style={{ background: theme_color }} />
-              <div className="post-container-header">
-                <div className="left">
-                  <img src="https://i.ytimg.com/vi/m380BLVOrkI/hqdefault.jpg" alt="user" />
-                  <Link to={`/user/${user_id}`}>
-                    <h3>{username}</h3>
-                  </Link>
-                </div>
-                <div className="right">
-                  <p className="desc-font" style={{ textTransform: 'uppercase' }}>
-                    {time} <span>| </span>
-                    {date.toDateString()}
-                  </p>
-                </div>
+            <div className="theme-color" style={{ background: theme_color }} />
+            <div className="post-container-header">
+              <div className="left">
+                <img src={this.state.post.user_photo} alt="user" />
+                <Link to={`/user/${user_id}`}>
+                  <h3>{username}</h3>
+                </Link>
               </div>
-              <div className="post-container-body">
-                <h3 className="subtitle" style={{ marginLeft: '0px' }}>
-                  {title}
-                </h3>
+              <div className="right">
+                <p className="desc-font" style={{ textTransform: 'uppercase' }}>
+                  {time} <span>| </span>
+                  {date.toDateString()}
+                </p>
+              </div>
+            </div>
+            <div className="post-container-body">
+              <h3 className="subtitle" style={{ marginLeft: '0px' }}>
+                {title}
+              </h3>
               {displayPostType}
             </div>
             {/* <div className="ruler" /> */}
