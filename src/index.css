@@ -90,10 +90,18 @@ video {
   padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
+  /* font: inherit; */
   vertical-align: baseline;
-  font-family: 'Montserrat', sans-serif;
+  /* font-family: 'Montserrat', sans-serif; */
   transition: all 0.5s ease;
+}
+
+p,
+h1,
+h2,
+h3,
+a {
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* HTML5 display-role reset for older browsers */
