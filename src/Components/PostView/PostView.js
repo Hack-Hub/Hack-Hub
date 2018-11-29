@@ -40,6 +40,19 @@ class PostView extends Component {
       }
     })
   }
+  handleNullUser=()=> {
+    this.setState({
+      subscribeError: 'Must be logged in to subscribe to a subhub',
+    })
+    setTimeout(
+      function() {
+        this.setState({
+          subscribeError: '',
+        })
+      }.bind(this),
+      3000
+    )
+  }
 
   render() {
     const {
@@ -94,7 +107,7 @@ class PostView extends Component {
             </div>
             <div className="subhub-body">
               <p className="desc-font">{sh_desc}</p>
-              <SubHubSubscribe subhub_id={subhub_id} />
+              <SubHubSubscribe subhub_id={subhub_id} userId={this.state.userId} handleNullUser={this.handleNullUser}/>
             </div>
           </section>
           <section className="post-container">

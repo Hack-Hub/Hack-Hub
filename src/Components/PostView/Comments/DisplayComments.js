@@ -88,7 +88,7 @@ class DisplayComments extends Component {
     const loggedInUser = this.props.comment.user_id === this.state.currentUserId
 
     return (
-      <div style={{margin:'30px'}}>
+      <div style={{marginBottom:marginLength}}>
         <CommentStyle lastChild={this.props.lastChild} className="comment-container" >
           <div className="left-of-bubble">
             <img src={this.props.comment.user_photo} alt="user" />

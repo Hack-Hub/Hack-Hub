@@ -7,12 +7,18 @@ class SubHubSubscribe extends Component {
     super(props);
     this.state = {
       followedHubs: [],
-      subscribeError: ''
+      subscribeError: '',
+      userId:null
     };
   }
 
   componentDidMount(){
     this.getSubhubCurrentUserFollows()
+  }
+  componentDidUpdate(prevState,prevProps){
+    if(this.props.userId !== prevProps.userId){
+      this.setState({userId:this.props.userId})
+    }
   }
 
   getSubhubCurrentUserFollows=()=> {
@@ -33,19 +39,7 @@ class SubHubSubscribe extends Component {
       });
   }
 
-  handleNullUser() {
-    this.setState({
-      subscribeError: 'Must be logged in to subscribe to a subhub',
-    })
-    setTimeout(
-      function() {
-        this.setState({
-          subscribeError: '',
-        })
-      }.bind(this),
-      3000
-    )
-  }
+ 
   render() {
     const follows = this.state.followedHubs.includes(+this.props.subhub_id)
     return (
@@ -66,7 +60,7 @@ class SubHubSubscribe extends Component {
             className="subscribe-button"
             onClick={() => {
               if (this.state.userId === null) {
-                this.handleNullUser();
+                this.props.handleNullUser();
               } else {
                 this.handleSubscribe(this.props.subhub_id);
               }

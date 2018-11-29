@@ -64,7 +64,19 @@ class SearchResults extends Component {
       this.setState({ postResults: filteredPosts })
     })
   }
-
+  handleNullUser=()=> {
+    this.setState({
+      subscribeError: 'Must be logged in to subscribe to a subhub',
+    })
+    setTimeout(
+      function() {
+        this.setState({
+          subscribeError: '',
+        })
+      }.bind(this),
+      3000
+    )
+  }
   render() {
     return (
       <div className="SearchResults--container">
@@ -89,7 +101,7 @@ class SearchResults extends Component {
                 <div className="subhub-right">
                   <p>{individualSubhub.sh_desc}</p>
                 </div>
-                <SubHubSubscribe subhub_id={individualSubhub.subhub_id}/>
+                <SubHubSubscribe subhub_id={individualSubhub.subhub_id} userId={this.state.userId} handleNullUser={this.handleNullUser}/>
               </div>
             )
           })}
