@@ -3,7 +3,6 @@ import './NewPost.scss'
 import ImageUpload from './ImageUpload'
 import GetSubHub from './GetSubHub'
 import axios from 'axios'
-import Highlight from 'react-highlight'
 
 class NewPost extends Component {
   constructor() {

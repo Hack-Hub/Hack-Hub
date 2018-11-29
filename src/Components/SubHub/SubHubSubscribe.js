@@ -1,36 +1,36 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { Component } from 'react'
+import axios from 'axios'
 import './Subscribe.scss'
 
 class SubHubSubscribe extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       followedHubs: [],
-      subscribeError: ''
-    };
+      subscribeError: '',
+    }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getSubhubCurrentUserFollows()
   }
 
-  getSubhubCurrentUserFollows=()=> {
-      axios.get(`/api/getUserSubs`).then(response => {
+  getSubhubCurrentUserFollows = () => {
+    axios.get(`/api/getUserSubs`).then(response => {
       this.setState({
-        followedHubs: response.data.map(hub => hub.subhub_id)
-      });
-    });
+        followedHubs: response.data.map(hub => hub.subhub_id),
+      })
+    })
   }
 
   handleSubscribe(subhubId) {
     axios
-      .post("/api/addFollow", {
-        subhubId: subhubId
+      .post('/api/addFollow', {
+        subhubId: subhubId,
       })
       .then(() => {
-        this.getSubhubCurrentUserFollows();
-      });
+        this.getSubhubCurrentUserFollows()
+      })
   }
 
   handleNullUser() {
@@ -46,6 +46,7 @@ class SubHubSubscribe extends Component {
       3000
     )
   }
+
   render() {
     const follows = this.state.followedHubs.includes(+this.props.subhub_id)
     return (
@@ -66,9 +67,9 @@ class SubHubSubscribe extends Component {
             className="subscribe-button"
             onClick={() => {
               if (this.state.userId === null) {
-                this.handleNullUser();
+                this.handleNullUser()
               } else {
-                this.handleSubscribe(this.props.subhub_id);
+                this.handleSubscribe(this.props.subhub_id)
               }
             }}
           >
@@ -76,8 +77,8 @@ class SubHubSubscribe extends Component {
           </button>
         )}
       </div>
-    );
+    )
   }
 }
 
-export default SubHubSubscribe;
+export default SubHubSubscribe
