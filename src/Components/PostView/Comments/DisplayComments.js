@@ -66,9 +66,10 @@ class DisplayComments extends Component {
       hour: '2-digit',
       minute: '2-digit',
     })
-    let displayChildren, commentBox, marginLength;
+    let displayChildren, commentBox;
+    let marginLength = 0;
     if (this.props.comment.children.length && !this.state.collapseMode) {
-      marginLength = 30 +this.props.comment.children.length*30;
+      marginLength = marginLength +=this.props.comment.childrenInt*70;
       displayChildren = (
         <Comment comments={this.props.comment.children} updateReply={this.props.updateReply} />
       )
@@ -88,8 +89,7 @@ class DisplayComments extends Component {
     const loggedInUser = this.props.comment.user_id === this.state.currentUserId
 
     return (
-      <div style={{marginBottom:marginLength}}>
-        <CommentStyle lastChild={this.props.lastChild} className="comment-container" >
+        <CommentStyle lastChild={this.props.lastChild} className="comment-container" style={{paddingBottom:marginLength}} >
           <div className="left-of-bubble">
             <img src={this.props.comment.user_photo} alt="user" />
           </div>
@@ -130,7 +130,6 @@ class DisplayComments extends Component {
             {displayChildren}
           </div>
         </CommentStyle>
-      </div>
     )
   }
 }

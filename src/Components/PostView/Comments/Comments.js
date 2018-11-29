@@ -29,6 +29,7 @@ class Comments extends Component {
     this.setState({ commentsArray: ParentComments })
     ParentComments = ParentComments.map(comment => {
       comment.children = []
+      comment.childrenInt=0
       return comment
     })
     ParentComments = ParentComments.filter(comment => {
@@ -45,6 +46,8 @@ class Comments extends Component {
       if (comment.comment_id === commentsArr[i].parent_comment_id) {
         this.findChildren(commentsArr[i], commentsArr)
         comment.children.push(commentsArr[i])
+        comment.childrenInt++
+        comment.childrenInt+=commentsArr[i].childrenInt
       }
     }
     return null
