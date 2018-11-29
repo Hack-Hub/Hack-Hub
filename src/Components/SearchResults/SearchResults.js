@@ -5,6 +5,7 @@ import './SearchResults.scss'
 import PostCard from '../PostCard/PostCard'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import SubHubSubscribe from '../SubHub/SubHubSubscribe';
+import PostFeed from '../PostFeed/PostFeed';
 
 class SearchResults extends Component {
   constructor(props) {
@@ -98,15 +99,7 @@ class SearchResults extends Component {
         <div className="Subhub-Results--Container" style={{ marginTop: '30px' }}>
           <h3>POSTS</h3>
           <div className="ruler" />
-          {this.state.postResults.map(post => {
-            return (
-              <div key={post.post_id} className="individual-post-section">
-                <PostCard
-                  post={post}
-                />
-              </div>
-            )
-          })}
+         <PostFeed posts={this.state.postResults}/>
         </div>
       </div>
     )
