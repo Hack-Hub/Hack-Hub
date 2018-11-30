@@ -1,9 +1,12 @@
-import React, { Component } from 'react'
-import axios from 'axios'
-import PostFeed from '../PostFeed/PostFeed'
-import { Link } from 'react-router-dom'
-import './Profile.scss'
-import ImageUpload from '../NewPost/ImageUpload'
+
+import React, { Component } from "react";
+import axios from "axios";
+import PostFeed from "../PostFeed/PostFeed";
+import { Link } from "react-router-dom";
+import "./Profile.scss";
+import ImageUpload from "../NewPost/ImageUpload";
+import SubHubSubscribe from "../SubHub/SubHubSubscribe";
+
 
 class Profile extends Component {
   constructor() {
@@ -14,8 +17,9 @@ class Profile extends Component {
       followed_subs: [],
       posts: [],
       editProfile: false,
-      profileURL: '',
-      userName: '',
+      profileURL: "",
+      userName: "",
+      userId:null
     }
   }
 
@@ -25,7 +29,9 @@ class Profile extends Component {
         this.setState({
           current_user: res.data[0],
           userName: res.data[0].username,
-        })
+          userId:res.data[0].user_id
+        });
+
       } else {
         this.props.history.push('/user/' + this.props.match.params.userId)
       }
@@ -56,6 +62,19 @@ class Profile extends Component {
   savePhoto = imageURL => {
     this.setState({ profileURL: imageURL }, () =>
       axios.put('/api/editUserPhoto/', { user_photo: this.state.profileURL })
+    )
+  }
+  handleNullUser=()=> {
+    this.setState({
+      subscribeError: 'Must be logged in to subscribe to a subhub',
+    })
+    setTimeout(
+      function() {
+        this.setState({
+          subscribeError: '',
+        })
+      }.bind(this),
+      3000
     )
   }
 
@@ -117,23 +136,13 @@ class Profile extends Component {
                 <div className="subhub-right">
                   <p>{sub.sh_desc}</p>
                 </div>
-                <button
-                  className="user-button"
-                  onClick={async () =>
-                    await axios
-                      .delete(
-                        `/api/deleteFollow/${this.state.current_user.user_id}/${sub.subhub_id}`
-                      )
-                      .then(this.getSubhubCurrentUserFollows())
-                  }
-                >
-                  Unsubscribe
-                </button>
+                <SubHubSubscribe className="subhub-links" subhub_id={sub.subhub_id}  userId={this.state.userId} handleNullUser={this.handleNullUser}/>
+
               </div>
             )
           })}
         </div>
-        <PostFeed posts={this.state.posts} />
+        <PostFeed posts={this.state.posts} deleteMode={true} />
       </div>
     )
   }

@@ -151,15 +151,20 @@ class PostView extends Component {
                   </p>
                 </div>
               </div>
+
               <div className="post-container-body">
                 <h3 className="subtitle" style={{ marginLeft: '0px' }}>
                   {title}
                 </h3>
                 {displayPostType}
               </div>
-              {/* <div className="ruler" /> */}
+
               <div className="Comments--container">
-                <Comments post={this.state.post} userId={this.state.userId} />
+                <Comments
+                  post={this.state.post}
+                  userId={this.state.userId}
+                  handleNullUser={this.handleNullUser}
+                />
               </div>
             </section>
           </div>

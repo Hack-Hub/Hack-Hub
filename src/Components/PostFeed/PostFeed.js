@@ -25,17 +25,24 @@ class PostFeed extends Component {
       this.setState({ posts: this.props.posts });
     }
   }
- 
+  handleDelete=(post_id)=>{
+    axios.delete('/api/deletePost/'+post_id).then(response=>{
+      console.log('response',response);
+      this.setState({posts:response.data})
+    })
+    }
   render() {
     let postMap = [];
     if (this.state.posts !== []) {
       postMap = this.state.posts.map((post, idx) => {
-        return (
-          <PostCard
-            post={post}
-            key={idx}
-            userId={this.state.userId}
-          />
+        return (         
+            <PostCard
+              post={post}
+              key={idx}
+              userId={this.state.userId}
+              deleteMode={this.props.deleteMode}
+              handleDelete={this.handleDelete}
+            />
         );
       });
     }
