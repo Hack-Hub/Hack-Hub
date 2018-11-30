@@ -88,6 +88,7 @@ class SignIn extends Component {
         </button>
         <div className="auth-section">
           <h3>Sign In</h3>
+
           <input
             onChange={this.onChange}
             placeholder="username"

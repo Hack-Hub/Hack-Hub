@@ -8,137 +8,174 @@ $dark-gray: #888888;
 $black: #252525;
 $light-black: #323232;
 
+* {
+  box-sizing: border-box;
+}
 .PostView--container {
   display: flex;
-  flex-direction: row;
+  // flex-direction: row;
   width: 80%;
   margin: 0 auto;
   justify-content: space-between;
 
-  .subhub-container {
-    background: $light-black;
+  .left-container {
+    display: flex;
+    flex-direction: column;
+    // flex-wrap: wrap;
     width: 30%;
-    max-height: 200px;
-    box-shadow: 2px 6px 8px -2px rgba(0, 0, 0, 0.6);
-    margin: 20px auto;
-    margin-right: 20px;
 
-    .theme-color {
-      background: $blue;
-      height: 3vh;
-      padding: 0px;
-      margin: 0px;
+    .subhub-container {
+      background: $light-black;
       width: 100%;
+      // max-height: 200px;
+      box-shadow: 2px 6px 8px -2px rgba(0, 0, 0, 0.6);
+      margin: 20px auto;
+      margin-right: 20px;
+      height: auto;
+
+      .theme-color {
+        background: $blue;
+        height: 3vh;
+        padding: 0px;
+        margin: 0px;
+        width: 100%;
+      }
+      .subhub-container-header {
+        padding: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        img {
+          object-fit: cover;
+          height: 30px;
+          width: 30px;
+        }
+
+        h3 {
+          font-size: 1.25vw;
+          margin-left: 10px;
+          color: $light-gray;
+          border-bottom: 1px solid transparent;
+        }
+        h3:hover {
+          font-size: 1.25vw;
+          margin-left: 10px;
+          color: $light-gray;
+          border-bottom: 1px solid $light-gray;
+        }
+
+        a {
+          text-decoration: none;
+        }
+      }
+
+      .subhub-body {
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+
+        p {
+          margin-bottom: 25px;
+        }
+      }
     }
-    .subhub-container-header {
-      padding: 20px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
 
-      img {
-        object-fit: cover;
-        height: 30px;
-        width: 30px;
-      }
-
-      h3 {
-        font-size: 1.25vw;
-        margin-left: 10px;
-        color: $light-gray;
-        border-bottom: 1px solid transparent;
-      }
-      h3:hover {
-        font-size: 1.25vw;
-        margin-left: 10px;
-        color: $light-gray;
-        border-bottom: 1px solid $light-gray;
-      }
-
-      a {
-        text-decoration: none;
-      }
-    }
-
-    .subhub-body {
-      width: 80%;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-
-      p {
-        margin-bottom: 25px;
+    .votes {
+      // height: 50px;
+      // width: 100%;
+      box-shadow: 2px 6px 8px -2px rgba(0, 0, 0, 0.6);
+      .votes-section {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        // background: $blue;
+        justify-content: space-around;
+        align-items: center;
+        padding: 5px;
+        .vote-number {
+          margin-top: 2px;
+        }
       }
     }
   }
 
-  .post-container {
-    min-height: 300px;
-    // background: $light-black;
-    // box-shadow: 2px 6px 8px -2px rgba(0, 0, 0, 0.6);
-    width: 70%;
-    display: flex;
-    flex-direction: column;
+  .right-container {
+    width: 65%;
+    background: $light-black;
+    box-shadow: 2px 6px 8px -2px rgba(0, 0, 0, 0.6);
     margin: 20px auto;
 
-    .post-view-bg {
-      background: $light-black;
-      box-shadow: 2px 6px 8px -2px rgba(0, 0, 0, 0.6);
-    }
-
-    .post-container-body {
-      padding: 40px;
-      margin-bottom: 30px;
-      color:$light-gray;
-      img {
-        width: 100%;
-        padding: 20px;
-      }
-    }
-
-    .theme-color {
-      background: $blue;
-      height: 3vh;
-      padding: 0px;
-      margin: 0px;
+    .post-container {
+      min-height: 300px;
+      // background: $light-black;
+      // box-shadow: 2px 6px 8px -2px rgba(0, 0, 0, 0.6);
       width: 100%;
-    }
-
-    .post-container-header {
       display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding: 20px;
-      justify-content: space-between;
+      flex-direction: column;
+      // margin: 20px auto;
 
-      img {
-        object-fit: cover;
-        height: 40px;
-        width: 40px;
-      }
-      h3 {
-        font-size: 1.25vw;
-        margin-left: 10px;
-        color: $light-gray;
-        border-bottom: 1px solid transparent;
-        text-decoration: none;
-      }
-      h3:hover {
-        font-size: 1.25vw;
-        margin-left: 10px;
-        color: $light-gray;
-        border-bottom: 1px solid $light-gray;
+      .post-view-bg {
+        background: $light-black;
+        box-shadow: 2px 6px 8px -2px rgba(0, 0, 0, 0.6);
       }
 
-      a {
-        text-decoration: none;
+      .post-container-body {
+        padding: 40px;
+        margin-bottom: 30px;
+        color: $light-gray;
+        img {
+          width: 100%;
+          padding: 20px;
+        }
+      }
+
+      .theme-color {
+        background: $blue;
+        height: 3vh;
+        padding: 0px;
+        margin: 0px;
+        width: 100%;
+      }
+
+      .post-container-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 20px;
+        justify-content: space-between;
+
+        img {
+          object-fit: cover;
+          height: 40px;
+          width: 40px;
+        }
+        h3 {
+          font-size: 1.25vw;
+          margin-left: 10px;
+          color: $light-gray;
+          border-bottom: 1px solid transparent;
+          text-decoration: none;
+        }
+        h3:hover {
+          font-size: 1.25vw;
+          margin-left: 10px;
+          color: $light-gray;
+          border-bottom: 1px solid $light-gray;
+        }
+
+        a {
+          text-decoration: none;
+        }
       }
     }
   }
 }
 
-@media(max-width: 415px){
-  .PostView--container{
+@media (max-width: 415px) {
+  .PostView--container {
     flex-direction: column;
     width: 90%;
 
@@ -173,7 +210,6 @@ $light-black: #323232;
       background-color: $light-black;
 
       .post-container-header {
-
         h3 {
           font-size: 20px;
         }

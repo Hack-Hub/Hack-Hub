@@ -10,6 +10,8 @@ import ImagePost from '../PostCard/ImagePost'
 import URLPost from '../PostCard/URLPost'
 import VideoPost from '../PostCard/VideoPost'
 import TextPost from '../PostCard/TextPost'
+import CodeBlockPost from '../PostCard/CodeBlockPost'
+import Votes from '../Votes/Votes'
 
 class PostView extends Component {
   constructor(props) {
@@ -26,6 +28,7 @@ class PostView extends Component {
   componentDidMount() {
     const { postId } = this.props.match.params
     axios.get('/api/getPostByID/' + postId).then(response => {
+      console.log('response', response)
       this.setState({ post: response.data[0] })
     })
     this.getUser()
@@ -40,7 +43,8 @@ class PostView extends Component {
       }
     })
   }
-  handleNullUser=()=> {
+
+  handleNullUser = () => {
     this.setState({
       subscribeError: 'Must be logged in to subscribe to a subhub',
     })
@@ -68,6 +72,7 @@ class PostView extends Component {
       web_url,
       video_url,
       text_content,
+      code,
     } = this.state.post
     const date = new Date(post_date_time)
 
@@ -88,7 +93,10 @@ class PostView extends Component {
     if (text_content) {
       displayPostType = <TextPost post={this.state.post} />
     }
-
+    if (code) {
+      displayPostType = <CodeBlockPost post={this.state.post} />
+    }
+    console.log('vote', this.state.post.votes)
     return (
       <div>
         <div
@@ -97,46 +105,64 @@ class PostView extends Component {
           {this.state.subscribeError && <ErrorMessage message={this.state.subscribeError} />}
         </div>
         <div className="PostView--container">
-          <section className="subhub-container">
-            <div className="theme-color" style={{ background: theme_color }} />
-            <div className="subhub-container-header">
-              <img src={this.state.post.sh_icon} alt="subhub" />
-              <Link to={`/subhub/${subhub_id}/postfeed`}>
-                <h3>{sh_name}</h3>
-              </Link>
-            </div>
-            <div className="subhub-body">
-              <p className="desc-font">{sh_desc}</p>
-              <SubHubSubscribe subhub_id={subhub_id} userId={this.state.userId} handleNullUser={this.handleNullUser}/>
-            </div>
-          </section>
-          <section className="post-container">
-            <div className="theme-color" style={{ background: theme_color }} />
-            <div className="post-container-header">
-              <div className="left">
-                <img src={this.state.post.user_photo} alt="user" />
-                <Link to={`/user/${user_id}`}>
-                  <h3>{username}</h3>
+          <div className="left-container">
+            <section className="subhub-container">
+              <div className="theme-color" style={{ background: theme_color }} />
+              <div className="subhub-container-header">
+                <img src={this.state.post.sh_icon} alt="subhub" />
+                <Link to={`/subhub/${subhub_id}/postfeed`}>
+                  <h3>{sh_name}</h3>
                 </Link>
               </div>
-              <div className="right">
-                <p className="desc-font" style={{ textTransform: 'uppercase' }}>
-                  {time} <span>| </span>
-                  {date.toDateString()}
-                </p>
+              <div className="subhub-body">
+                <p className="desc-font">{sh_desc}</p>
+                <SubHubSubscribe
+                  subhub_id={subhub_id}
+                  userId={this.state.userId}
+                  handleNullUser={this.handleNullUser}
+                />
               </div>
-            </div>
-            <div className="post-container-body">
-              <h3 className="subtitle" style={{ marginLeft: '0px' }}>
-                {title}
-              </h3>
-              {displayPostType}
-            </div>
-            {/* <div className="ruler" /> */}
-            <div className="Comments--container">
-              <Comments post={this.state.post} userId={this.state.userId} />
-            </div>
-          </section>
+            </section>
+
+            <section className="votes" style={{ background: theme_color }}>
+              <Votes
+                // votes={this.state.post.votes}
+                post_id={this.props.match.params.postId}
+                userId={this.state.userId}
+              />
+            </section>
+          </div>
+
+          <div className="right-container">
+            <section className="post-container">
+              <div className="theme-color" style={{ background: theme_color }} />
+
+              <div className="post-container-header">
+                <div className="left">
+                  <img src={this.state.post.user_photo} alt="user" />
+                  <Link to={`/user/${user_id}`}>
+                    <h3>{username}</h3>
+                  </Link>
+                </div>
+                <div className="right">
+                  <p className="desc-font" style={{ textTransform: 'uppercase' }}>
+                    {time} <span>| </span>
+                    {date.toDateString()}
+                  </p>
+                </div>
+              </div>
+              <div className="post-container-body">
+                <h3 className="subtitle" style={{ marginLeft: '0px' }}>
+                  {title}
+                </h3>
+                {displayPostType}
+              </div>
+              {/* <div className="ruler" /> */}
+              <div className="Comments--container">
+                <Comments post={this.state.post} userId={this.state.userId} />
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     )
