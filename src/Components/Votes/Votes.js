@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './Votes.scss'
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
-
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 class Votes extends Component {
   constructor() {
@@ -17,6 +16,7 @@ class Votes extends Component {
   componentDidMount() {
     const { post_id } = this.props
     //init with votes passed in
+
     this.setState({ voteCount: this.props.votes })
     //get up/down vote data for current user
     axios.get('/api/getVotes/' + post_id).then(response => {
@@ -54,63 +54,62 @@ class Votes extends Component {
   }
 
   handleUpVote = () => {
-    const { post_id } = this.props;
-    if(this.props.userId){
+    const { post_id } = this.props
+    if (this.props.userId) {
       axios
         .post('/api/postUpVote', { post_id })
         .then(() => this.setState({ voted: !this.state.voted }))
-    }else{
+    } else {
       this.handleNullUser()
     }
   }
 
   handleDownVote = () => {
     const { post_id } = this.props
-    if(this.props.userId){
+    if (this.props.userId) {
       axios
-      .post('/api/postDownVote', { post_id })
-      .then(() => this.setState({ voted: !this.state.voted }))
-    }else{
+        .post('/api/postDownVote', { post_id })
+        .then(() => this.setState({ voted: !this.state.voted }))
+    } else {
       this.handleNullUser()
     }
   }
 
   handleNullUser = () => {
     this.setState({
-      subscribeError: "Must be logged in to vote on a post"
-    });
+      subscribeError: 'Must be logged in to vote on a post',
+    })
     setTimeout(
       function() {
         this.setState({
-          subscribeError: ""
-        });
+          subscribeError: '',
+        })
       }.bind(this),
       3000
-    );
-  };
+    )
+  }
 
   render() {
     let up
     let down
     if (this.state.up) {
-      up = <button className="fa fa-2x fa-chevron-up orange arrow" onClick={this.handleUpVote} />
+      up = <button className="fa fa-1x fa-chevron-up orange arrow" onClick={this.handleUpVote} />
     }
     if (this.state.down) {
       down = (
-        <button className="fa fa-2x fa-chevron-down orange arrow" onClick={this.handleDownVote} />
+        <button className="fa fa-1x fa-chevron-down orange arrow" onClick={this.handleDownVote} />
       )
     }
     if (!this.state.up) {
-      up = <button className="fa fa-2x fa-chevron-up arrow" onClick={this.handleUpVote} />
+      up = <button className="fa fa-1x fa-chevron-up arrow" onClick={this.handleUpVote} />
     }
     if (!this.state.down) {
-      down = <button className="fa fa-2x fa-chevron-down arrow" onClick={this.handleDownVote} />
+      down = <button className="fa fa-1x fa-chevron-down arrow" onClick={this.handleDownVote} />
     }
+
     return (
       <div className="votes-section">
-          {this.state.subscribeError && (
-            <ErrorMessage message={this.state.subscribeError} />
-          )}
+        {this.state.subscribeError && <ErrorMessage message={this.state.subscribeError} />}
         {up}
         <p className="vote-number">{this.state.voteCount}</p>
         {down}

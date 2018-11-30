@@ -3,6 +3,7 @@ import './Comments.scss'
 import NewComment from './NewComment'
 import axios from 'axios'
 import { CommentStyle } from './CommentStyle'
+import { Link } from 'react-router-dom'
 
 class DisplayComments extends Component {
   constructor(props) {
@@ -53,11 +54,13 @@ class DisplayComments extends Component {
       .then(await this.props.updateReply())
   }
 
-  editComment = () => {
-    axios.put(`/api/editComment/${this.props.comment.comment_id}`, {
+  editComment = async () => {
+    await axios.put(`/api/editComment/${this.props.comment.comment_id}`, {
       post_id: this.props.comment.post_id,
       comment_text: this.state.commentText,
     })
+    await this.props.updateReply()
+    await this.setState({ editToggle: !this.state.editToggle })
   }
 
   render() {
@@ -66,13 +69,17 @@ class DisplayComments extends Component {
       hour: '2-digit',
       minute: '2-digit',
     })
-    let displayChildren, commentBox;
-    let marginLength = 0;
+    let displayChildren, commentBox
+    let marginLength = 0
     if (this.props.comment.children.length && !this.state.collapseMode) {
-      marginLength = marginLength +=this.props.comment.childrenInt*70;
+      marginLength = marginLength += this.props.comment.childrenInt * 70
       displayChildren = (
-        <Comment comments={this.props.comment.children} updateReply={this.props.updateReply}  userId={this.props.userId}
-        handleNullUser={this.props.handleNullUser} />
+        <Comment
+          comments={this.props.comment.children}
+          updateReply={this.props.updateReply}
+          userId={this.props.userId}
+          handleNullUser={this.props.handleNullUser}
+        />
       )
     }
     if (this.state.replyMode) {
@@ -92,47 +99,55 @@ class DisplayComments extends Component {
     const loggedInUser = this.props.comment.user_id === this.state.currentUserId
 
     return (
-        <CommentStyle lastChild={this.props.lastChild} className="comment-container" style={{paddingBottom:marginLength}} >
-          <div className="left-of-bubble">
-            <img src={this.props.comment.user_photo} alt="user" />
+      <CommentStyle
+        lastChild={this.props.lastChild}
+        className="comment-container"
+        style={{ paddingBottom: marginLength }}
+      >
+        <div className="left-of-bubble" id="user">
+          <img src={this.props.comment.user_photo} alt="user" />
+        </div>
+        <div className="bubble talk-bubble tri-right border btm-right-in">
+          <div style={{ marginLeft: '10px' }}>
+            <Link to={`/user/${this.props.comment.user_id}`}>{this.props.comment.username}</Link>
           </div>
-          <div className="bubble talk-bubble tri-right border btm-right-in">
-            <div className="bubble-content">
-              {this.state.editToggle ? (
-                <div>
-                  <input
-                    value={this.state.commentText}
-                    onChange={event => this.setState({ commentText: event.target.value })}
-                  />
-                  <button onClick={() => this.editComment()}>submit</button>
-                </div>
-              ) : (
-                <h1>{this.props.comment.comment_text}</h1>
-              )}
-              <div className="date-and-time">
-                <h3>{commentDate.toDateString()}</h3>
-                <h3>{time}</h3>
+          <div className="bubble-content">
+            {this.state.editToggle ? (
+              <div>
+                <input
+                  value={this.state.commentText}
+                  onChange={event => this.setState({ commentText: event.target.value })}
+                />
+                <button onClick={() => this.editComment()}>submit</button>
               </div>
-              {loggedInUser && (
-                <div className="edit-comment">
-                  <button onClick={() => this.deleteComment()}>Delete</button>
-                  <button onClick={() => this.setState({ editToggle: !this.state.editToggle })}>
-                    Edit
-                  </button>
-                </div>
-              )}
+            ) : (
+              <h1>{this.props.comment.comment_text}</h1>
+            )}
 
-              <div className="reply-and-collapse">
-                <button onClick={this.handleReplyToggle}>Reply</button>
-                <button onClick={this.handleCollapseToggle}>Collapse Replies</button>
-              </div>
+            <div className="date-and-time">
+              <h3>{commentDate.toDateString()}</h3>
+              <h3>{time}</h3>
             </div>
+            {loggedInUser && (
+              <div className="edit-comment">
+                <button onClick={() => this.deleteComment()}>Delete</button>
+                <button onClick={() => this.setState({ editToggle: !this.state.editToggle })}>
+                  Edit
+                </button>
+              </div>
+            )}
 
-            {/* Reply button being rendered toggles commentBox  */}
-            {commentBox}
-            {displayChildren}
+            <div className="reply-and-collapse">
+              <button onClick={this.handleReplyToggle}>Reply</button>
+              <button onClick={this.handleCollapseToggle}>Collapse Replies</button>
+            </div>
           </div>
-        </CommentStyle>
+
+          {/* Reply button being rendered toggles commentBox  */}
+          {commentBox}
+          {displayChildren}
+        </div>
+      </CommentStyle>
     )
   }
 }
@@ -140,7 +155,7 @@ class DisplayComments extends Component {
 class Comment extends Component {
   render() {
     return (
-      <div > 
+      <div>
         {this.props.comments.map(comment => {
           return (
             <DisplayComments

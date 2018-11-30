@@ -43,8 +43,15 @@ $light-black: #323232;
         display: flex;
         align-items: center;
         flex-direction: row;
-        width: 35%;
-        min-width: 200px;
+        width: 100%;
+
+        .title--desc {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          width: 70%;
+          text-align: left;
+        }
 
         // img {
         //   object-fit: cover;
@@ -117,8 +124,22 @@ $light-black: #323232;
           box-sizing: border-box;
         }
       }
+    }
+  }
+}
 
-      
+@media (max-width: 768px) {
+  .SearchResults--container {
+    width: 90%;
+  }
+}
+@media (max-width: 415px) {
+  .SearchResults--container {
+    width: 90%;
+    .Subhub-Results--Container {
+      .subhub-right {
+        display: none;
+      }
     }
   }
 }

@@ -48,6 +48,7 @@ class NewComment extends Component {
         )}
         <button
           className="primary-button post"
+          style={{ height: '30px' }}
           onClick={() => {
             if (this.props.userId === null) {
               this.props.handleNullUser()

@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './SearchResults.scss'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
-import SubHubSubscribe from '../SubHub/SubHubSubscribe';
-import PostFeed from '../PostFeed/PostFeed';
+import SubHubSubscribe from '../SubHub/SubHubSubscribe'
+import PostFeed from '../PostFeed/PostFeed'
 
 class SearchResults extends Component {
   constructor(props) {
@@ -64,7 +64,7 @@ class SearchResults extends Component {
       this.setState({ postResults: filteredPosts })
     })
   }
-  handleNullUser=()=> {
+  handleNullUser = () => {
     this.setState({
       subscribeError: 'Must be logged in to subscribe to a subhub',
     })
@@ -94,14 +94,21 @@ class SearchResults extends Component {
                   <div className="talk-bubble tri-right border btm-right-in" alt="subhub">
                     <img src={individualSubhub.sh_icon} alt="subhub-icon" />
                   </div>
-                  <Link to={`/subhub/${individualSubhub.subhub_id}/postfeed`}>
-                    <h1>{individualSubhub.sh_name}</h1>
-                  </Link>
+                  <div className="title--desc">
+                    <Link to={`/subhub/${individualSubhub.subhub_id}/postfeed`}>
+                      <h1>{individualSubhub.sh_name}</h1>
+                    </Link>
+                    <div className="subhub-right" id="subhub-description">
+                      <p>{individualSubhub.sh_desc}</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="subhub-right">
-                  <p>{individualSubhub.sh_desc}</p>
-                </div>
-                <SubHubSubscribe subhub_id={individualSubhub.subhub_id} userId={this.state.userId} handleNullUser={this.handleNullUser}/>
+
+                <SubHubSubscribe
+                  subhub_id={individualSubhub.subhub_id}
+                  userId={this.state.userId}
+                  handleNullUser={this.handleNullUser}
+                />
               </div>
             )
           })}
@@ -110,7 +117,7 @@ class SearchResults extends Component {
         <div className="Subhub-Results--Container" style={{ marginTop: '30px' }}>
           <h3>POSTS</h3>
           <div className="ruler" />
-         <PostFeed posts={this.state.postResults}/>
+          <PostFeed posts={this.state.postResults} />
         </div>
       </div>
     )
