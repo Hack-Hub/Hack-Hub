@@ -20,8 +20,8 @@ class Profile extends Component {
       profileURL: "",
       userName: "",
       userId:null
-    };
-
+    }
+  }
 
   componentDidMount() {
     axios.get('/api/currentUser').then(res => {
