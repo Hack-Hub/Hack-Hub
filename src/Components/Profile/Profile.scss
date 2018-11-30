@@ -151,9 +151,8 @@ $light-black: #323232;
         text-transform: uppercase;
         // margin-left: 30px;
       }
-     
     }
-    .subhub-center{
+    .subhub-center {
       justify-content: center;
       input {
         margin: 0px auto 10px auto;
@@ -182,16 +181,13 @@ $light-black: #323232;
       font-size: 12px;
       color: $light-gray;
     }
-    
   }
 }
 
-@media(max-width: 415px){
-  .User--Container{
+@media (max-width: 415px) {
+  .User--Container {
     .Profile--Container {
-
       .subhub-left {
-
         h3 {
           margin-left: 15px;
         }

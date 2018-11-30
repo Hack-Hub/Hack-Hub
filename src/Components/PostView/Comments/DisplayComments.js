@@ -3,6 +3,7 @@ import './Comments.scss'
 import NewComment from './NewComment'
 import axios from 'axios'
 import { CommentStyle } from './CommentStyle'
+import { Link } from 'react-router-dom'
 
 class DisplayComments extends Component {
   constructor(props) {
@@ -103,10 +104,13 @@ class DisplayComments extends Component {
         className="comment-container"
         style={{ paddingBottom: marginLength }}
       >
-        <div className="left-of-bubble">
+        <div className="left-of-bubble" id="user">
           <img src={this.props.comment.user_photo} alt="user" />
         </div>
         <div className="bubble talk-bubble tri-right border btm-right-in">
+          <div style={{ marginLeft: '10px' }}>
+            <Link to={`/user/${this.props.comment.user_id}`}>{this.props.comment.username}</Link>
+          </div>
           <div className="bubble-content">
             {this.state.editToggle ? (
               <div>
@@ -119,6 +123,7 @@ class DisplayComments extends Component {
             ) : (
               <h1>{this.props.comment.comment_text}</h1>
             )}
+
             <div className="date-and-time">
               <h3>{commentDate.toDateString()}</h3>
               <h3>{time}</h3>

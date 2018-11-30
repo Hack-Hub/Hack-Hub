@@ -9,7 +9,6 @@ import URLPost from './URLPost'
 import CodeBlockPost from './CodeBlockPost'
 
 class PostCard extends Component {
- 
   render() {
     const { post } = this.props
 
@@ -73,9 +72,15 @@ class PostCard extends Component {
         </section>
         <section className="bottom">
           {/* Votes */}
-       
+
           <Votes votes={post.votes} post_id={post.post_id} userId={this.props.userId} />
-          {this.props.deleteMode && <button className="fa fa-trash" style={{color:'#f5f5f5',fontSize:'16px'}} onClick={()=>this.props.handleDelete(post.post_id)}/>}
+          {this.props.deleteMode && (
+            <button
+              className="fa fa-trash"
+              style={{ color: '#f5f5f5', fontSize: '16px' }}
+              onClick={() => this.props.handleDelete(post.post_id)}
+            />
+          )}
         </section>
       </div>
     )

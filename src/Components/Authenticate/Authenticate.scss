@@ -80,15 +80,13 @@ $light-black: #323232;
   }
 }
 
-@media(max-width: 415px){
+@media (max-width: 768px) {
   .Authentication--container {
     width: 90%;
 
     .auth-section {
-      padding: 15px;
-
       input {
-        width: 230px;
+        width: 200px;
       }
     }
   }
