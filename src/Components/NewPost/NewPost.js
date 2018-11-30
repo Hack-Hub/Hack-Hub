@@ -79,7 +79,6 @@ class NewPost extends Component {
   }
 
   render() {
-    console.log('this.state.code', this.state.code)
     const { postType } = this.state
     //conditionally render the post type depending on the button selection
 

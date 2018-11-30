@@ -8,7 +8,6 @@ class NewComment extends Component {
     super(props)
     this.state = {
       comment_text: '',
-      userId: this.props.userId,
       commentError: '',
     }
   }
@@ -32,20 +31,6 @@ class NewComment extends Component {
     this.setState({ comment_text: event.target.value })
   }
 
-  handleNullUser = () => {
-    this.setState({
-      commentError: 'Must be logged in to comment',
-    })
-    setTimeout(
-      function() {
-        this.setState({
-          commentError: '',
-        })
-      }.bind(this),
-      3000
-    )
-  }
-
   render() {
     return (
       <div className="New-Comment--Container">
@@ -64,8 +49,8 @@ class NewComment extends Component {
         <button
           className="primary-button post"
           onClick={() => {
-            if (this.state.userId === null) {
-              this.handleNullUser()
+            if (this.props.userId === null) {
+              this.props.handleNullUser()
             } else {
               this.handlePost()
             }

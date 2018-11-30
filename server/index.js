@@ -1,7 +1,7 @@
 require('dotenv').config()
 const path = require('path'); // Usually moved to the start of file
 const express = require('express'),
-  // path = require('path'),
+  path = require('path'),
   app = express(),
   port = process.env.PORT || 3001,
   massive = require('massive'),
@@ -69,7 +69,7 @@ app.get('/api/getUserPosts', getUserPosts)
 app.get('/api/getUserPosts2/:userId', getUserPosts2)
 app.post('/api/newPost', newPost)
 app.put('/api/editPost:id', editPost)
-app.delete('/api/deletePost/:id', deletePost)
+app.delete('/api/deletePost/:post_id', deletePost)
 
 // Votes
 app.post('/api/postUpVote', postUpVote)
@@ -144,3 +144,6 @@ io.on('connection', socket => {
 
   socket.on('disconnect', () => {})
 })
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});

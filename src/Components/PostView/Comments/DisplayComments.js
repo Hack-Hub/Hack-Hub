@@ -71,7 +71,8 @@ class DisplayComments extends Component {
     if (this.props.comment.children.length && !this.state.collapseMode) {
       marginLength = marginLength +=this.props.comment.childrenInt*70;
       displayChildren = (
-        <Comment comments={this.props.comment.children} updateReply={this.props.updateReply} />
+        <Comment comments={this.props.comment.children} updateReply={this.props.updateReply}  userId={this.props.userId}
+        handleNullUser={this.props.handleNullUser} />
       )
     }
     if (this.state.replyMode) {
@@ -80,6 +81,8 @@ class DisplayComments extends Component {
           post_id={this.props.comment.post_id}
           parent_id={this.props.comment.comment_id}
           updateReply={this.props.updateReply}
+          userId={this.props.userId}
+          handleNullUser={this.props.handleNullUser}
         />
       )
     } else {
@@ -145,6 +148,8 @@ class Comment extends Component {
               key={comment.comment_id}
               comment={comment}
               updateReply={this.props.updateReply}
+              userId={this.props.userId}
+              handleNullUser={this.props.handleNullUser}
             />
           )
         })}
