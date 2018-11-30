@@ -44,6 +44,8 @@ $light-black: #323232;
 
 @media(max-width: 415px){
   .Dashboard--container{
-    width: 90%
+    width: 90%;
+    display: flex;
+    flex-direction: column;
   }
 }
