@@ -30,6 +30,7 @@ class Dashboard extends Component {
       <div className="Dashboard--container">
         <div className="order-buttons">
           <Link to="/dashboard/voteCount">Most Votes</Link>
+          <div className="vertical-ruler" />
           <Link to="/dashboard/time">Most Recent</Link>
         </div>
 
