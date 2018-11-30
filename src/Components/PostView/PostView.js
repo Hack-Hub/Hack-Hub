@@ -134,7 +134,7 @@ class PostView extends Component {
             </div>
             {/* <div className="ruler" /> */}
             <div className="Comments--container">
-              <Comments post={this.state.post} userId={this.state.userId} />
+              <Comments post={this.state.post} userId={this.state.userId} handleNullUser={this.handleNullUser} />
             </div>
           </section>
         </div>

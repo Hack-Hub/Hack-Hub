@@ -47,9 +47,10 @@ module.exports = {
   },
   deletePost(req, res) {
     let db = req.app.get('db')
-    const { post_id } = req.body
-    db.posts.deletePost(post_id).then(() => {
-      return res.sendStatus(200)
+    const { post_id } = req.params
+    const { user_id } = req.session
+    db.posts.deletePost([post_id,user_id]).then((response) => {
+      return res.status(200).send(response)
     })
   },
   getUserPosts(req, res) {

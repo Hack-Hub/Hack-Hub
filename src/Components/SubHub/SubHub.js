@@ -26,6 +26,7 @@ class SubHub extends Component {
 
   componentDidMount() {
     this.getSubhubInfo()
+    this.getUser()
     axios.get(`/api/getSubPosts/${this.props.match.params.id}`).then(res => {
       this.setState({ posts: res.data })
     })
@@ -36,6 +37,15 @@ class SubHub extends Component {
         this.setState({ posts: res.data })
       })
     }
+  }
+  getUser=()=> {
+    axios.get('/api/currentUser').then(response => {
+      if (!response.data.length) {
+        return
+      } else {
+        this.setState({ userId: response.data[0].user_id })
+      }
+    })
   }
   getSubhubInfo() {
     axios.get(`/api/getSub/${this.props.match.params.id}`).then(response => {

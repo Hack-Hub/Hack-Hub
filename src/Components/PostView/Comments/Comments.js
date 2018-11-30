@@ -71,6 +71,7 @@ class Comments extends Component {
           parent_id={null}
           updateReply={this.updateReply}
           userId={this.props.userId}
+          handleNullUser={this.props.handleNullUser}
         />
 
         <div className="comments">
@@ -78,10 +79,11 @@ class Comments extends Component {
           <div className="ruler" />
 
           <Comment
-            // commentsArray={this.state.commentsArray}
             lastChild={lastChild}
             comments={this.state.comments}
             updateReply={this.updateReply}
+            userId={this.props.userId}
+            handleNullUser={this.props.handleNullUser}
             style={{ marginTop: '200px' }}
           />
         </div>
