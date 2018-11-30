@@ -85,7 +85,15 @@ $light-black: #323232;
     }
 
     .text-input {
-      width: 500px;
+      width: 40vw;
+      overflow: auto;
+      color: $black;
+      font-family: $font-family;
+    }
+    textarea {
+      max-height: 200px;
+      min-height: 100px;
+      background: $light-gray;
     }
   }
 
@@ -99,21 +107,20 @@ $light-black: #323232;
   }
 }
 
-@media (max-width: 415px){
+@media (max-width: 415px) {
   .NewPost--Container {
     width: 90%;
   }
 }
-.GetSubHub--Inputs{
+.GetSubHub--Inputs {
   display: flex;
   align-items: flex-end;
-  #GetSubHub--Search{
-    margin:0;
+  #GetSubHub--Search {
+    margin: 0;
   }
- 
 }
-.imageUpload{
-  button{
+.imageUpload {
+  button {
     background: $blue;
     min-width: 100px;
     height: 30px;

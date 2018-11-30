@@ -42,10 +42,32 @@ $light-black: #323232;
   }
 }
 
-@media(max-width: 415px){
-  .Dashboard--container{
+@media (max-width: 768px) {
+  .Dashboard--container {
     width: 90%;
-    display: flex;
-    flex-direction: column;
+
+    .order-buttons {
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      a {
+        background: $light-black;
+        width: 50%;
+        margin: 0;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      a:hover {
+        background: $blue;
+        color: $light-gray;
+      }
+    }
   }
 }

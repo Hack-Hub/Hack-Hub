@@ -50,14 +50,22 @@ class Nav extends Component {
     const currentUser = this.props.user && this.props.user.user_id !== ''
     return (
       <div className="Nav--container">
-        <div className="left-nav">
+        <div className="logo-search-bar">
           <Link to="/dashboard/voteCount">
-            <img className="nav-logo" src="https://i.imgur.com/RM92Yuk.png" alt="hack-hub-logo" />
+            <img
+              className="nav-logo"
+              src="https://i.imgur.com/RM92Yuk.png"
+              alt="hack-hub-logo"
+              id="left-nav"
+            />
+            <img
+              className="nav-logo"
+              src="https://i.imgur.com/MY2lCYx.png"
+              alt="hack-hub-logo"
+              id="mobile-left-nav"
+            />
           </Link>
-        </div>
-
-        <div className="right-nav">
-          <div className="search-bar" id="desktop-search">
+          <div className="search-bar">
             <input
               className="search-input"
               name="searchResults"
@@ -73,7 +81,9 @@ class Nav extends Component {
               <i className="fa fa-2x fa-search search" />
             </Link>
           </div>
+        </div>
 
+        <div className="right-nav">
           <div className="vertical-bar" />
           <div className="create-links">
             <Link to="/newpost">
@@ -98,22 +108,6 @@ class Nav extends Component {
               {/* <Link to={{ pathname: '/signIn', currentPage: this.props.location }}>Sign In</Link> */}
             </div>
           )}
-        </div>
-        <div className="search-bar-mobile" id="mobile-search">
-          <input
-            className="search-input"
-            name="searchResults"
-            onChange={this.handleChange}
-            onKeyDown={this.handleEnter}
-          />
-
-          <Link
-            to={`/searchResults/${this.state.searchResults}`}
-            onClick={selectedPage => this.reRenderResultsPage(selectedPage)}
-            style={{ borderBottom: '1px solid transparent' }}
-          >
-            <i className="fa fa-2x fa-search search" />
-          </Link>
         </div>
       </div>
     )

@@ -73,12 +73,11 @@ $light-black: #323232;
   }
 }
 
-@media(max-width: 415px){
+@media (max-width: 768px) {
   .SignIn--container {
     width: 90%;
 
     .auth-section {
-
       input {
         width: 200px;
       }

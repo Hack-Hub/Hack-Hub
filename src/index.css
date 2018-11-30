@@ -100,6 +100,7 @@ p,
 h1,
 h2,
 h3,
+h5,
 a {
   font-family: 'Montserrat', sans-serif;
 }
@@ -211,4 +212,10 @@ input {
   width: 90%;
   margin: 0 auto;
   border-top: 1px solid #0000f7;
+}
+
+@media (max-width: 768px) {
+  .Routes {
+    padding-top: 10px;
+  }
 }
