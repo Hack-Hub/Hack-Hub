@@ -95,8 +95,8 @@ class SubHub extends Component {
               Chat
             </Link>
           </div>
-          <section className="links">
-          <div className="links-container" width='200px'>
+          <section>
+          <div className="links-container">
               <SubHubSubscribe className="subhub-links" subhub_id={this.props.match.params.id}  userId={this.state.userId} handleNullUser={this.handleNullUser}/>
               <Link to={'/newpost'}  className="subhub-links" id='post'>New Post</Link>
               </div>

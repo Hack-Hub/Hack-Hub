@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './Votes.scss'
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+
 
 class Votes extends Component {
   constructor() {
@@ -52,20 +54,40 @@ class Votes extends Component {
   }
 
   handleUpVote = () => {
-    const { post_id } = this.props
-    axios
-      .post('/api/postUpVote', { post_id })
-      .then(() => this.setState({ voted: !this.state.voted }))
-      .catch(() => alert('Sign In to post a vote.'))
+    const { post_id } = this.props;
+    if(this.props.userId){
+      axios
+        .post('/api/postUpVote', { post_id })
+        .then(() => this.setState({ voted: !this.state.voted }))
+    }else{
+      this.handleNullUser()
+    }
   }
 
   handleDownVote = () => {
     const { post_id } = this.props
-    axios
+    if(this.props.userId){
+      axios
       .post('/api/postDownVote', { post_id })
       .then(() => this.setState({ voted: !this.state.voted }))
-      .catch(() => alert('Sign In to post a vote.'))
+    }else{
+      this.handleNullUser()
+    }
   }
+
+  handleNullUser = () => {
+    this.setState({
+      subscribeError: "Must be logged in to vote on a post"
+    });
+    setTimeout(
+      function() {
+        this.setState({
+          subscribeError: ""
+        });
+      }.bind(this),
+      3000
+    );
+  };
 
   render() {
     let up
@@ -86,6 +108,9 @@ class Votes extends Component {
     }
     return (
       <div className="votes-section">
+          {this.state.subscribeError && (
+            <ErrorMessage message={this.state.subscribeError} />
+          )}
         {up}
         <p className="vote-number">{this.state.voteCount}</p>
         {down}

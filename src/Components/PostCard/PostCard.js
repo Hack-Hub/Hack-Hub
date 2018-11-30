@@ -10,7 +10,6 @@ import CodeBlockPost from './CodeBlockPost'
 
 class PostCard extends Component {
   render() {
-    console.log('this.props', this.props)
     const { post } = this.props
 
     let postType = null
@@ -73,7 +72,7 @@ class PostCard extends Component {
         </section>
         <section className="bottom">
           {/* Votes */}
-          <Votes votes={post.votes} post_id={post.post_id} />
+          <Votes votes={post.votes} post_id={post.post_id} userId={this.props.userId} />
         </section>
       </div>
     )

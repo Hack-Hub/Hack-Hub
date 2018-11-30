@@ -8,7 +8,6 @@ module.exports = {
   getSubByName(req, res) {
     let db = req.app.get('db')
     const { name } = req.query
-    console.log(name)
     db.subhubs.get_sub_by_name(name).then(sub => {
       return res.status(200).json(sub)
     })

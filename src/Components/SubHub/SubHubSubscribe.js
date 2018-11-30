@@ -7,7 +7,6 @@ class SubHubSubscribe extends Component {
     super(props)
     this.state = {
       followedHubs: [],
-      subscribeError: '',
       userId: null,
     }
   }
@@ -15,30 +14,22 @@ class SubHubSubscribe extends Component {
   componentDidMount() {
     this.getSubhubCurrentUserFollows()
   }
-  componentDidUpdate(prevState, prevProps) {
-    if (this.props.userId !== prevProps.userId) {
-      this.setState({ userId: this.props.userId })
-    }
-  }
 
   getSubhubCurrentUserFollows = () => {
-    axios.get(`/api/getUserSubs`).then(response => {
-      this.setState({
+   return axios.get(`/api/getUserSubs`).then(response => {
+     this.setState({
         followedHubs: response.data.map(hub => hub.subhub_id),
       })
     })
   }
-
-  handleSubscribe(subhubId) {
-    axios
-      .post('/api/addFollow', {
-        subhubId: subhubId,
-      })
-      .then(() => {
-        this.getSubhubCurrentUserFollows()
-      })
+  handleUnsub=()=>{
+    axios.delete(`/api/deleteFollow/${this.props.subhub_id}`)
+    .then(()=>this.getSubhubCurrentUserFollows())
   }
-
+  handleSub=()=>{
+    axios.post('/api/addFollow',{subhubId:this.props.subhub_id})
+    .then(()=>this.getSubhubCurrentUserFollows())
+  }
   render() {
     const follows = this.state.followedHubs.includes(+this.props.subhub_id)
     return (
@@ -46,11 +37,13 @@ class SubHubSubscribe extends Component {
         {follows ? (
           <button
             className="subscribe-button"
-            onClick={async () =>
-              await axios
-                .delete(`/api/deleteFollow/${this.props.subhub_id}`)
-                .then(await this.getSubhubCurrentUserFollows())
-            }
+            onClick={() => {
+              if (this.props.userId === null) {
+                this.props.handleNullUser()
+              } else { 
+                this.handleUnsub() 
+              }
+              }}
           >
             Unsubscribe
           </button>
@@ -58,10 +51,10 @@ class SubHubSubscribe extends Component {
           <button
             className="subscribe-button"
             onClick={() => {
-              if (this.state.userId === null) {
+              if (this.props.userId === null) {
                 this.props.handleNullUser()
-              } else {
-                this.handleSubscribe(this.props.subhub_id)
+              } else { 
+                this.handleSub() 
               }
             }}
           >
