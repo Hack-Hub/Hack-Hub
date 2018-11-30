@@ -15,15 +15,9 @@ class Profile extends Component {
       followed_subs: [],
       posts: [],
       editProfile: false,
-<<<<<<< HEAD
-      profileURL: "",
-      userName: "",
-      userId:null
-=======
       profileURL: '',
       userName: '',
       userId: null,
->>>>>>> master
     }
   }
 
