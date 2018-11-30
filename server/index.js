@@ -1,5 +1,4 @@
 require('dotenv').config()
-const path = require('path'); // Usually moved to the start of file
 const express = require('express'),
   path = require('path'),
   app = express(),
