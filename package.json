@@ -1,7 +1,11 @@
 {
   "name": "hack-hub",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "author": "Hack-Hub Team",
+  "description": "A Social App",
   "private": true,
+  "main": "public/ElectronMain.js",
+  "homepage": "./",
   "dependencies": {
     "@babel/runtime": "^7.1.5",
     "@emotion/core": "^10.0.0",
@@ -11,6 +15,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "dotenv": "^6.1.0",
+    "electron-is-dev": "^1.0.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "font-awesome": "^4.7.0",
@@ -35,14 +40,18 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "electron": "electron .",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://localhost:3001",
+  "proxy": "http://138.68.250.27:3001",
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -53,5 +62,16 @@
     "ignore": [
       "src/"
     ]
+  },
+  "devDependencies": {
+    "electron": "^3.0.10",
+    "electron-builder": "^20.38.2"
+  },
+  "build": {
+    "productName": "Hack-Hub",
+    "appId": "com.hack.hub",
+    "mac": {
+      "category": "public.app-category.social"
+    }
   }
 }

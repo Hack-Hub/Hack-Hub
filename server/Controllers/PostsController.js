@@ -49,7 +49,7 @@ module.exports = {
     let db = req.app.get('db')
     const { post_id } = req.params
     const { user_id } = req.session
-    db.posts.deletePost([post_id,user_id]).then((response) => {
+    db.posts.deletePost([post_id, user_id]).then(response => {
       return res.status(200).send(response)
     })
   },

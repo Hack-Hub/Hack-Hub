@@ -117,11 +117,11 @@ app.put('/api/editUserPhoto', editUserPhoto)
 app.get('/api/getAllSubhubs', getAllSubhubs)
 app.get('/api/getAllPosts', getAllPosts)
 
-app.get('*', (req, res)=>{
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-});
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'))
+})
 
-app.use( express.static( `${__dirname}/../build` ) );
+app.use(express.static(`${__dirname}/../build`))
 
 const expressServer = app.listen(port, () => {
   console.log('server is listening on port:', port)
@@ -143,6 +143,6 @@ io.on('connection', socket => {
 
   socket.on('disconnect', () => {})
 })
-app.get('*', (req, res)=>{
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-});
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'))
+})

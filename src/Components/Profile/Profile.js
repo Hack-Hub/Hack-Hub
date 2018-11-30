@@ -1,12 +1,10 @@
-
-import React, { Component } from "react";
-import axios from "axios";
-import PostFeed from "../PostFeed/PostFeed";
-import { Link } from "react-router-dom";
-import "./Profile.scss";
-import ImageUpload from "../NewPost/ImageUpload";
-import SubHubSubscribe from "../SubHub/SubHubSubscribe";
-
+import React, { Component } from 'react'
+import axios from 'axios'
+import PostFeed from '../PostFeed/PostFeed'
+import { Link } from 'react-router-dom'
+import './Profile.scss'
+import ImageUpload from '../NewPost/ImageUpload'
+import SubHubSubscribe from '../SubHub/SubHubSubscribe'
 
 class Profile extends Component {
   constructor() {
@@ -17,9 +15,15 @@ class Profile extends Component {
       followed_subs: [],
       posts: [],
       editProfile: false,
+<<<<<<< HEAD
       profileURL: "",
       userName: "",
       userId:null
+=======
+      profileURL: '',
+      userName: '',
+      userId: null,
+>>>>>>> master
     }
   }
 
@@ -29,9 +33,8 @@ class Profile extends Component {
         this.setState({
           current_user: res.data[0],
           userName: res.data[0].username,
-          userId:res.data[0].user_id
-        });
-
+          userId: res.data[0].user_id,
+        })
       } else {
         this.props.history.push('/user/' + this.props.match.params.userId)
       }
@@ -64,7 +67,7 @@ class Profile extends Component {
       axios.put('/api/editUserPhoto/', { user_photo: this.state.profileURL })
     )
   }
-  handleNullUser=()=> {
+  handleNullUser = () => {
     this.setState({
       subscribeError: 'Must be logged in to subscribe to a subhub',
     })
@@ -136,8 +139,12 @@ class Profile extends Component {
                 <div className="subhub-right">
                   <p>{sub.sh_desc}</p>
                 </div>
-                <SubHubSubscribe className="subhub-links" subhub_id={sub.subhub_id}  userId={this.state.userId} handleNullUser={this.handleNullUser}/>
-
+                <SubHubSubscribe
+                  className="subhub-links"
+                  subhub_id={sub.subhub_id}
+                  userId={this.state.userId}
+                  handleNullUser={this.handleNullUser}
+                />
               </div>
             )
           })}

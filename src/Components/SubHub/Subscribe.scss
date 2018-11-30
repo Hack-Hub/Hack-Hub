@@ -8,32 +8,32 @@ $dark-gray: #888888;
 $black: #252525;
 $light-black: #323232;
 .subscribe-button {
-    background: $blue;
-    min-width: 100px;
-    height: 30px;
-    font-size: 12px;
-    color: $light-gray;
-    transition: 0.25s ease;
+  background: $blue;
+  min-width: 100px;
+  height: 30px;
+  font-size: 12px;
+  color: $light-gray;
+  transition: 0.25s ease;
+}
+.subscribe-button:hover {
+  background: $black;
+  border-bottom: 1px solid $light-gray;
+  color: $light-gray;
+}
+
+.subhub-right {
+  display: flex;
+  // margin-left: 20px;
+  margin-right: 10px;
+  width: 65%;
+  justify-content: flex-start;
+  font-size: 12px;
+
+  p {
+    font-weight: lighter;
   }
-  .subscribe-button:hover {
-    background: $black;
-    border-bottom: 1px solid $light-gray;
-    color: $light-gray;
-  }
+}
 
-  .subhub-right {
-    display: flex;
-    margin-left: 20px;
-    margin-right: 10px;
-    width: 65%;
-    justify-content: flex-start;
-    font-size: 12px;
+// @media(max-width: 415px){
 
-    p {
-      font-weight: lighter;
-    }
-  }
-
-  // @media(max-width: 415px){
-
-  // }
+// }

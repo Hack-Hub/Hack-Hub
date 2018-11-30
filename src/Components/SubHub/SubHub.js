@@ -4,7 +4,7 @@ import { Route, Switch, Link } from 'react-router-dom'
 import Chat from '../Chat/Chat'
 import PostFeed from '../PostFeed/PostFeed'
 import axios from 'axios'
-import SubHubSubscribe from './SubHubSubscribe';
+import SubHubSubscribe from './SubHubSubscribe'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 class SubHub extends Component {
@@ -18,7 +18,7 @@ class SubHub extends Component {
       desc: '',
       posts: [],
       subscribeError: '',
-      userId:null
+      userId: null,
     }
 
     this.getSubhubInfo = this.getSubhubInfo.bind(this)
@@ -38,7 +38,7 @@ class SubHub extends Component {
       })
     }
   }
-  getUser=()=> {
+  getUser = () => {
     axios.get('/api/currentUser').then(response => {
       if (!response.data.length) {
         return
@@ -60,7 +60,7 @@ class SubHub extends Component {
       })
     })
   }
-  handleNullUser=()=> {
+  handleNullUser = () => {
     this.setState({
       subscribeError: 'Must be logged in to subscribe to a subhub',
     })
@@ -86,10 +86,15 @@ class SubHub extends Component {
               <p>{desc}</p>
             </div>
             <div
-          style={{ background: '#f5f5f5', width: '80%', margin: '0 auto', paddingBottom: '0px' }}
-        >
-          {this.state.subscribeError && <ErrorMessage message={this.state.subscribeError} />}
-        </div>
+              style={{
+                background: '#f5f5f5',
+                width: '80%',
+                margin: '0 auto',
+                paddingBottom: '0px',
+              }}
+            >
+              {this.state.subscribeError && <ErrorMessage message={this.state.subscribeError} />}
+            </div>
           </div>
         </section>
         <section className="links">
@@ -106,10 +111,17 @@ class SubHub extends Component {
             </Link>
           </div>
           <section>
-          <div className="links-container">
-              <SubHubSubscribe className="subhub-links" subhub_id={this.props.match.params.id}  userId={this.state.userId} handleNullUser={this.handleNullUser}/>
-              <Link to={'/newpost'}  className="subhub-links" id='post'>New Post</Link>
-              </div>
+            <div className="links-container">
+              <SubHubSubscribe
+                className="subhub-links"
+                subhub_id={this.props.match.params.id}
+                userId={this.state.userId}
+                handleNullUser={this.handleNullUser}
+              />
+              <Link to={'/newpost'} className="subhub-links" id="post">
+                New Post
+              </Link>
+            </div>
           </section>
         </section>
         <Switch>
