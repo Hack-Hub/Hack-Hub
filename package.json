@@ -4,8 +4,7 @@
   "author": "Hack-Hub Team",
   "description": "A Social App",
   "private": true,
-  "main": "public/ElectronMain.js",
-  "homepage": "./",
+  "main": "public/electron.js",
   "dependencies": {
     "@babel/runtime": "^7.1.5",
     "@emotion/core": "^10.0.0",

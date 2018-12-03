@@ -47,6 +47,14 @@ massive(process.env.CONNECTION_STRING).then(dbInstance => {
   app.set('db', dbInstance)
 })
 
+export default function createServer(app){
+  const server = express()
+  server.get('you-there',(req,res)=>{
+    res.send(app.respondToClient(req));
+  })
+  server.listen(port,()=>console.log('server is listening on port:', port))
+}
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,

@@ -1,18 +1,18 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow} = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
+const createServer = require('../server/index.js')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let mainWindow;
 
 function createWindow () {
+  
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 1600, height: 1200})
-
   // and load the index.html of the app.
   mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
-
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 
@@ -23,8 +23,14 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  app.server = createServer(app)
 }
 
+
+app.respondToClient = req =>{
+  return "Yep, I'm Here";
+}
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
