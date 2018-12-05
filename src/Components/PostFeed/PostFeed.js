@@ -28,7 +28,6 @@ class PostFeed extends Component {
   }
   handleDelete = post_id => {
     axios.delete('/api/deletePost/' + post_id).then(response => {
-      console.log('response', response)
       this.setState({ posts: response.data })
     })
   }
