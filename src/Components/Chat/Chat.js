@@ -16,7 +16,7 @@ class Chat extends Component {
       }
     }
 
-    this.socket = io('localhost:3001')
+    this.socket = io(process.env.REACT_APP_CHAT)
 
     this.socket.on('message', data => {
       this.setState({ messages: [...this.state.messages, data] })
