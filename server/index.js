@@ -57,6 +57,7 @@ app.use(
     },
   })
 )
+app.use(express.static(`${__dirname}/../build`))
 
 //-----Endpoints-----
 //Posts
@@ -121,7 +122,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'))
 })
 
-app.use(express.static(`${__dirname}/../build`))
 
 const expressServer = app.listen(port, () => {
   console.log('server is listening on port:', port)
