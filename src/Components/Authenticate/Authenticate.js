@@ -3,6 +3,7 @@ import './Authenticate.scss'
 import { Auth } from 'aws-amplify'
 import { withRouter } from 'react-router-dom'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
+import SignIn from '../SignIn/SignIn'
 
 class Authenticate extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Authenticate extends Component {
       authenticationCode: '',
       step: 0,
       authError: '',
+      userHash: '',
     }
 
     this.onChange = this.onChange.bind(this)
@@ -26,8 +28,12 @@ class Authenticate extends Component {
   }
 
   routeChange() {
-    const path = '/signIn'
-    this.props.history.push(path)
+    // const path = '/signIn'
+    const location = {
+      pathname: '/signIn',
+      state: { userHash: this.state.userHash },
+    }
+    this.props.history.push(location)
   }
 
   onChange(event) {
@@ -38,12 +44,18 @@ class Authenticate extends Component {
     this.setState({ phone_number: `+1${value}` })
   }
 
-  signUp = async () => {
+  signUp = async user => {
     const { username, password, email, phone_number } = this.state
     try {
-      await Auth.signUp({ username, password, attributes: { email, phone_number } }).then(user =>
-        console.log('user', user)
-      )
+      await Auth.currentAuthenticatedUser().then(user => {
+        this.setState({ userHash: user.attributes.sub })
+      })
+    } catch (err) {
+      this.setState({ authError: err })
+    }
+    try {
+      await Auth.signUp({ username, password, attributes: { email, phone_number } })
+
       // console.log('success sign up')
       this.setState({ step: 1 })
     } catch (err) {
@@ -66,6 +78,7 @@ class Authenticate extends Component {
   }
 
   render() {
+    console.log('this.state', this.state)
     return (
       <div className="Authentication--container">
         <button

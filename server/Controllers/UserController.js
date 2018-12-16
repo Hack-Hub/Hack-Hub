@@ -1,18 +1,21 @@
 module.exports = {
   addNewUser(req, res) {
-    const { username } = req.body
+    const { username, userHash } = req.body
     const db = req.app.get('db')
     // console.log('req.body', req.body)
-    db.users.checkUsername([username]).then(response => {
-      if (!response.length) {
-        db.users
-          .createNewUser([username])
-          .then(response => res.status(200).send(response))
-          .catch(err => console.log('err', err))
-      } else {
-        return res.status(200).send(response)
-      }
-    })
+    db.users
+      .checkUserhash([userHash])
+      .then(response => {
+        if (!response.length) {
+          db.users
+            .createNewUser([username, userHash])
+            .then(response => res.status(200).send(response))
+            .catch(err => console.log('err', err))
+        } else {
+          return res.status(200).send(response)
+        }
+      })
+      .catch(err => console.log('err', err))
   },
 
   getCurrentUser(req, res) {
@@ -56,5 +59,5 @@ module.exports = {
         return res.status(200).json(response)
       })
       .catch(err => console.log('err', err))
-  }
+  },
 }

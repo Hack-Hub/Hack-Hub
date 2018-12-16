@@ -13,6 +13,7 @@ class SignIn extends Component {
       password: '',
       user: {},
       signInError: '',
+      userHash: '',
     }
 
     this.onChange = this.onChange.bind(this)
@@ -41,11 +42,11 @@ class SignIn extends Component {
       })
   }
 
-  postUserToTable() {
-    // console.log('this.state.user.pool.client.clientId', this.state.user.pool.clientId)
-    axios
+  async postUserToTable() {
+    await axios
       .post('/api/newUser', {
         username: this.state.user.username,
+        userHash: this.props.history.location.state.userHash,
       })
       .then(response => {
         // console.log('response.data[0].user_id', response.data[0].user_id)
@@ -76,6 +77,8 @@ class SignIn extends Component {
   }
 
   render() {
+    console.log('this.props', this.props)
+    console.log('this.state', this.state)
     return (
       <div className="SignIn--container">
         <button
